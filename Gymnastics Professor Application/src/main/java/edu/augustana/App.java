@@ -2,8 +2,10 @@ package edu.augustana;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,8 +19,20 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("MainUI"));
+
+        //Get the primary screen's dimensions
+        Screen windowScreen = Screen.getPrimary();
+        double windowScreenWidth = windowScreen.getBounds().getWidth();
+        double windowScreenHeight = windowScreen.getBounds().getHeight();
+
+
         stage.setScene(scene);
+
+        //Set stage dimensions to match window screen's size
+        stage.setWidth(windowScreenWidth);
+        stage.setHeight(windowScreenHeight);
+        stage.setMaximized(true);
         stage.show();
     }
 
