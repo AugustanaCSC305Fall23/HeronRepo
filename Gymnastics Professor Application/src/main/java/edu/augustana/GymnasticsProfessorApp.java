@@ -1,5 +1,6 @@
 package edu.augustana;
 
+import edu.augustana.utils.ReadFile;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
