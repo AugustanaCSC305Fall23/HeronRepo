@@ -4,31 +4,36 @@ import java.util.List;
 
 public class Card {
     private String cardCode;
-
     private String cardTitle;
 
-    private enum gender {
-        N, F, M
-    }
+    private String cardEvent;
 
-    private enum modelSex{
-        F, M,
-    }
+    private String cardCategory;
 
-    private enum  level{
-        ALL, B, AB, I
-    }
+    private String cardGender;
 
-    private List<String> equipment;
+    private String cardImage;
 
-    private List<String> keywords;
+    private String cardModelSex;
+
+    private List<String> cardLevel;
+
+    private List<String> cardEquipment;
+
+    private List<String> cardKeywords;
 
     public Card(CardBuilder cardBuilder)
     {
         this.cardCode = cardBuilder.cardCode;
         this.cardTitle = cardBuilder.cardTitle;
-        this.keywords = cardBuilder.keywords;
-        this.equipment = cardBuilder.equipment;
+        this.cardKeywords = cardBuilder.keywords;
+        this.cardEquipment = cardBuilder.equipment;
+        this.cardLevel = cardBuilder.cardLevel;
+        this.cardGender = cardBuilder.cardGender;
+        this.cardModelSex = cardBuilder.cardModelSex;
+        this.cardCategory = cardBuilder.cardCategory;
+        this.cardImage = cardBuilder.cardImage;
+        this.cardEvent = cardBuilder.cardEvent;
     }
 
 
@@ -37,17 +42,17 @@ public class Card {
 
         private String cardTitle;
 
-        private enum gender {
-            N, F, M
-        }
+        private String cardEvent;
 
-        private enum modelSex{
-            F, M,
-        }
+        private String cardCategory;
 
-        private enum  level{
-            ALL, B, AB, I
-        }
+        private String cardGender;
+
+        private String cardModelSex;
+
+        private String cardImage;
+
+        private List<String> cardLevel;
 
         private List<String> equipment;
 
@@ -64,21 +69,49 @@ public class Card {
             return this;
         }
 
-        public CardBuilder setGender(String newGender) {
+        public CardBuilder setCardGender(String newGender) {
+            this.cardGender = newGender;
             return this;
         }
 
-        public CardBuilder setTitle(String newCardTitle) {
+        public CardBuilder setCardModelSex(String modelGender){
+            this.cardModelSex = modelGender;
+            return this;
+        }
+
+        public CardBuilder setCardTitle(String newCardTitle) {
             this.cardTitle = newCardTitle;
             return this;
         }
 
-        public CardBuilder setEquipment(List<String> associatedEquipment) {
+        public CardBuilder setCardEvent(String cardEvent) {
+            this.cardEvent = cardEvent;
+            return this;
+        }
+
+        public CardBuilder setCardCategory(String cardCategory) {
+            this.cardCategory = cardCategory;
+            return this;
+        }
+
+        public CardBuilder setCardImage(String cardImage){
+            this.cardImage = cardImage;
+            return this;
+        }
+
+        public CardBuilder setCardLevel(List<String> cardLevels){
+            for (String level: cardLevels) {
+                this.cardLevel.add(level);
+            }
+            return this;
+        }
+
+        public CardBuilder setCardEquipment(List<String> associatedEquipment) {
             this.equipment = associatedEquipment;
             return this;
         }
 
-        public  CardBuilder setKeywords(List<String> associatedKeywords) {
+        public  CardBuilder setCardKeywords(List<String> associatedKeywords) {
             this.keywords = associatedKeywords;
             return this;
         }
