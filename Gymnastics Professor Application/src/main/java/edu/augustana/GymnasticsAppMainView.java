@@ -1,6 +1,7 @@
 package edu.augustana;
 
 
+import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
 import javafx.fxml.FXML;
@@ -29,7 +30,7 @@ public class GymnasticsAppMainView {
     private ComboBox<?> equipFilter; // Value injected by FXMLLoader
 
     @FXML // fx:id="eventFilter"
-    private ComboBox<?> eventFilter; // Value injected by FXMLLoader
+    private ComboBox<String> eventFilter; // Value injected by FXMLLoader
 
     @FXML // fx:id="filtersMenu"
     private HBox filtersMenu; // Value injected by FXMLLoader
@@ -57,6 +58,7 @@ public class GymnasticsAppMainView {
     void initialize(){
         addOptionsForGender();
         addOptionsForLevel();
+        addOptionsForEvent();
     }
 
     void addOptionsForGender() {
@@ -70,6 +72,14 @@ public class GymnasticsAppMainView {
                 .map(Enum::name)
                 .collect(Collectors.toList()));
     }
+
+    void addOptionsForEvent() {
+        eventFilter.getItems().addAll(Arrays.stream(EventsEnum.values())
+                .map(Enum::name)
+                .collect(Collectors.toList()));
+    }
+
+   
 
 }
 
