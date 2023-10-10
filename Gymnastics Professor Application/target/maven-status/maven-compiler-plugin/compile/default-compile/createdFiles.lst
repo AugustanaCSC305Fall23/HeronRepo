@@ -12,4 +12,5 @@ edu\augustana\PrimaryController.class
 edu\augustana\utils\ReadFile.class
 edu\augustana\utils\SearchInterface.class
 edu\augustana\GymnasticsAppMainView.class
+edu\augustana\utils\SearchCardCollection$SearchCardCollectionBuilder.class
 edu\augustana\constants\EventsEnum.class

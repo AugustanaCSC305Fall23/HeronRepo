@@ -5,6 +5,7 @@ import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
+import edu.augustana.utils.SearchCardCollection;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuBar;

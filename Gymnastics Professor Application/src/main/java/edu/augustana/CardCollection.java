@@ -9,7 +9,7 @@ public class CardCollection {
 
     public static List<Card> cardCollection = new ArrayList<Card>();
 
-    public CardCollection()
+    public static void createCardCollection()
     {
         List<List<String>> cardCollectionStringList = ReadFile.readCSVFile("DEMO1");
         List<String> tempEquipment = new ArrayList<>();
