@@ -78,6 +78,23 @@ public class Card {
         return cardKeywords;
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+                "cardCode='" + cardCode + '\'' +
+                ", cardTitle='" + cardTitle + '\'' +
+                ", cardEvent='" + cardEvent + '\'' +
+                ", cardCategory='" + cardCategory + '\'' +
+                ", cardGender='" + cardGender + '\'' +
+                ", cardImage='" + cardImage + '\'' +
+                ", cardModelSex='" + cardModelSex + '\'' +
+                ", cardLevel=" + cardLevel +
+                ", cardEquipment=" + cardEquipment +
+                ", cardKeywords=" + cardKeywords +
+                '}';
+    }
+
+
 
     public static class CardBuilder {
         private String cardCode;
