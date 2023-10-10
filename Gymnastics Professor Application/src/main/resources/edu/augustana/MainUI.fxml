@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -15,13 +16,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.ListView?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.augustana.GymnasticsAppMainView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.augustana.GymnasticsAppMainView">
    <top>
       <VBox prefHeight="21.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar fx:id="mainMenu">
+            <MenuBar fx:id="mainMenu" maxHeight="25.0" minHeight="25.0" prefHeight="25.0">
               <menus>
                 <Menu mnemonicParsing="false" text="Load">
                   <items>
@@ -62,7 +62,7 @@
       <HBox prefHeight="335.0" prefWidth="284.0" BorderPane.alignment="CENTER">
          <children>
             <ScrollBar fx:id="scrollBar" orientation="VERTICAL" prefHeight="375.0" prefWidth="0.0" />
-            <BorderPane fx:id="lpWorkSpace" prefHeight="310.0" prefWidth="268.0" style="-fx-background-color: #8f8f8f;">
+            <BorderPane fx:id="lpWorkSpace" minWidth="350.0" prefWidth="350.0" style="-fx-background-color: #8f8f8f;">
                <top>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lesson Plan" BorderPane.alignment="CENTER">
                      <font>
@@ -77,7 +77,7 @@
                   <Insets />
                </HBox.margin>
                <center>
-                  <ListView fx:id="lessonPlanCardView" prefHeight="334.0" prefWidth="106.0" BorderPane.alignment="CENTER">
+                  <ListView fx:id="lessonPlanCardView" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets />
                      </BorderPane.margin>
@@ -90,7 +90,7 @@
    <center>
       <VBox prefHeight="327.0" prefWidth="328.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="26.0" prefWidth="400.0">
+            <HBox alignment="CENTER" prefHeight="26.0" prefWidth="400.0">
                <children>
                   <TextField fx:id="mainSearch" prefHeight="26.0" prefWidth="367.0" promptText="Search..." />
                </children>
@@ -98,7 +98,7 @@
                   <Insets left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox fx:id="filtersMenu" prefHeight="31.0" prefWidth="400.0">
+            <HBox fx:id="filtersMenu" alignment="CENTER" prefHeight="31.0" prefWidth="400.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
