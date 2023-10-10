@@ -26,14 +26,56 @@ public class Card {
     {
         this.cardCode = cardBuilder.cardCode;
         this.cardTitle = cardBuilder.cardTitle;
-        this.cardKeywords = cardBuilder.keywords;
-        this.cardEquipment = cardBuilder.equipment;
+        this.cardKeywords = cardBuilder.cardKeywords;
+        this.cardEquipment = cardBuilder.cardEquipment;
         this.cardLevel = cardBuilder.cardLevel;
         this.cardGender = cardBuilder.cardGender;
         this.cardModelSex = cardBuilder.cardModelSex;
         this.cardCategory = cardBuilder.cardCategory;
         this.cardImage = cardBuilder.cardImage;
         this.cardEvent = cardBuilder.cardEvent;
+    }
+
+
+    // Getters for each field
+    public String getCardCode() {
+        return cardCode;
+    }
+
+    public String getCardTitle() {
+        return cardTitle;
+    }
+
+    public String getCardEvent() {
+        return cardEvent;
+    }
+
+    public String getCardCategory() {
+        return cardCategory;
+    }
+
+    public String getCardGender() {
+        return cardGender;
+    }
+
+    public String getCardImage() {
+        return cardImage;
+    }
+
+    public String getCardModelSex() {
+        return cardModelSex;
+    }
+
+    public List<String> getCardLevel() {
+        return cardLevel;
+    }
+
+    public List<String> getCardEquipment() {
+        return cardEquipment;
+    }
+
+    public List<String> getCardKeywords() {
+        return cardKeywords;
     }
 
 
@@ -54,9 +96,9 @@ public class Card {
 
         private List<String> cardLevel;
 
-        private List<String> equipment;
+        private List<String> cardEquipment;
 
-        private List<String> keywords;
+        private List<String> cardKeywords;
 
         public static CardBuilder cardBuilder() {
             return new CardBuilder();
@@ -100,19 +142,17 @@ public class Card {
         }
 
         public CardBuilder setCardLevel(List<String> cardLevels){
-            for (String level: cardLevels) {
-                this.cardLevel.add(level);
-            }
+            this.cardLevel = cardLevels;
             return this;
         }
 
         public CardBuilder setCardEquipment(List<String> associatedEquipment) {
-            this.equipment = associatedEquipment;
+            this.cardEquipment = associatedEquipment;
             return this;
         }
 
         public  CardBuilder setCardKeywords(List<String> associatedKeywords) {
-            this.keywords = associatedKeywords;
+            this.cardKeywords = associatedKeywords;
             return this;
         }
 

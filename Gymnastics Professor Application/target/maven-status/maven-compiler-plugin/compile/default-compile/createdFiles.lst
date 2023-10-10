@@ -1,4 +1,5 @@
 edu\augustana\GymnasticsProfessorApp.class
+edu\augustana\utils\SearchCardCollection.class
 edu\augustana\constants\GenderEnum.class
 edu\augustana\Card.class
 edu\augustana\CardCollection.class
@@ -9,5 +10,6 @@ edu\augustana\constants\CategoryEnum.class
 edu\augustana\constants\LevelEnum.class
 edu\augustana\PrimaryController.class
 edu\augustana\utils\ReadFile.class
+edu\augustana\utils\SearchInterface.class
 edu\augustana\GymnasticsAppMainView.class
 edu\augustana\constants\EventsEnum.class

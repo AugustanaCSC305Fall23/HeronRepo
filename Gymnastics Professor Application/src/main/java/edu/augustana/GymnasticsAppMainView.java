@@ -1,6 +1,7 @@
 package edu.augustana;
 
 
+import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
@@ -24,10 +25,10 @@ import java.util.stream.Collectors;
 public class GymnasticsAppMainView {
 
     @FXML // fx:id="categoryFilter"
-    private ComboBox<?> categoryFilter; // Value injected by FXMLLoader
+    private ComboBox<String> categoryFilter; // Value injected by FXMLLoader
 
     @FXML // fx:id="equipFilter"
-    private ComboBox<?> equipFilter; // Value injected by FXMLLoader
+    private ComboBox<String> equipFilter; // Value injected by FXMLLoader
 
     @FXML // fx:id="eventFilter"
     private ComboBox<String> eventFilter; // Value injected by FXMLLoader
@@ -56,9 +57,14 @@ public class GymnasticsAppMainView {
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
+        addOptions();
+    }
+
+    void addOptions() {
         addOptionsForGender();
         addOptionsForLevel();
         addOptionsForEvent();
+        addOptionsForCategory();
     }
 
     void addOptionsForGender() {
@@ -79,7 +85,12 @@ public class GymnasticsAppMainView {
                 .collect(Collectors.toList()));
     }
 
-   
+    void addOptionsForCategory() {
+        categoryFilter.getItems().addAll(Arrays.stream(CategoryEnum.values())
+                .map(Enum::name)
+                .collect(Collectors.toList()));
+    }
+
 
 }
 
