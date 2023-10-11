@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -47,6 +48,7 @@ public class GymnasticsAppMainView {
     private TextField mainSearch; // Value injected by FXMLLoader
     @FXML // fx:id="scrollBar"
     private ScrollBar scrollBar; // Value injected by FXMLLoader
+
     @FXML
     private GridPane mainSearchView;
     @FXML
@@ -55,10 +57,14 @@ public class GymnasticsAppMainView {
     @FXML
     private HBox searchHBox;
 
+    @FXML // fx:id="lessonPlanCardView"
+    private ListView lessonPlanCardView;
+
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
         addOptions();
+
         initializeMainSearchView();
     }
 
@@ -100,8 +106,8 @@ public class GymnasticsAppMainView {
         int currentRow = 0;  // Initialize the current row
         CardCollection.createCardCollection();
         Screen windowScreen = Screen.getPrimary();
-        scrollPaneView.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
-        mainSearchView.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
+        scrollPaneView.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
+        mainSearchView.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
 
         // Dynamically add rows based on the number of cards
         int numRows = (CardCollection.cardCollection.size() + maxColumns - 1) / maxColumns;
