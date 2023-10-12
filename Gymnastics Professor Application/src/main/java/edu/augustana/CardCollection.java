@@ -15,8 +15,12 @@ public class CardCollection {
         List<String> tempEquipment = new ArrayList<>();
         List<String> tempKeywords = new ArrayList<>();
         List<String> tempLevelList = new ArrayList<>();
+        int i = -1;
 
         for (List<String> cardString: cardCollectionStringList) {
+            i++;
+            if (i == 0)
+                continue;
             tempEquipment = List.of(cardString.get(9).split(","));
             tempKeywords = List.of(cardString.get(10).split(","));
             tempLevelList = List.of(cardString.get(8).split(","));
@@ -36,6 +40,7 @@ public class CardCollection {
                     .build();
 
             cardCollection.add(newCard);
+
         }
     }
 }
