@@ -1,5 +1,6 @@
 package edu.augustana;
 
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -17,6 +18,8 @@ public class CardView {
     public VBox makeCardView() {
         VBox vBox = new VBox();
         ImageView imageView = new ImageView();
+        Button addButton = new Button("Add");
+        addButton.setOnAction(event -> addToLessonPlan());
         vBox.setMinWidth(500);
         vBox.setMinHeight(500);
 
@@ -32,12 +35,15 @@ public class CardView {
 
             // Add the ImageView to the VBox
             vBox.getChildren().add(imageView);
+            vBox.getChildren().add(addButton);
         } catch (Exception e) {
             System.out.print(mCard.getCardImage());
         }
 
 
         return vBox;
+    }
+    private void addToLessonPlan(){
     }
 
 }
