@@ -59,6 +59,9 @@ public class GymnasticsAppMainView {
     private ImageView lessonPlanImage;
 
     @FXML
+    private ListView cardListView;
+
+    @FXML
     private HBox searchHBox;
 
     @FXML // fx:id="lessonPlanCardView"
@@ -111,7 +114,9 @@ public class GymnasticsAppMainView {
         CardCollection.createCardCollection();
         Screen windowScreen = Screen.getPrimary();
         scrollPaneView.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
-        mainSearchView.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
+        mainSearchView.setMinWidth(windowScreen.getBounds().getWidth() * 0.3);
+        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
+        cardListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
 
         // Dynamically add rows based on the number of cards
         int numRows = (CardCollection.cardCollection.size() + maxColumns - 1) / maxColumns;
