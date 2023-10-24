@@ -10,15 +10,19 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -66,6 +70,8 @@ public class GymnasticsAppMainView {
 
     @FXML // fx:id="lessonPlanCardView"
     private ListView lessonPlanCardView;
+
+    private List<Card> lessonPlan = new ArrayList<>();
 
     //Set up components with desired features, and integrate event listeners.
     @FXML
@@ -148,8 +154,42 @@ public class GymnasticsAppMainView {
     void clearImage(MouseEvent event){
         lessonPlanImage.setVisible(false);
     }
+    public void addToLessonPlan(Card mCard) {
 
+        lessonPlan.add(mCard);
+        lessonPlanCardView.getItems().add(mCard);
+    }
+    public class CardListCell extends ListCell<Card> {
+
+        private final ImageView imageView = new ImageView();
+        private final Text cardDetails = new Text();
+
+        private final HBox cardBox = new HBox(10);
+
+        public CardListCell() {
+            cardBox.getChildren().addAll(imageView, cardDetails);
+        }
+
+        @Override
+        protected void updateItem(Card card, boolean empty) {
+            super.updateItem(card, empty);
+
+            if (empty || card == null) {
+                setGraphic(null);
+            } else {
+                Image image = new Image(GymnasticsProfessorApp.class.getResource("DEMO1Pack/" + card.getCardImage()).toString());
+                imageView.setImage(image);
+                imageView.setFitHeight(100);
+                imageView.setFitWidth(100);
+
+                cardDetails.setText("Card Code: " + card.getCardCode() + "\nTitle: " + card.getCardTitle());
+
+                setGraphic(cardBox);
+            }
+        }
+    }
 }
+
 
 
 
