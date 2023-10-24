@@ -110,8 +110,8 @@ public class GymnasticsAppMainView {
         int currentRow = 0;  // Initialize the current row
         CardCollection.createCardCollection();
         Screen windowScreen = Screen.getPrimary();
-        scrollPaneView.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
-        mainSearchView.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
+        scrollPaneView.setMinWidth(windowScreen.getBounds().getWidth() * 0.5);
+        mainSearchView.setMinWidth(windowScreen.getBounds().getWidth() * 0.5);
 
         // Dynamically add rows based on the number of cards
         int numRows = (CardCollection.cardCollection.size() + maxColumns - 1) / maxColumns;
