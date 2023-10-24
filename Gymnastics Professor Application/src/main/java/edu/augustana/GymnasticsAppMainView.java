@@ -118,7 +118,6 @@ public class GymnasticsAppMainView {
         for (int i = 0; i < numRows; i++) {
             mainSearchView.addRow(i);
         }
-
         for (Card card : CardCollection.cardCollection) {
             CardView cardView = new CardView(card);
             VBox cardBox = cardView.makeCardView();
