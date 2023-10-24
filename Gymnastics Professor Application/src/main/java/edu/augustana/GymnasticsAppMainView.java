@@ -131,18 +131,11 @@ public class GymnasticsAppMainView {
         }
         for (Card card : CardCollection.cardCollection) {
             CardView cardView = new CardView(card);
-            VBox cardBox = cardView.makeCardView();
+            HBox cardBox = cardView.makeCardList();
 
             // Add the cardBox to the GridPane at the current row and column
-            mainSearchView.add(cardBox, currentColumn, currentRow);
+            cardListView.getItems().add(cardBox);
 
-
-            // Increment the column, and if it exceeds the maximum, go to the next row
-            currentColumn++;
-            if (currentColumn >= maxColumns) {
-                currentColumn = 0;
-                currentRow++;
-            }
         }
 
     }
