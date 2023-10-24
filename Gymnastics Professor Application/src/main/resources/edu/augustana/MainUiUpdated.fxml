@@ -94,6 +94,7 @@
                               <ComboBox fx:id="equipFilter" prefHeight="26.0" prefWidth="72.0" promptText="Equipment" />
                               <ComboBox fx:id="levelFilter" prefHeight="26.0" prefWidth="70.0" promptText="Level" />
                               <ComboBox fx:id="genderFilter" prefHeight="26.0" prefWidth="84.0" promptText="Gender" />
+                        <Button fx:id="clearFIltersButton" mnemonicParsing="false" text="Clear FIlters" />
                           </children>
                           <VBox.margin>
                               <Insets left="20.0" right="20.0" />
