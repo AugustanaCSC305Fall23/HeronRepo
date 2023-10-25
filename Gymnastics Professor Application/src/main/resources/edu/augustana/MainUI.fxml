@@ -99,8 +99,7 @@
                            </image>
                         </ImageView>
                         <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addImage" text="Add" />
-                        <Button fx:id="clearButton" layoutX="69.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
-                     </children>
+                        </children>
                   </AnchorPane>
                </bottom>
                 </BorderPane>

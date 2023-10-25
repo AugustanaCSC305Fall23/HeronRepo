@@ -119,12 +119,7 @@
                <center>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <top>
-                        <HBox prefHeight="0.0" prefWidth="556.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addImage" text="Add" />
-                              <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
-                           </children>
-                        </HBox>
+                        <HBox prefHeight="0.0" prefWidth="556.0" BorderPane.alignment="CENTER" />
                      </top>
                      <center>
                         <ScrollPane BorderPane.alignment="CENTER">
