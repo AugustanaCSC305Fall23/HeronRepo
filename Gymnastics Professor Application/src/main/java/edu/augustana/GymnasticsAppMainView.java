@@ -143,10 +143,7 @@ public class GymnasticsAppMainView {
     void addImage(MouseEvent event) {
         lessonPlanImage.setVisible(true);
     }
-    @FXML
-    void clearImage(MouseEvent event){
-        lessonPlanImage.setVisible(false);
-    }
+
     public void addToLessonPlan(Card mCard) {
 
         lessonPlan.add(mCard);
@@ -182,7 +179,4 @@ public class GymnasticsAppMainView {
         }
     }
 }
-
-
-
 
