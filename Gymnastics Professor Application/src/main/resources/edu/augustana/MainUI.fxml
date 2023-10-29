@@ -98,8 +98,7 @@
                               <Image url="@DEMO1Pack/2.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addImage" text="Add" />
-                        <Button fx:id="clearButton" layoutX="69.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
+                        <Button fx:id="clearButton" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
                      </children>
                   </AnchorPane>
                </bottom>
