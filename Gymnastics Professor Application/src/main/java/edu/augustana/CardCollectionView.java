@@ -2,18 +2,22 @@ package edu.augustana;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
+import javafx.scene.control.ListView;
 
 import java.util.List;
 
 public class CardCollectionView {
     GridPane mGridPane;
 
+    ListView mListView;
+
     List<Card> mSearchCardCollectionList;
 
-    public CardCollectionView(GridPane gridPane) {
+    public CardCollectionView(ListView listView) {
         CardCollection.createCardCollection();
-        this.mGridPane = gridPane;
+        this.mListView = listView;
     }
 
     public void switchCardCollectionToSearchView(List<Card> searchList) {
@@ -27,38 +31,22 @@ public class CardCollectionView {
 
 
     void initializeMainSearchView(List<Card> cardCollection) {
-        // Assuming you have a list of Card objects named 'cardList'
-        int maxColumns = 3;  // Number of columns in the GridPane
-        int currentColumn = 0;  // Initialize the current column
-        int currentRow = 0;  // Initialize the current row
-
 
 
         Screen windowScreen = Screen.getPrimary();
-        this.mGridPane.setMinWidth(windowScreen.getBounds().getWidth() * 0.5);
-        this.mGridPane.setMinWidth(windowScreen.getBounds().getWidth() * 0.5);
+        this.mListView.setMinWidth(windowScreen.getBounds().getWidth() * 0.3);
+        this.mListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
 
-        this.mGridPane.getChildren().clear();
+        this.mListView.getChildrenUnmodifiable().clear();
 
-        // Dynamically add rows based on the number of cards
-        int numRows = (cardCollection.size() + maxColumns - 1) / maxColumns;
-        for (int i = 0; i < numRows; i++) {
-            this.mGridPane.addRow(i);
-        }
         for (Card card : cardCollection) {
             CardView cardView = new CardView(card);
-            VBox cardBox = cardView.makeCardView();
+            HBox cardBox = cardView.makeCardList();
 
             // Add the cardBox to the GridPane at the current row and column
-            this.mGridPane.add(cardBox, currentColumn, currentRow);
+            this.mListView.getItems().add(cardBox);
 
 
-            // Increment the column, and if it exceeds the maximum, go to the next row
-            currentColumn++;
-            if (currentColumn >= maxColumns) {
-                currentColumn = 0;
-                currentRow++;
-            }
         }
 
     }

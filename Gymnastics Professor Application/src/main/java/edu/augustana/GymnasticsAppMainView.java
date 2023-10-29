@@ -61,7 +61,10 @@ public class GymnasticsAppMainView {
     private ScrollBar scrollBar; // Value injected by FXMLLoader
 
     @FXML
-    private GridPane mainSearchView;
+    private Button clearFilter;
+
+    @FXML
+    private ListView mainSearchView;
     @FXML
     private ScrollPane scrollPaneView;
     @FXML
@@ -95,6 +98,9 @@ public class GymnasticsAppMainView {
         addEventsListeners();
         TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
+        Screen windowScreen = Screen.getPrimary();
+        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
+        lessonPlanCardView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
     }
 
     void addOptions() {
@@ -143,11 +149,10 @@ public class GymnasticsAppMainView {
         eventFilter.setOnAction(buttonHandler);
         levelFilter.setOnAction(buttonHandler);
         genderFilter.setOnAction(buttonHandler);
+        clearFilter.setOnAction(clearHandler);
     }
 
-    EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>(
-            
-    ) {
+    EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
             Node source = (Node) event.getSource();
@@ -187,6 +192,17 @@ public class GymnasticsAppMainView {
                     break;
             }
 
+        }
+    };
+
+    EventHandler<ActionEvent> clearHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            categoryFilter.getSelectionModel().clearSelection();
+            equipFilter.getSelectionModel().clearSelection();
+            eventFilter.getSelectionModel().clearSelection();
+            levelFilter.getSelectionModel().clearSelection();
+            genderFilter.getSelectionModel().clearSelection();
         }
     };
 
