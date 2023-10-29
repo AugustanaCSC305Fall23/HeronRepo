@@ -23,12 +23,63 @@ public class SearchCardCollection {
     @Nullable
     private String cardGender;
 
+    public String getCardTitleCode() {
+        return cardTitleCode;
+    }
+
+    public void setCardTitleCode(String cardTitleCode) {
+        this.cardTitleCode = cardTitleCode;
+    }
+
+    @Nullable
+    private String cardTitleCode;
+
     public SearchCardCollection(SearchCardCollectionBuilder searchCardCollectionBuilder) {
         this.cardEvent = searchCardCollectionBuilder.cardEvent;
         this.cardCategory = searchCardCollectionBuilder.cardCategory;
         this.cardEquipment = searchCardCollectionBuilder.cardEquipment;
         this.cardLevel = searchCardCollectionBuilder.cardLevel;
         this.cardGender = searchCardCollectionBuilder.cardGender;
+    }
+
+    public String getCardEvent() {
+        return cardEvent;
+    }
+
+    public void setCardEvent(String cardEvent) {
+        this.cardEvent = cardEvent;
+    }
+
+    public String getCardCategory() {
+        return cardCategory;
+    }
+
+    public void setCardCategory(String cardCategory) {
+        this.cardCategory = cardCategory;
+    }
+
+    public String getCardEquipment() {
+        return cardEquipment;
+    }
+
+    public void setCardEquipment(String cardEquipment) {
+        this.cardEquipment = cardEquipment;
+    }
+
+    public String getCardLevel() {
+        return cardLevel;
+    }
+
+    public void setCardLevel(String cardLevel) {
+        this.cardLevel = cardLevel;
+    }
+
+    public String getCardGender() {
+        return cardGender;
+    }
+
+    public void setCardGender(String cardGender) {
+        this.cardGender = cardGender;
     }
 
     public List<Card> searchCards() {
@@ -46,7 +97,10 @@ public class SearchCardCollection {
                                         (this.cardLevel != null && (eachCard.getCardLevel().contains(this.cardLevel)))
                                 ||
                                         (this.cardGender != null && isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
-
+                                ||
+                                                (this.cardTitleCode != null && isEqualSubsequence(eachCard.getCardCode(), this.cardTitleCode))
+                                ||
+                                                (this.cardTitleCode != null && isEqualSubsequence(eachCard.getCardTitle(), this.cardTitleCode))
                         )
                 )
                 .collect(Collectors.toList());

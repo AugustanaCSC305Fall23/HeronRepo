@@ -5,8 +5,11 @@ import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
+import edu.augustana.utils.SearchCardCollection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.ListView;
@@ -19,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -64,12 +68,17 @@ public class GymnasticsAppMainView {
     @FXML // fx:id="lessonPlanCardView"
     private ListView lessonPlanCardView;
 
+    private CardCollectionView cardCollectionView;
+
+    private SearchCardCollection searchCardCollection;
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
         addOptions();
-
-        initializeMainSearchView();
+        cardCollectionView = new CardCollectionView(mainSearchView);
+        cardCollectionView.switchCardCollectionToMainView();
+        addEventsListeners();
+        searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
     }
 
     void addOptions() {
@@ -77,6 +86,7 @@ public class GymnasticsAppMainView {
         addOptionsForLevel();
         addOptionsForEvent();
         addOptionsForCategory();
+
     }
 
     void addOptionsForGender() {
@@ -103,38 +113,22 @@ public class GymnasticsAppMainView {
                 .collect(Collectors.toList()));
     }
 
-    void initializeMainSearchView() {
-        // Assuming you have a list of Card objects named 'cardList'
-        int maxColumns = 3;  // Number of columns in the GridPane
-        int currentColumn = 0;  // Initialize the current column
-        int currentRow = 0;  // Initialize the current row
-        CardCollection.createCardCollection();
-        Screen windowScreen = Screen.getPrimary();
-        scrollPaneView.setMinWidth(windowScreen.getBounds().getWidth() * 0.5);
-        mainSearchView.setMinWidth(windowScreen.getBounds().getWidth() * 0.5);
-
-        // Dynamically add rows based on the number of cards
-        int numRows = (CardCollection.cardCollection.size() + maxColumns - 1) / maxColumns;
-        for (int i = 0; i < numRows; i++) {
-            mainSearchView.addRow(i);
-        }
-        for (Card card : CardCollection.cardCollection) {
-            CardView cardView = new CardView(card);
-            VBox cardBox = cardView.makeCardView();
-
-            // Add the cardBox to the GridPane at the current row and column
-            mainSearchView.add(cardBox, currentColumn, currentRow);
-
-
-            // Increment the column, and if it exceeds the maximum, go to the next row
-            currentColumn++;
-            if (currentColumn >= maxColumns) {
-                currentColumn = 0;
-                currentRow++;
-            }
-        }
-
+    void addEventsListeners() {
+        mainSearch.setOnAction(buttonHandler);
     }
+    EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>(
+            
+    ) {
+        @Override
+        public void handle(ActionEvent event) {
+            System.out.println("Hello " + event.getSource());
+            searchCardCollection.setCardTitleCode(mainSearch.getText());
+            List<Card> newSearchList = searchCardCollection.searchCards();
+            cardCollectionView.initializeMainSearchView(newSearchList);
+        }
+    };
+
+
     @FXML
     void addImage(MouseEvent event) {
         lessonPlanImage.setVisible(true);
