@@ -1,6 +1,5 @@
 package edu.augustana;
 
-
 import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
@@ -23,6 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,6 +83,8 @@ public class GymnasticsAppMainView {
 
     private List<Card> lessonPlan = new ArrayList<>();
 
+    private AutoCompletionBinding<String> autoCompletionBinding;
+
 
     //Set up components with desired features, and integrate event listeners.
     @FXML
@@ -90,6 +93,7 @@ public class GymnasticsAppMainView {
         cardCollectionView.switchCardCollectionToMainView();
         addOptions();
         addEventsListeners();
+        TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
     }
 
