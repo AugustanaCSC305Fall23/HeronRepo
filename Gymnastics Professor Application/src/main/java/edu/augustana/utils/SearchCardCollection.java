@@ -83,6 +83,7 @@ public class SearchCardCollection {
     }
 
     public List<Card> searchCards() {
+        System.out.println("Equipment " + this.cardEquipment);
         List<Card> resultsFromSearch = CardCollection
                 .cardCollection
                 .stream()

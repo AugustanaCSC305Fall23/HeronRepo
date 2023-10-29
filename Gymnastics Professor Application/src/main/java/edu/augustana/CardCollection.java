@@ -3,16 +3,21 @@ package edu.augustana;
 import edu.augustana.utils.ReadFile;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CardCollection {
 
     public static List<Card> cardCollection = new ArrayList<Card>();
 
+    public static Set<String> allCardsEquipment = new HashSet<>();
+
     public static void createCardCollection()
     {
         List<List<String>> cardCollectionStringList = ReadFile.readCSVFile("DEMO1");
         List<String> tempEquipment = new ArrayList<>();
+
         List<String> tempKeywords = new ArrayList<>();
         List<String> tempLevelList = new ArrayList<>();
         int i = -1;
@@ -21,7 +26,18 @@ public class CardCollection {
             i++;
             if (i == 0)
                 continue;
+            List<String> updatedTempEquipment = new ArrayList<>();
             tempEquipment = List.of(cardString.get(9).split(","));
+            System.out.println("tempEquipment " + tempEquipment);
+            for (String equipment : tempEquipment)
+            {
+                if (equipment.charAt(0) == '"'){
+                    equipment = equipment.substring(1);
+                }
+                updatedTempEquipment.add(equipment);
+                allCardsEquipment.add(equipment);
+            }
+            System.out.println("updated " + updatedTempEquipment);
             tempKeywords = List.of(cardString.get(10).split(","));
             tempLevelList = List.of(cardString.get(8).split(","));
             Card newCard = Card
@@ -35,7 +51,7 @@ public class CardCollection {
                     .setCardGender(cardString.get(6))
                     .setCardModelSex(cardString.get(7))
                     .setCardLevel(tempLevelList)
-                    .setCardEquipment(tempEquipment)
+                    .setCardEquipment(updatedTempEquipment)
                     .setCardKeywords(tempKeywords)
                     .build();
 

@@ -86,9 +86,9 @@ public class GymnasticsAppMainView {
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
-        addOptions();
         cardCollectionView = new CardCollectionView(mainSearchView);
         cardCollectionView.switchCardCollectionToMainView();
+        addOptions();
         addEventsListeners();
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
     }
@@ -98,7 +98,7 @@ public class GymnasticsAppMainView {
         addOptionsForLevel();
         addOptionsForEvent();
         addOptionsForCategory();
-
+        addOptionsForEquipment();
     }
 
     void addOptionsForGender() {
@@ -123,6 +123,12 @@ public class GymnasticsAppMainView {
         categoryFilter.getItems().addAll(Arrays.stream(CategoryEnum.values())
                 .map(Enum::name)
                 .collect(Collectors.toList()));
+    }
+
+    void addOptionsForEquipment() {
+        for (String equipment : CardCollection.allCardsEquipment) {
+            equipFilter.getItems().addAll(equipment);
+        }
     }
 
 
@@ -156,7 +162,7 @@ public class GymnasticsAppMainView {
                     cardCollectionView.initializeMainSearchView(newSearchList);
                     break;
                 case "equipFilter":
-                    searchCardCollection.setCardEquipment(equipFilter.getSelectionModel().getSelectedItem());
+                    searchCardCollection.setCardEquipment(equipFilter.getSelectionModel().getSelectedItem().strip());
                     newSearchList = searchCardCollection.searchCards();
                     cardCollectionView.initializeMainSearchView(newSearchList);
                     break;
