@@ -28,7 +28,6 @@ public class CardCollectionView {
 
     void initializeMainSearchView(List<Card> cardCollection) {
         // Assuming you have a list of Card objects named 'cardList'
-        System.out.print(cardCollection);
         int maxColumns = 3;  // Number of columns in the GridPane
         int currentColumn = 0;  // Initialize the current column
         int currentRow = 0;  // Initialize the current row

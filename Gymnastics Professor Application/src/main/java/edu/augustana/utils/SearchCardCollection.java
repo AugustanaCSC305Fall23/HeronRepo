@@ -88,19 +88,21 @@ public class SearchCardCollection {
                 .stream()
                 .filter(
                         eachCard -> (
-                                        (this.cardEvent != null &&  isEqualSubsequence(eachCard.getCardEvent(), this.cardEvent))
+                                        (this.cardEvent == null  ||  this.cardEvent == "ALL" || isEqualSubsequence(eachCard.getCardEvent(), this.cardEvent))
+                                &&
+                                        (this.cardCategory == null || isEqualSubsequence(eachCard.getCardCategory(), this.cardCategory))
+                                &&
+                                        (this.cardEquipment == null || (eachCard.getCardEquipment().contains(this.cardEquipment)))
+                                &&
+                                        (this.cardLevel == null || (eachCard.getCardLevel().contains(this.cardLevel)))
+                                &&
+                                        (this.cardGender == null || this.cardGender == "ALL" || isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
+                                &&
+                                                (
+                                        (this.cardTitleCode == null || isEqualSubsequence(eachCard.getCardCode(), this.cardTitleCode))
                                 ||
-                                        (this.cardCategory != null && isEqualSubsequence(eachCard.getCardCategory(), this.cardCategory))
-                                ||
-                                        (this.cardEquipment != null && (eachCard.getCardEquipment().contains(this.cardEquipment)))
-                                ||
-                                        (this.cardLevel != null && (eachCard.getCardLevel().contains(this.cardLevel)))
-                                ||
-                                        (this.cardGender != null && isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
-                                ||
-                                                (this.cardTitleCode != null && isEqualSubsequence(eachCard.getCardCode(), this.cardTitleCode))
-                                ||
-                                                (this.cardTitleCode != null && isEqualSubsequence(eachCard.getCardTitle(), this.cardTitleCode))
+                                        (this.cardTitleCode == null || isEqualSubsequence(eachCard.getCardTitle(), this.cardTitleCode))
+                                                )
                         )
                 )
                 .collect(Collectors.toList());

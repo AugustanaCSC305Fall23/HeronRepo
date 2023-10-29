@@ -9,7 +9,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -70,7 +69,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-              <VBox prefHeight="591.0" prefWidth="730.0">
+              <VBox>
                   <children>
                       <HBox fx:id="searchHBox" alignment="CENTER" prefHeight="25.0" prefWidth="679.0">
                           <children>
@@ -100,65 +99,59 @@
                               <Insets left="20.0" right="20.0" />
                           </VBox.margin>
                       </HBox>
-                  <ListView />
+                  <ListView fx:id="cardListView">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin></ListView>
                   </children>
               </VBox>
-            <HBox GridPane.columnIndex="1">
-               <children>
-                  <BorderPane fx:id="lpWorkSpace" prefHeight="632.0" prefWidth="556.0" style="-fx-background-color: #8f8f8f;">
+            <BorderPane fx:id="lpWorkSpace" prefHeight="632.0" prefWidth="556.0" style="-fx-background-color: #8f8f8f;" GridPane.columnIndex="1">
+               <top>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lesson Plan" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </top>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <center>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <top>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lesson Plan" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
+                        <HBox prefHeight="0.0" prefWidth="556.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addImage" text="Add" />
+                              <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
+                           </children>
+                        </HBox>
                      </top>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <bottom>
-                        <AnchorPane BorderPane.alignment="CENTER" />
-                     </bottom>
                      <center>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <top>
-                              <HBox prefHeight="0.0" prefWidth="556.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addImage" text="Add" />
-                                    <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
-                                 </children>
-                              </HBox>
-                           </top>
-                           <center>
-                              <ScrollPane prefHeight="534.0" prefWidth="530.0" BorderPane.alignment="CENTER">
-                                 <content>
-                                        <ScrollPane fx:id="scrollPaneView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="900.0" prefWidth="673.0">
-                                            <content>
-                                                <GridPane fx:id="mainSearchView" alignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1794.0" prefWidth="1326.0" vgap="20.0">
-                                                    <columnConstraints>
-                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="500.0" prefWidth="500.0" />
-                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="500.0" prefWidth="500.0" />
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="500.0" prefWidth="500.0" />
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints maxHeight="500.0" minHeight="500.0" prefHeight="500.0" vgrow="SOMETIMES" />
-                                                        <RowConstraints maxHeight="500.0" minHeight="500.0" prefHeight="500.0" vgrow="SOMETIMES" />
-                                                        <RowConstraints maxHeight="500.0" minHeight="500.0" prefHeight="500.0" vgrow="SOMETIMES" />
-                                                        <RowConstraints maxHeight="500.0" minHeight="500.0" prefHeight="500.0" vgrow="SOMETIMES" />
-                                                    </rowConstraints>
-                                                </GridPane>
-                                            </content>
-                                        </ScrollPane>
-                                 </content></ScrollPane>
-                           </center>
-                        </BorderPane>
+                        <ScrollPane BorderPane.alignment="CENTER">
+                           <content>
+                                  <ScrollPane fx:id="scrollPaneView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                      <content>
+                                          <GridPane fx:id="mainSearchView" alignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1794.0" prefWidth="1326.0" vgap="20.0">
+                                              <columnConstraints>
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="500.0" prefWidth="500.0" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="500.0" prefWidth="500.0" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="500.0" prefWidth="500.0" />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                  <RowConstraints maxHeight="500.0" minHeight="500.0" prefHeight="500.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints maxHeight="500.0" minHeight="500.0" prefHeight="500.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints maxHeight="500.0" minHeight="500.0" prefHeight="500.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints maxHeight="500.0" minHeight="500.0" prefHeight="500.0" vgrow="SOMETIMES" />
+                                              </rowConstraints>
+                                          </GridPane>
+                                      </content>
+                                  </ScrollPane>
+                           </content>
+                        </ScrollPane>
                      </center>
                   </BorderPane>
-               </children>
-            </HBox>
+               </center>
+            </BorderPane>
          </children>
       </GridPane>
    </center>
