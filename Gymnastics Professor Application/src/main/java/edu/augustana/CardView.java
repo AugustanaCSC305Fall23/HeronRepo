@@ -32,8 +32,8 @@ public class CardView {
             Image image = new Image(GymnasticsProfessorApp.class.getResource("DEMO1Pack/" + mCard.getCardImage()).toString());
             // Create an ImageView and set the image
             imageView = new ImageView(image);
-            imageView.setFitHeight(500);
-            imageView.setFitWidth(500);
+            imageView.setFitHeight(200);
+            imageView.setFitWidth(200);
 
             // Add the ImageView to the VBox
             vBox.getChildren().add(imageView);

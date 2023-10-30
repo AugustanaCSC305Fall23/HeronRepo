@@ -19,7 +19,7 @@ public class GymnasticsProfessorApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("MainUiUpdated"));
+        scene = new Scene(loadFXML("MainUI"));
 
         //Get the primary screen's dimensions
         Screen windowScreen = Screen.getPrimary();

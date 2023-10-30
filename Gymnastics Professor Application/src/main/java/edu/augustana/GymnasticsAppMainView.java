@@ -1,13 +1,16 @@
 package edu.augustana;
 
-
 import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
+import edu.augustana.utils.SearchCardCollection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -19,6 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +61,10 @@ public class GymnasticsAppMainView {
     private ScrollBar scrollBar; // Value injected by FXMLLoader
 
     @FXML
-    private GridPane mainSearchView;
+    private Button clearFilter;
+
+    @FXML
+    private ListView mainSearchView;
     @FXML
     private ScrollPane scrollPaneView;
     @FXML
@@ -71,14 +79,28 @@ public class GymnasticsAppMainView {
     @FXML // fx:id="lessonPlanCardView"
     private ListView lessonPlanCardView;
 
+
+    private CardCollectionView cardCollectionView;
+
+    private SearchCardCollection searchCardCollection;
+
     private List<Card> lessonPlan = new ArrayList<>();
+
+    private AutoCompletionBinding<String> autoCompletionBinding;
+
 
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
+        cardCollectionView = new CardCollectionView(mainSearchView);
+        cardCollectionView.switchCardCollectionToMainView();
         addOptions();
-
-        initializeMainSearchView();
+        addEventsListeners();
+        TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
+        searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
+        Screen windowScreen = Screen.getPrimary();
+        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
+        lessonPlanCardView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
     }
 
     void addOptions() {
@@ -86,6 +108,7 @@ public class GymnasticsAppMainView {
         addOptionsForLevel();
         addOptionsForEvent();
         addOptionsForCategory();
+        addOptionsForEquipment();
     }
 
     void addOptionsForGender() {
@@ -112,39 +135,90 @@ public class GymnasticsAppMainView {
                 .collect(Collectors.toList()));
     }
 
-    void initializeMainSearchView() {
-        // Assuming you have a list of Card objects named 'cardList'
-        int maxColumns = 3;  // Number of columns in the GridPane
-        int currentColumn = 0;  // Initialize the current column
-        int currentRow = 0;  // Initialize the current row
-        CardCollection.createCardCollection();
-        Screen windowScreen = Screen.getPrimary();
-        scrollPaneView.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
-        mainSearchView.setMinWidth(windowScreen.getBounds().getWidth() * 0.3);
-        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
-        cardListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
-
-        // Dynamically add rows based on the number of cards
-        int numRows = (CardCollection.cardCollection.size() + maxColumns - 1) / maxColumns;
-        for (int i = 0; i < numRows; i++) {
-            mainSearchView.addRow(i);
+    void addOptionsForEquipment() {
+        for (String equipment : CardCollection.allCardsEquipment) {
+            equipFilter.getItems().addAll(equipment);
         }
-        for (Card card : CardCollection.cardCollection) {
-            CardView cardView = new CardView(card);
-            HBox cardBox = cardView.makeCardList();
-
-            // Add the cardBox to the GridPane at the current row and column
-            cardListView.getItems().add(cardBox);
-
-        }
-
     }
+
+
+    void addEventsListeners() {
+        mainSearch.setOnAction(buttonHandler);
+        categoryFilter.setOnAction(buttonHandler);
+        equipFilter.setOnAction(buttonHandler);
+        eventFilter.setOnAction(buttonHandler);
+        levelFilter.setOnAction(buttonHandler);
+        genderFilter.setOnAction(buttonHandler);
+        clearFilter.setOnAction(clearHandler);
+    }
+
+    EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            Node source = (Node) event.getSource();
+            String id = source.getId();
+            List<Card> newSearchList;
+
+            switch (id) {
+                case "mainSearch":
+                    searchCardCollection.setCardTitleCode(mainSearch.getText());
+                    newSearchList = searchCardCollection.searchCards();
+                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
+                case "categoryFilter":
+                    searchCardCollection.setCardCategory(categoryFilter.getSelectionModel().getSelectedItem());
+                    newSearchList = searchCardCollection.searchCards();
+                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
+                case "equipFilter":
+                    searchCardCollection.setCardEquipment(equipFilter.getSelectionModel().getSelectedItem().strip());
+                    newSearchList = searchCardCollection.searchCards();
+                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
+                case "eventFilter":
+                    searchCardCollection.setCardEvent(eventFilter.getSelectionModel().getSelectedItem());
+                    newSearchList = searchCardCollection.searchCards();
+                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
+                case "levelFilter":
+                    searchCardCollection.setCardLevel(levelFilter.getSelectionModel().getSelectedItem());
+                    newSearchList = searchCardCollection.searchCards();
+                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
+                case "genderFilter":
+                    searchCardCollection.setCardGender(genderFilter.getSelectionModel().getSelectedItem());
+                    newSearchList = searchCardCollection.searchCards();
+                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
+            }
+
+        }
+    };
+
+    EventHandler<ActionEvent> clearHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            categoryFilter.getSelectionModel().clearSelection();
+            equipFilter.getSelectionModel().clearSelection();
+            eventFilter.getSelectionModel().clearSelection();
+            levelFilter.getSelectionModel().clearSelection();
+            genderFilter.getSelectionModel().clearSelection();
+        }
+    };
+
+
     @FXML
     void addImage(MouseEvent event) {
         lessonPlanImage.setVisible(true);
     }
 
-    public void addToLessonPlan(Card mCard) {
+
+    @FXML
+    void clearImage(MouseEvent event){
+        lessonPlanImage.setVisible(false);
+    }
+
+     public void addToLessonPlan(Card mCard) {
 
         lessonPlan.add(mCard);
         lessonPlanCardView.getItems().add(mCard);
@@ -179,4 +253,5 @@ public class GymnasticsAppMainView {
         }
     }
 }
+
 
