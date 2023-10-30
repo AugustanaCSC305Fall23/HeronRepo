@@ -75,26 +75,11 @@
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
-<<<<<<< HEAD
-                        <ImageView fx:id="lessonPlanImage" fitHeight="170.0" fitWidth="211.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                           <rotationAxis>
-                              <Point3D x="-3.0" z="1.0" />
-                           </rotationAxis>
-                           <image>
-                              <Image url="@DEMO1Pack/2.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addImage" text="Add" />
-                        </children>
-                  </AnchorPane>
-               </bottom>
-=======
                         <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
                               <ListView fx:id="lessonPlanCardView" />
                      </children>
                   </VBox>
                </center>
->>>>>>> 3fd14f2c0236ab518554e4cd8a67630af6625d19
                 </BorderPane>
             </children>
         </HBox>
