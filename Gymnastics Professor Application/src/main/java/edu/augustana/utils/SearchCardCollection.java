@@ -11,15 +11,12 @@ import java.util.stream.Collectors;
 public class SearchCardCollection {
     @Nullable
     private String cardEvent;
-
     @Nullable
     private String cardCategory;
     @Nullable
     private String cardEquipment;
-
     @Nullable
     private String cardLevel;
-
     @Nullable
     private String cardGender;
 
@@ -83,7 +80,6 @@ public class SearchCardCollection {
     }
 
     public List<Card> searchCards() {
-        System.out.println("Equipment " + this.cardEquipment);
         List<Card> resultsFromSearch = CardCollection
                 .cardCollection
                 .stream()

@@ -13,12 +13,11 @@ public class CardCollection {
 
     public static Set<String> allCardsEquipment = new HashSet<>();
 
-    public static Set<String> possibleSuggestions = new HashSet<>();
-
     public static void createCardCollection()
     {
         List<List<String>> cardCollectionStringList = ReadFile.readCSVFile("DEMO1");
         List<String> tempEquipment = new ArrayList<>();
+
         List<String> tempKeywords = new ArrayList<>();
         List<String> tempLevelList = new ArrayList<>();
         int i = -1;
@@ -29,6 +28,7 @@ public class CardCollection {
                 continue;
             List<String> updatedTempEquipment = new ArrayList<>();
             tempEquipment = List.of(cardString.get(9).split(","));
+            System.out.println("tempEquipment " + tempEquipment);
             for (String equipment : tempEquipment)
             {
                 if (equipment.charAt(0) == '"'){
@@ -37,7 +37,7 @@ public class CardCollection {
                 updatedTempEquipment.add(equipment);
                 allCardsEquipment.add(equipment);
             }
-            possibleSuggestions.add(cardString.get(3));
+            System.out.println("updated " + updatedTempEquipment);
             tempKeywords = List.of(cardString.get(10).split(","));
             tempLevelList = List.of(cardString.get(8).split(","));
             Card newCard = Card

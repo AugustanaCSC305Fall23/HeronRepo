@@ -10,14 +10,14 @@ import java.util.List;
 
 public class CardCollectionView {
     GridPane mGridPane;
-
     ListView mListView;
-
     List<Card> mSearchCardCollectionList;
+    GymnasticsAppMainView mainView;
 
-    public CardCollectionView(ListView listView) {
+    public CardCollectionView(ListView listView, GymnasticsAppMainView mainView) {
         CardCollection.createCardCollection();
         this.mListView = listView;
+        this.mainView = mainView;//to set the main view
     }
 
     public void switchCardCollectionToSearchView(List<Card> searchList) {
@@ -37,10 +37,10 @@ public class CardCollectionView {
         this.mListView.setMinWidth(windowScreen.getBounds().getWidth() * 0.3);
         this.mListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
 
-        this.mListView.getChildrenUnmodifiable().clear();
+        this.mListView.getItems().clear();
 
         for (Card card : cardCollection) {
-            CardView cardView = new CardView(card);
+            CardView cardView = new CardView(card,mainView);
             HBox cardBox = cardView.makeCardList();
 
             // Add the cardBox to the GridPane at the current row and column
