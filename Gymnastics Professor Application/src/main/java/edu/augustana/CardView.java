@@ -12,9 +12,11 @@ import java.io.File;
 
 public class CardView {
     private Card mCard;
+    private GymnasticsAppMainView mainView;
 
-    public CardView(Card card) {
+    public CardView(Card card, GymnasticsAppMainView mainView) {
         this.mCard = card;
+        this.mainView = mainView;
     }
 
     public VBox makeCardView() {
@@ -67,6 +69,7 @@ public class CardView {
 
 
     private void addToLessonPlan(){
+        mainView.addToLessonPlan(mCard);
     }
 
 }

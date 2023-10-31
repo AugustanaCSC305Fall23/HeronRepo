@@ -89,7 +89,7 @@ public class GymnasticsAppMainView {
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
-        cardCollectionView = new CardCollectionView(mainSearchView);
+        cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
         cardCollectionView.switchCardCollectionToMainView();
         addOptions();
         addEventsListeners();
@@ -97,6 +97,7 @@ public class GymnasticsAppMainView {
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
         lessonPlanCardView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
+
     }
 
     void addOptions() {
@@ -229,10 +230,12 @@ public class GymnasticsAppMainView {
             if (empty || card == null) {
                 setGraphic(null);
             } else {
-                Image image = new Image(GymnasticsProfessorApp.class.getResource("DEMO1Pack/" + card.getCardImage()).toString());
-                imageView.setImage(image);
-                imageView.setFitHeight(100);
-                imageView.setFitWidth(100);
+                if (card.getCardImage() != null) {
+                    Image image = new Image(getClass().getResource("DEMO1Pack/" + card.getCardImage()).toString());
+                    imageView.setImage(image);
+                    imageView.setFitHeight(100);
+                    imageView.setFitWidth(100);
+                }
 
                 cardDetails.setText("Card Code: " + card.getCardCode() + "\nTitle: " + card.getCardTitle());
 
@@ -240,8 +243,8 @@ public class GymnasticsAppMainView {
             }
         }
     }
-}
 
+}
 
 
 
