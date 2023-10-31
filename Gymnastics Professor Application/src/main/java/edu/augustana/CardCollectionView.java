@@ -37,7 +37,7 @@ public class CardCollectionView {
         this.mListView.setMinWidth(windowScreen.getBounds().getWidth() * 0.3);
         this.mListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
 
-        this.mListView.getChildrenUnmodifiable().clear();
+        this.mListView.getItems().clear();
 
         for (Card card : cardCollection) {
             CardView cardView = new CardView(card);
