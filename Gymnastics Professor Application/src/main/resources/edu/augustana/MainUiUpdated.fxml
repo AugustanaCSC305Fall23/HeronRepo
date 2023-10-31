@@ -121,7 +121,7 @@
                      <top>
                         <HBox prefHeight="0.0" prefWidth="556.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addImage" text="Add" />
+                              <Button fx:id="addButton" mnemonicParsing="false" text="Add" />
                               <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
                            </children>
                         </HBox>
