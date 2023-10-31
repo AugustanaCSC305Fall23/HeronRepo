@@ -76,7 +76,7 @@
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
-                              <ListView fx:id="lessonPlanCardView" />
+                              <ListView fx:id="lessonPlanListView" />
                      </children>
                   </VBox>
                </center>

@@ -67,6 +67,7 @@ public class CardView {
 
 
     private void addToLessonPlan(){
+        System.out.println("Add to LessonPlan: " + mCard);
     }
 
 }

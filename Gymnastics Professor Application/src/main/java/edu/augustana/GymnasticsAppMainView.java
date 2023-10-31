@@ -5,8 +5,6 @@ import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
 import edu.augustana.utils.SearchCardCollection;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,15 +15,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,15 +71,16 @@ public class GymnasticsAppMainView {
     @FXML
     private HBox searchHBox;
 
+    private LessonPlan lessonPlan;
+
     @FXML // fx:id="lessonPlanCardView"
-    private ListView lessonPlanCardView;
+    private ListView lessonPlanListView;
 
 
     private CardCollectionView cardCollectionView;
 
     private SearchCardCollection searchCardCollection;
 
-    private List<Card> lessonPlan = new ArrayList<>();
 
     private AutoCompletionBinding<String> autoCompletionBinding;
 
@@ -100,7 +96,7 @@ public class GymnasticsAppMainView {
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
-        lessonPlanCardView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
+        lessonPlanListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
     }
 
     void addOptions() {
@@ -213,7 +209,7 @@ public class GymnasticsAppMainView {
     public void addToLessonPlan(Card mCard) {
 
         lessonPlan.add(mCard);
-        lessonPlanCardView.getItems().add(mCard);
+        lessonPlanListView.getItems().add(mCard);
     }
     public class CardListCell extends ListCell<Card> {
 
