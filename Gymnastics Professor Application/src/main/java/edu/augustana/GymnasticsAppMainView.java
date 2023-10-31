@@ -5,6 +5,7 @@ import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
+import edu.augustana.utils.PrintCard;
 import edu.augustana.utils.SearchCardCollection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,18 +45,25 @@ public class GymnasticsAppMainView {
 
     @FXML // fx:id="eventFilter"
     private ComboBox<String> eventFilter; // Value injected by FXMLLoader
+
     @FXML // fx:id="filtersMenu"
     private HBox filtersMenu; // Value injected by FXMLLoader
+
     @FXML // fx:id="genderFilter"
     private ComboBox<String> genderFilter; // Value injected by FXMLLoader
+
     @FXML // fx:id="levelFilter"
     private ComboBox<String> levelFilter; // Value injected by FXMLLoader
+
     @FXML // fx:id="lpWorkSpace"
     private BorderPane lpWorkSpace; // Value injected by FXMLLoader
+
     @FXML // fx:id="mainMenu"
     private MenuBar mainMenu; // Value injected by FXMLLoader
+
     @FXML // fx:id="mainSearch"
     private TextField mainSearch; // Value injected by FXMLLoader
+
     @FXML // fx:id="scrollBar"
     private ScrollBar scrollBar; // Value injected by FXMLLoader
 
@@ -68,10 +76,8 @@ public class GymnasticsAppMainView {
     private ScrollPane scrollPaneView;
     @FXML
     private ImageView lessonPlanImage;
-
     @FXML
     private ListView cardListView;
-
     @FXML
     private HBox searchHBox;
 
@@ -94,6 +100,7 @@ public class GymnasticsAppMainView {
         addOptions();
         addEventsListeners();
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
+
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
         lessonPlanCardView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
