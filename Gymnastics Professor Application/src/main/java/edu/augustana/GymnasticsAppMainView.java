@@ -21,6 +21,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Screen;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.util.Arrays;
 import java.util.List;
@@ -95,6 +97,7 @@ public class GymnasticsAppMainView {
         cardCollectionView.switchCardCollectionToMainView();
         addOptions();
         addEventsListeners();
+        TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
         lessonPlan = new LessonPlan();
         Screen windowScreen = Screen.getPrimary();
@@ -147,6 +150,9 @@ public class GymnasticsAppMainView {
 
     void addEventsListeners() {
         mainSearch.setOnAction(buttonHandler);
+        mainSearch.textProperty().addListener((o, oldText, newText) -> {
+            runSearchForText(newText);
+        });
         categoryFilter.setOnAction(buttonHandler);
         equipFilter.setOnAction(buttonHandler);
         eventFilter.setOnAction(buttonHandler);
@@ -155,6 +161,12 @@ public class GymnasticsAppMainView {
         clearFilter.setOnAction(clearHandler);
     }
 
+    private void runSearchForText(String text){
+        searchCardCollection.setCardTitleCode(text);
+        List<Card> newSearchList = searchCardCollection.searchCards();
+        cardCollectionView.initializeMainSearchView(newSearchList);
+
+    }
     EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -164,9 +176,7 @@ public class GymnasticsAppMainView {
 
             switch (id) {
                 case "mainSearch":
-                    searchCardCollection.setCardTitleCode(mainSearch.getText());
-                    newSearchList = searchCardCollection.searchCards();
-                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    runSearchForText(mainSearch.getText());
                     break;
                 case "categoryFilter":
                     searchCardCollection.setCardCategory(categoryFilter.getSelectionModel().getSelectedItem());

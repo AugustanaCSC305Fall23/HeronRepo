@@ -21,6 +21,11 @@
             <version>20</version>
         </dependency>
         <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.1.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
@@ -29,6 +34,7 @@
     </dependencies>
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -43,11 +49,14 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running -->
-                        <!-- Usage: mvn clean javafx:run -->
+
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>edu.augustana.GymnasticsProfessorApp</mainClass>
+                            <options>
+                                <option>--add-exports</option>
+                                <option>javafx.base/com.sun.javafx.event=org.controlsfx.controls</option>
+                            </options>
                         </configuration>
                     </execution>
                 </executions>
