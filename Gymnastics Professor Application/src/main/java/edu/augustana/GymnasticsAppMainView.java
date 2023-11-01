@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
 
 import java.util.Arrays;
@@ -79,8 +80,7 @@ public class GymnasticsAppMainView {
     private LessonPlan lessonPlan;
 
     @FXML // fx:id="lessonPlanCardView"
-    private ListView lessonPlanListView;
-
+    private ListView<Card> lessonPlanListView;
 
     private CardCollectionView cardCollectionView;
 
@@ -102,7 +102,7 @@ public class GymnasticsAppMainView {
 
         lessonPlanListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
 
-        //lessonPlanCardView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
+        lessonPlanListView.setCellFactory(param -> new CardListCell() );
 
     }
 
@@ -248,6 +248,7 @@ public class GymnasticsAppMainView {
             }
         }
     }
+
 
 }
 
