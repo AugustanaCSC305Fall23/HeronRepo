@@ -211,8 +211,8 @@ public class GymnasticsAppMainView {
 
     @FXML
     void clearImage(MouseEvent event){
-
-        lessonPlanImage.setVisible(false);
+        lessonPlanListView.getItems().clear(); // Clear all items in the lesson plan list view
+        lessonPlan.clear();
     }
     public void addToLessonPlan(Card mCard) {
         lessonPlan.add(mCard);
