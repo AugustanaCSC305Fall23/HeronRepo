@@ -12,4 +12,11 @@ public class LessonPlan {
         lessonCards.add(mCard);
     }
 
+    public void remove(Card card) {
+        lessonCards.remove(card);
+    }
+    public void clear(){
+        lessonCards.clear();
+    }
+
 }

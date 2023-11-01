@@ -211,6 +211,7 @@ public class GymnasticsAppMainView {
 
     @FXML
     void clearImage(MouseEvent event){
+
         lessonPlanImage.setVisible(false);
     }
     public void addToLessonPlan(Card mCard) {
@@ -221,11 +222,13 @@ public class GymnasticsAppMainView {
 
         private final ImageView imageView = new ImageView();
         private final Text cardDetails = new Text();
+        private final Button removeButton = new Button("Remove");
 
         private final HBox cardBox = new HBox(10);
 
         public CardListCell() {
-            cardBox.getChildren().addAll(imageView, cardDetails);
+            removeButton.setOnAction(event -> removeFromLessonPlan());
+            cardBox.getChildren().addAll(imageView, cardDetails,removeButton);
         }
 
         @Override
@@ -245,6 +248,13 @@ public class GymnasticsAppMainView {
                 cardDetails.setText("Card Code: " + card.getCardCode() + "\nTitle: " + card.getCardTitle());
 
                 setGraphic(cardBox);
+            }
+        }
+        private void removeFromLessonPlan() {
+            Card card = getItem();
+            if (card != null) {
+                lessonPlan.remove(card);
+                lessonPlanListView.getItems().remove(card);
             }
         }
     }
