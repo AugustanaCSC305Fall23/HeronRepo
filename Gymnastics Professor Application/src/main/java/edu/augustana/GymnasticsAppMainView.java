@@ -118,30 +118,35 @@ public class GymnasticsAppMainView {
     }
 
     void addOptionsForGender() {
+        genderFilter.getItems().add("Gender");
         for (GenderEnum gender: GenderEnum.values()){
             genderFilter.getItems().addAll(gender.toString());
         }
     }
 
     void addOptionsForLevel() {
+        levelFilter.getItems().add("Level");
         levelFilter.getItems().addAll(Arrays.stream(LevelEnum.values())
                 .map(Enum::name)
                 .collect(Collectors.toList()));
     }
 
     void addOptionsForEvent() {
+        eventFilter.getItems().add("Event");
         eventFilter.getItems().addAll(Arrays.stream(EventsEnum.values())
                 .map(Enum::name)
                 .collect(Collectors.toList()));
     }
 
     void addOptionsForCategory() {
+        categoryFilter.getItems().add("Category");
         categoryFilter.getItems().addAll(Arrays.stream(CategoryEnum.values())
                 .map(Enum::name)
                 .collect(Collectors.toList()));
     }
 
     void addOptionsForEquipment() {
+        equipFilter.getItems().add("Equipment");
         for (String equipment : CardCollection.allCardsEquipment) {
             equipFilter.getItems().addAll(equipment);
         }
@@ -184,7 +189,7 @@ public class GymnasticsAppMainView {
                     cardCollectionView.initializeMainSearchView(newSearchList);
                     break;
                 case "equipFilter":
-                    searchCardCollection.setCardEquipment(equipFilter.getSelectionModel().getSelectedItem().strip());
+                    searchCardCollection.setCardEquipment(equipFilter.getSelectionModel().getSelectedItem());
                     newSearchList = searchCardCollection.searchCards();
                     cardCollectionView.initializeMainSearchView(newSearchList);
                     break;
@@ -211,13 +216,24 @@ public class GymnasticsAppMainView {
     EventHandler<ActionEvent> clearHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            categoryFilter.getSelectionModel().clearSelection();
-            equipFilter.getSelectionModel().clearSelection();
-            eventFilter.getSelectionModel().clearSelection();
-            levelFilter.getSelectionModel().clearSelection();
-            genderFilter.getSelectionModel().clearSelection();
+            categoryFilter.getSelectionModel().select(0);
+            equipFilter.getSelectionModel().select(0);
+            eventFilter.getSelectionModel().select(0);
+            levelFilter.getSelectionModel().select(0);
+            genderFilter.getSelectionModel().select(0);
+            clearSearchBuilder();
         }
     };
+
+    private void clearSearchBuilder() {
+        searchCardCollection.setCardGender(null);
+        searchCardCollection.setCardLevel(null);
+        searchCardCollection.setCardEquipment(null);
+        searchCardCollection.setCardCategory(null);
+        searchCardCollection.setCardLevel(null);
+        searchCardCollection.setCardEvent(null);
+        cardCollectionView.initializeMainSearchView(CardCollection.cardCollection);
+    }
 
     @FXML
     void clearImage(MouseEvent event){

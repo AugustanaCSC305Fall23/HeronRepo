@@ -31,7 +31,6 @@ public class CardCollection {
                 continue;
             List<String> updatedTempEquipment = new ArrayList<>();
             tempEquipment = List.of(cardString.get(9).split(","));
-            System.out.println("tempEquipment " + tempEquipment);
             for (String equipment : tempEquipment)
             {
                 if (equipment.charAt(0) == '"'){
