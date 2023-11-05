@@ -2,6 +2,7 @@ package edu.augustana;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -13,10 +14,16 @@ import java.io.File;
 public class CardView {
     private Card mCard;
     private GymnasticsAppMainView mainView;
+    private TabPane tabView;
 
     public CardView(Card card, GymnasticsAppMainView mainView) {
         this.mCard = card;
         this.mainView = mainView;
+    }
+
+    public CardView(Card card, TabPane tabView) {
+        this.mCard = card;
+        this.tabView = tabView;
     }
 
     public VBox makeCardView() {
@@ -24,8 +31,8 @@ public class CardView {
         ImageView imageView = new ImageView();
         Button addButton = new Button("Add");
         addButton.setOnAction(event -> addToLessonPlan());
-        vBox.setMinWidth(500);
-        vBox.setMinHeight(500);
+        vBox.setMinWidth(400);
+        vBox.setMinHeight(400);
 
         try {
 
@@ -34,8 +41,8 @@ public class CardView {
             Image image = new Image(GymnasticsProfessorApp.class.getResource("DEMO1Pack/" + mCard.getCardImage()).toString());
             // Create an ImageView and set the image
             imageView = new ImageView(image);
-            imageView.setFitHeight(200);
-            imageView.setFitWidth(200);
+            imageView.setFitHeight(400);
+            imageView.setFitWidth(400);
 
             // Add the ImageView to the VBox
             vBox.getChildren().add(imageView);

@@ -3,6 +3,7 @@ module edu.augustana {
     requires javafx.fxml;
     requires org.jetbrains.annotations;
     requires org.controlsfx.controls;
+    requires com.google.gson;
 
     opens edu.augustana to javafx.fxml;
     exports edu.augustana;

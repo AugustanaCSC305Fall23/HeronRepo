@@ -19,11 +19,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Screen;
+import javafx.stage.Window;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,18 +86,34 @@ public class GymnasticsAppMainView {
 
     private LessonPlan lessonPlan;
 
-    @FXML // fx:id="lessonPlanCardView"
-    private ListView<Card> lessonPlanListView;
+//    @FXML // fx:id="lessonPlanCardView"
+//    private ListView<Card> lessonPlanListView;
+
+    @FXML
+    private Button AddNewLessonPlan;
+
+    @FXML
+    private TabPane lessonPlanTabPane;
 
     private CardCollectionView cardCollectionView;
 
     private SearchCardCollection searchCardCollection;
+
+    private List<LessonPlan> courseLessonPlan;
+
+    private List<LessonPlanView> courseLessonPlanView;
+
+    private int lessonPlanNumber = 0;
+
+    private int selectedLessonPaneNumber;
 
 
 
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
+        courseLessonPlan = new ArrayList<>();
+        courseLessonPlanView = new ArrayList<>();
         cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
         cardCollectionView.switchCardCollectionToMainView();
         addOptions();
@@ -102,10 +123,11 @@ public class GymnasticsAppMainView {
         lessonPlan = new LessonPlan();
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
+        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
 
-        lessonPlanListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
-
-        lessonPlanListView.setCellFactory(param -> new CardListCell() );
+//        lessonPlanListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
+//
+//        lessonPlanListView.setCellFactory(param -> new CardListCell() );
 
     }
 
@@ -170,8 +192,8 @@ public class GymnasticsAppMainView {
         searchCardCollection.setCardTitleCode(text);
         List<Card> newSearchList = searchCardCollection.searchCards();
         cardCollectionView.initializeMainSearchView(newSearchList);
-
     }
+
     EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -236,13 +258,50 @@ public class GymnasticsAppMainView {
     }
 
     @FXML
+    private void menuActionSaveAs(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Lesson Plan");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Lesson Plan (*.lessonplan)", "*.lessonplan");
+        fileChooser.getExtensionFilters().add(filter);
+        Window mainWindow = mainSearchView.getScene().getWindow();
+        File chosenFile = fileChooser.showSaveDialog(mainWindow);
+        saveCurrentCourseToFile(chosenFile);
+    }
+
+    private void saveCurrentCourseToFile(File chosenFile) {
+        if (chosenFile != null) {
+            try {
+                lessonPlan.saveLessonPlan(chosenFile);
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "Error saving lesson plan: " + chosenFile).show();
+            }
+        }
+    }
+
+    @FXML
+    private void addNewLessonTab() {
+        courseLessonPlan.add(new LessonPlan());
+        courseLessonPlanView.add(new LessonPlanView(lessonPlanTabPane));
+        Tab newLessonTab = new Tab("Lesson " + lessonPlanNumber++);
+        lessonPlanTabPane.getTabs().add(newLessonTab);
+        // Add an event listener for selection changes
+        lessonPlanTabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab != null) {
+                selectedLessonPaneNumber = lessonPlanTabPane.getSelectionModel().getSelectedIndex();
+            }
+        });
+    }
+
+    @FXML
     void clearImage(MouseEvent event){
-        lessonPlanListView.getItems().clear(); // Clear all items in the lesson plan list view
+//        lessonPlanListView.getItems().clear(); // Clear all items in the lesson plan list view
         lessonPlan.clear();
     }
     public void addToLessonPlan(Card mCard) {
         lessonPlan.add(mCard);
-        lessonPlanListView.getItems().add(mCard);
+        courseLessonPlan.get(selectedLessonPaneNumber).add(mCard);
+//        lessonPlanListView.getItems().add(mCard);
+        courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(mCard, selectedLessonPaneNumber);
     }
     public class CardListCell extends ListCell<Card> {
 
@@ -280,7 +339,7 @@ public class GymnasticsAppMainView {
             Card card = getItem();
             if (card != null) {
                 lessonPlan.remove(card);
-                lessonPlanListView.getItems().remove(card);
+//                lessonPlanListView.getItems().remove(card);
             }
         }
     }
