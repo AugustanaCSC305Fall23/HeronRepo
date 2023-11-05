@@ -4,11 +4,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-
-import java.io.File;
 
 public class CardView {
     private Card mCard;
@@ -48,7 +46,8 @@ public class CardView {
         return vBox;
     }
 
-    public HBox makeCardList() {
+    public BorderPane makeCardList() {
+        BorderPane bp = new BorderPane();
         HBox hBox = new HBox();
         Label label = new Label();
         Button addButton = new Button("Add");
@@ -57,14 +56,17 @@ public class CardView {
         try {
             label.setText(mCard.getSearchString());
 
-            // Add the ImageView to the VBox
+            // Add the search string to the HBox
             hBox.getChildren().add(label);
-            hBox.getChildren().add(addButton);
+
+            //Add and format the search string HBox and add button
+            bp.setLeft(hBox);
+            bp.setRight(addButton);
         } catch (Exception e) {
             System.out.print(mCard.getSearchString());
         }
 
-        return hBox;
+        return bp;
     }
 
 
