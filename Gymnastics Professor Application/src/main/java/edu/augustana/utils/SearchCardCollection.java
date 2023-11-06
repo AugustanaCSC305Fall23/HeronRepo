@@ -4,7 +4,6 @@ import edu.augustana.Card;
 import edu.augustana.CardCollection;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +18,12 @@ public class SearchCardCollection {
     private String cardLevel;
     @Nullable
     private String cardGender;
+    @Nullable
+    private String cardTitleCode;
+    @Nullable
+    private String cardModelSex;
+
+
 
     public String getCardTitleCode() {
         return cardTitleCode;
@@ -28,8 +33,7 @@ public class SearchCardCollection {
         this.cardTitleCode = cardTitleCode;
     }
 
-    @Nullable
-    private String cardTitleCode;
+
 
     public SearchCardCollection(SearchCardCollectionBuilder searchCardCollectionBuilder) {
         this.cardEvent = searchCardCollectionBuilder.cardEvent;
@@ -37,6 +41,7 @@ public class SearchCardCollection {
         this.cardEquipment = searchCardCollectionBuilder.cardEquipment;
         this.cardLevel = searchCardCollectionBuilder.cardLevel;
         this.cardGender = searchCardCollectionBuilder.cardGender;
+        this.cardModelSex = searchCardCollectionBuilder.cardModelSex;
     }
 
     public String getCardEvent() {
@@ -79,6 +84,10 @@ public class SearchCardCollection {
         this.cardGender = cardGender;
     }
 
+    public void setCardModelSex(String cardModelSex) {
+        this.cardModelSex = cardModelSex;
+    }
+
     public List<Card> searchCards() {
         List<Card> resultsFromSearch = CardCollection
                 .cardCollection
@@ -95,11 +104,15 @@ public class SearchCardCollection {
                                 &&
                                         (this.cardGender == null || this.cardGender == "ALL" || isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
                                 &&
+                                        (this.cardModelSex == null || this.cardModelSex == "F" && this.cardModelSex =="M") || isEqualSubsequence(eachCard.getCardModelSex(), this.cardModelSex)
+                                &&
                                                 (
                                         (this.cardTitleCode == null || isEqualSubsequence(eachCard.getCardCode(), this.cardTitleCode))
                                 ||
                                         (this.cardTitleCode == null || isEqualSubsequence(eachCard.getCardTitle(), this.cardTitleCode))
                                                 )
+
+
                         )
                 )
                 .collect(Collectors.toList());
@@ -118,6 +131,8 @@ public class SearchCardCollection {
         @Nullable private String cardLevel;
 
         @Nullable private String cardGender;
+        @Nullable private String cardModelSex;
+
         public static SearchCardCollectionBuilder searchBuilder() {
             return new SearchCardCollectionBuilder();
         }
@@ -147,7 +162,10 @@ public class SearchCardCollection {
             this.cardGender = cardGender;
             return this;
         }
-
+        public SearchCardCollectionBuilder setModelSex(String cardModelSex) {
+            this.cardModelSex = cardModelSex;
+            return this;
+        }
         public SearchCardCollection build(){
             return new SearchCardCollection(this);
         }

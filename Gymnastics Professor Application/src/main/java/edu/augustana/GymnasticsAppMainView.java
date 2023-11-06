@@ -1,10 +1,12 @@
 package edu.augustana;
 
 
+//import com.sun.javafx.menu.MenuItemBase;
 import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
+import edu.augustana.constants.ModelSexEnum;
 import edu.augustana.utils.PrintCard;
 import edu.augustana.utils.SearchCardCollection;
 import javafx.event.ActionEvent;
@@ -35,23 +37,28 @@ import java.util.stream.Collectors;
  */
 public class GymnasticsAppMainView {
 
+
+
+    @FXML // fx:id="filtersMenu"
+    private HBox filtersMenu; // Value injected by FXMLLoader
+
+    @FXML // fx:id="eventFilter"
+    private ComboBox<String> eventFilter; // Value injected by FXMLLoader @FXML // fx:id="categoryFilter"
+
     @FXML // fx:id="categoryFilter"
     private ComboBox<String> categoryFilter; // Value injected by FXMLLoader
 
     @FXML // fx:id="equipFilter"
     private ComboBox<String> equipFilter; // Value injected by FXMLLoader
 
-    @FXML // fx:id="eventFilter"
-    private ComboBox<String> eventFilter; // Value injected by FXMLLoader
-
-    @FXML // fx:id="filtersMenu"
-    private HBox filtersMenu; // Value injected by FXMLLoader
+    @FXML // fx:id="levelFilter"
+    private ComboBox<String> levelFilter; // Value injected by FXMLLoader
 
     @FXML // fx:id="genderFilter"
     private ComboBox<String> genderFilter; // Value injected by FXMLLoader
 
-    @FXML // fx:id="levelFilter"
-    private ComboBox<String> levelFilter; // Value injected by FXMLLoader
+    @FXML
+    private ComboBox<String> modelSexFilter;  // Value injected by FXMLLoader
 
     @FXML // fx:id="lpWorkSpace"
     private BorderPane lpWorkSpace; // Value injected by FXMLLoader
@@ -102,25 +109,41 @@ public class GymnasticsAppMainView {
         lessonPlan = new LessonPlan();
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
-
         lessonPlanListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
-
         lessonPlanListView.setCellFactory(param -> new CardListCell() );
 
     }
 
     void addOptions() {
-        addOptionsForGender();
-        addOptionsForLevel();
         addOptionsForEvent();
         addOptionsForCategory();
         addOptionsForEquipment();
+        addOptionsForLevel();
+        addOptionsForGender();
+        addOptionsForModelSex();
     }
 
-    void addOptionsForGender() {
-        genderFilter.getItems().add("Gender");
-        for (GenderEnum gender: GenderEnum.values()){
-            genderFilter.getItems().addAll(gender.toString());
+
+    void addOptionsForEvent() {
+        eventFilter.getItems().add("Event");
+        eventFilter.getItems().addAll(Arrays.stream(EventsEnum.values())
+                .map(Enum::name)
+                .collect(Collectors.toList()));
+    }
+
+
+    void addOptionsForCategory() {
+        categoryFilter.getItems().add("Category");
+        categoryFilter.getItems().addAll(Arrays.stream(CategoryEnum.values())
+                .map(Enum::name)
+                .collect(Collectors.toList()));
+    }
+
+
+    void addOptionsForEquipment() {
+        equipFilter.getItems().add("Equipment");
+        for (String equipment : CardCollection.allCardsEquipment) {
+            equipFilter.getItems().addAll(equipment);
         }
     }
 
@@ -131,25 +154,18 @@ public class GymnasticsAppMainView {
                 .collect(Collectors.toList()));
     }
 
-    void addOptionsForEvent() {
-        eventFilter.getItems().add("Event");
-        eventFilter.getItems().addAll(Arrays.stream(EventsEnum.values())
-                .map(Enum::name)
-                .collect(Collectors.toList()));
-    }
-
-    void addOptionsForCategory() {
-        categoryFilter.getItems().add("Category");
-        categoryFilter.getItems().addAll(Arrays.stream(CategoryEnum.values())
-                .map(Enum::name)
-                .collect(Collectors.toList()));
-    }
-
-    void addOptionsForEquipment() {
-        equipFilter.getItems().add("Equipment");
-        for (String equipment : CardCollection.allCardsEquipment) {
-            equipFilter.getItems().addAll(equipment);
+    void addOptionsForGender() {
+        genderFilter.getItems().add("Gender");
+        for (GenderEnum gender: GenderEnum.values()){
+            genderFilter.getItems().add(gender.toString());
         }
+    }
+    void addOptionsForModelSex(){
+        modelSexFilter.getItems().add("Model Sex");
+        for (ModelSexEnum modelSex: ModelSexEnum.values()){
+           modelSexFilter.getItems().add(modelSex.toString());
+        }
+
     }
 
 
@@ -158,12 +174,15 @@ public class GymnasticsAppMainView {
         mainSearch.textProperty().addListener((o, oldText, newText) -> {
             runSearchForText(newText);
         });
+
+        eventFilter.setOnAction(buttonHandler);
         categoryFilter.setOnAction(buttonHandler);
         equipFilter.setOnAction(buttonHandler);
-        eventFilter.setOnAction(buttonHandler);
         levelFilter.setOnAction(buttonHandler);
         genderFilter.setOnAction(buttonHandler);
+        modelSexFilter.setOnAction(buttonHandler);
         clearFilter.setOnAction(clearHandler);
+
     }
 
     private void runSearchForText(String text){
@@ -172,6 +191,8 @@ public class GymnasticsAppMainView {
         cardCollectionView.initializeMainSearchView(newSearchList);
 
     }
+
+
     EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -183,6 +204,11 @@ public class GymnasticsAppMainView {
                 case "mainSearch":
                     runSearchForText(mainSearch.getText());
                     break;
+                case "eventFilter":
+                    searchCardCollection.setCardEvent(eventFilter.getSelectionModel().getSelectedItem());
+                    newSearchList = searchCardCollection.searchCards();
+                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
                 case "categoryFilter":
                     searchCardCollection.setCardCategory(categoryFilter.getSelectionModel().getSelectedItem());
                     newSearchList = searchCardCollection.searchCards();
@@ -190,11 +216,6 @@ public class GymnasticsAppMainView {
                     break;
                 case "equipFilter":
                     searchCardCollection.setCardEquipment(equipFilter.getSelectionModel().getSelectedItem());
-                    newSearchList = searchCardCollection.searchCards();
-                    cardCollectionView.initializeMainSearchView(newSearchList);
-                    break;
-                case "eventFilter":
-                    searchCardCollection.setCardEvent(eventFilter.getSelectionModel().getSelectedItem());
                     newSearchList = searchCardCollection.searchCards();
                     cardCollectionView.initializeMainSearchView(newSearchList);
                     break;
@@ -208,6 +229,12 @@ public class GymnasticsAppMainView {
                     newSearchList = searchCardCollection.searchCards();
                     cardCollectionView.initializeMainSearchView(newSearchList);
                     break;
+                case "modelSexFilter":
+                    searchCardCollection.setCardModelSex(modelSexFilter.getSelectionModel().getSelectedItem());
+                    newSearchList = searchCardCollection.searchCards();
+                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
+
             }
 
         }
@@ -216,22 +243,23 @@ public class GymnasticsAppMainView {
     EventHandler<ActionEvent> clearHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
+            eventFilter.getSelectionModel().select(0);
             categoryFilter.getSelectionModel().select(0);
             equipFilter.getSelectionModel().select(0);
-            eventFilter.getSelectionModel().select(0);
             levelFilter.getSelectionModel().select(0);
             genderFilter.getSelectionModel().select(0);
+            modelSexFilter.getSelectionModel().select(0);
             clearSearchBuilder();
         }
     };
 
     private void clearSearchBuilder() {
-        searchCardCollection.setCardGender(null);
-        searchCardCollection.setCardLevel(null);
-        searchCardCollection.setCardEquipment(null);
-        searchCardCollection.setCardCategory(null);
-        searchCardCollection.setCardLevel(null);
         searchCardCollection.setCardEvent(null);
+        searchCardCollection.setCardCategory(null);
+        searchCardCollection.setCardEquipment(null);
+        searchCardCollection.setCardLevel(null);
+        searchCardCollection.setCardGender(null);
+        searchCardCollection.setCardModelSex(null);
         cardCollectionView.initializeMainSearchView(CardCollection.cardCollection);
     }
 

@@ -72,14 +72,14 @@
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
-               <center>
-                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
-                              <ListView fx:id="lessonPlanListView" />
-                     </children>
-                  </VBox>
-               </center>
+                    <center>
+                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
+                                <ListView fx:id="lessonPlanListView" />
+                            </children>
+                        </VBox>
+                    </center>
                 </BorderPane>
             </children>
         </HBox>
@@ -109,14 +109,16 @@
                         <ComboBox fx:id="equipFilter" prefHeight="26.0" prefWidth="72.0" promptText="Equipment" />
                         <ComboBox fx:id="levelFilter" prefHeight="26.0" prefWidth="70.0" promptText="Level" />
                         <ComboBox fx:id="genderFilter" prefHeight="26.0" prefWidth="84.0" promptText="Gender" />
-                  <Button fx:id="clearFilter" mnemonicParsing="false" text="Clear Filter" />
+                        <ComboBox fx:id="modelSexFilter" prefHeight="26.0" prefWidth="71.0" promptText="Model Sex"/>
+                        <Button fx:id="clearFilter" mnemonicParsing="false" text="Clear Filter" />
                     </children>
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
                 </HBox>
-            <ListView fx:id="mainSearchView" prefHeight="200.0" prefWidth="200.0" />
+                <ListView fx:id="mainSearchView" prefHeight="200.0" prefWidth="200.0" />
             </children>
         </VBox>
     </center>
 </BorderPane>
+
