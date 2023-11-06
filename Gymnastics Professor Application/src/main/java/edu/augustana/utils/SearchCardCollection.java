@@ -155,7 +155,7 @@ public class SearchCardCollection {
 
     }
 
-    public boolean isEqualSubsequence(String A, String B) {
+    public static boolean isEqualSubsequence(String A, String B) {
         A = A.toLowerCase();
         B = B.toLowerCase();
 
