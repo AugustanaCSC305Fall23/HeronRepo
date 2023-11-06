@@ -5,10 +5,11 @@ import com.google.gson.GsonBuilder;
 import javafx.collections.FXCollections;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseLessonPlan {
-    private List<LessonPlan> courseLessonPlan = FXCollections.observableArrayList();
+    private List<LessonPlan> courseLessonPlan = new ArrayList<>();
 
     public void addLessonPlan() {
         courseLessonPlan.add(new LessonPlan());
