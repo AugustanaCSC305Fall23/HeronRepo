@@ -114,7 +114,8 @@ public class GymnasticsAppMainView {
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
-        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
+        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.9);
+        addNewLessonTab();
     }
 
     void addOptions() {
@@ -286,7 +287,6 @@ public class GymnasticsAppMainView {
 
     private void displayLoadFromFile() {
         List<LessonPlan> lessonPlans = new ArrayList<>(courseLessonPlan.getCourseLessonPlan());
-        System.out.println(lessonPlans);
 
         for (int i = 0; i < lessonPlans.size(); i++) {
             LessonPlan eachLessonPlan = lessonPlans.get(i);
