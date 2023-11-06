@@ -89,8 +89,6 @@ public class GymnasticsAppMainView {
     @FXML
     private HBox searchHBox;
 
-    private LessonPlan lessonPlan;
-
 //    @FXML // fx:id="lessonPlanCardView"
 //    private ListView<Card> lessonPlanListView;
 
@@ -104,8 +102,6 @@ public class GymnasticsAppMainView {
 
     private SearchCardCollection searchCardCollection;
 
-    private List<LessonPlan> listLessonPlan;
-
     private CourseLessonPlan courseLessonPlan;
     private List<LessonPlanView> courseLessonPlanView;
 
@@ -113,12 +109,9 @@ public class GymnasticsAppMainView {
 
     private int selectedLessonPaneNumber;
 
-    private LessonPlan loadedLessonPlan;
-
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
-        listLessonPlan = new ArrayList<>();
         courseLessonPlanView = new ArrayList<>();
         courseLessonPlan = new CourseLessonPlan();
         cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
@@ -127,7 +120,6 @@ public class GymnasticsAppMainView {
         addEventsListeners();
         TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
-        lessonPlan = new LessonPlan();
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
 
@@ -284,8 +276,8 @@ public class GymnasticsAppMainView {
     @FXML
     private void menuActionSaveAs(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Lesson Plan");
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Lesson Plan (*.lessonplan)", "*.lessonplan");
+        fileChooser.setTitle("Save Course Plan");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Lesson Plan (*.courselessonplan)", "*.courselessonplan");
         fileChooser.getExtensionFilters().add(filter);
         Window mainWindow = mainSearchView.getScene().getWindow();
         File chosenFile = fileChooser.showSaveDialog(mainWindow);
@@ -302,29 +294,42 @@ public class GymnasticsAppMainView {
         }
     }
 
-//    @FXML
-//    private void menuActionOpen(ActionEvent event) {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Open Course Plan");
-//        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Movie Logs (*.lessonplan)", "*.lessonplan");
-//        fileChooser.getExtensionFilters().add(filter);
-//        Window mainWindow = mainSearchView.getScene().getWindow();
-//        File chosenFile = fileChooser.showOpenDialog(mainWindow);
-//        if (chosenFile != null) {
-//            try {
-//                loadedLessonPlan = LessonPlan.loadLessonPlan(chosenFile);
-//                lessonPlanTabPane.getTabs().clear();
-//                LessonPlan loadedLessonPlan = MovieTrackerApp.getCurrentMovieLog();
-//                movieWatchListView.getItems().addAll(loadedLog.getMovieWatchRecords());
-//            } catch (IOException ex) {
-//                new Alert(Alert.AlertType.ERROR, "Error loading lesson plan: " + chosenFile).show();
-//            }
-//        }
-//    }
+    @FXML
+    private void menuActionOpen(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Course Plan");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Movie Logs (*.courselessonplan)", "*.courselessonplan");
+        fileChooser.getExtensionFilters().add(filter);
+        Window mainWindow = mainSearchView.getScene().getWindow();
+        File chosenFile = fileChooser.showOpenDialog(mainWindow);
+        if (chosenFile != null) {
+            try {
+                lessonPlanTabPane.getTabs().clear();
+                courseLessonPlan = CourseLessonPlan.loadCoursePlan(chosenFile);
+                selectedLessonPaneNumber = 0;
+                displayLoadFromFile();
+            } catch (IOException ex) {
+                new Alert(Alert.AlertType.ERROR, "Error loading lesson plan: " + chosenFile).show();
+            }
+        }
+    }
+
+    private void displayLoadFromFile() {
+        List<LessonPlan> lessonPlans = new ArrayList<>(courseLessonPlan.getCourseLessonPlan());
+        System.out.println(lessonPlans);
+
+        for (int i = 0; i < lessonPlans.size(); i++) {
+            LessonPlan eachLessonPlan = lessonPlans.get(i);
+            addNewLessonTab();
+            for (Card eachCard : new ArrayList<>(eachLessonPlan.getLessonCards())) {
+                courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(eachCard, selectedLessonPaneNumber);
+            }
+            selectedLessonPaneNumber++;
+        }
+    }
 
     @FXML
     private void addNewLessonTab() {
-        listLessonPlan.add(new LessonPlan());
         courseLessonPlanView.add(new LessonPlanView(lessonPlanTabPane));
         courseLessonPlan.addLessonPlan();
         Tab newLessonTab = new Tab("Lesson " + lessonPlanNumber++);
@@ -340,13 +345,10 @@ public class GymnasticsAppMainView {
     @FXML
     void clearImage(MouseEvent event){
 //        lessonPlanListView.getItems().clear(); // Clear all items in the lesson plan list view
-        lessonPlan.clear();
+//        lessonPlan.clear();
     }
     public void addToLessonPlan(Card mCard) {
-        lessonPlan.add(mCard);
         courseLessonPlan.addCardToLessonPlan(selectedLessonPaneNumber, mCard);
-        listLessonPlan.get(selectedLessonPaneNumber);
-//        lessonPlanListView.getItems().add(mCard);
         courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(mCard, selectedLessonPaneNumber);
     }
     public class CardListCell extends ListCell<Card> {
@@ -384,7 +386,7 @@ public class GymnasticsAppMainView {
         private void removeFromLessonPlan() {
             Card card = getItem();
             if (card != null) {
-                lessonPlan.remove(card);
+//                lessonPlan.remove(card);
 //                lessonPlanListView.getItems().remove(card);
             }
         }
