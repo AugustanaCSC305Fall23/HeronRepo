@@ -28,6 +28,13 @@ public class LessonPlanView {
         lessonEvents.add(card.getCardEvent());
         createGridView(selectedPane);
     }
+    public void removeCardFromLessonPlanView(Card card, int selectedPane) {
+        lessonCards.remove(card);
+        lessonEvents.remove(card.getCardEvent());
+
+        createGridView(selectedPane);
+    }
+
 
 
     public void createGridView(int selectedPane) {

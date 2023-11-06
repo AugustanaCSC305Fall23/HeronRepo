@@ -18,6 +18,9 @@ public class CourseLessonPlan {
     public void addCardToLessonPlan(int selectedLessonPlan, Card card) {
         courseLessonPlan.get(selectedLessonPlan).add(card);
     }
+    public void removeCardFromLessonPlan(int selectedLessonPlan, Card card) {
+        courseLessonPlan.get(selectedLessonPlan).remove(card);
+    }
 
     public static CourseLessonPlan loadCoursePlan(File logFile) throws IOException {
         FileReader reader = new FileReader(logFile);

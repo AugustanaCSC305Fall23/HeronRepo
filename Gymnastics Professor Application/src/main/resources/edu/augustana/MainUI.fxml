@@ -77,7 +77,6 @@
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
-                        <Button fx:id="AddNewLessonPlan" mnemonicParsing="false" onAction="#addNewLessonTab" text="Add" />
                         <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
                      </children>
                   </VBox>

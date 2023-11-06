@@ -29,8 +29,7 @@ public class CardView {
     public VBox makeCardView() {
         VBox vBox = new VBox();
         ImageView imageView = new ImageView();
-        Button addButton = new Button("Add");
-        addButton.setOnAction(event -> addToLessonPlan());
+
         vBox.setMinWidth(400);
         vBox.setMinHeight(400);
 
@@ -46,7 +45,7 @@ public class CardView {
 
             // Add the ImageView to the VBox
             vBox.getChildren().add(imageView);
-            vBox.getChildren().add(addButton);
+
         } catch (Exception e) {
             System.out.print(mCard.getCardImage());
         }

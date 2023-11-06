@@ -22,6 +22,7 @@ public class LessonPlan {
         lessonCards.clear();
     }
 
+
     public static LessonPlan loadLessonPlan(File logFile) throws IOException {
         FileReader reader = new FileReader(logFile);
         Gson gson = new Gson();
