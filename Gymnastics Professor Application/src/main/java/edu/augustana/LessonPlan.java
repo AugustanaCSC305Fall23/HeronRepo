@@ -9,7 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 
 public class LessonPlan {
-    public List<Card> lessonCards = FXCollections.observableArrayList();
+    private List<Card> lessonCards = FXCollections.observableArrayList();
 
     public void add(Card mCard) {
         lessonCards.add(mCard);
@@ -27,6 +27,11 @@ public class LessonPlan {
         Gson gson = new Gson();
         return gson.fromJson(reader,LessonPlan.class);
     }
+
+    public List<Card> getLessonCards() {
+        return  lessonCards;
+    }
+
     public void saveLessonPlan(File saveFile) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String serializedLessonPlan = gson.toJson(this);
