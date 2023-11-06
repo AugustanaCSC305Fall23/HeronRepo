@@ -5,7 +5,6 @@ import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
-import edu.augustana.utils.PrintCard;
 import edu.augustana.utils.SearchCardCollection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,10 +19,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Window;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.File;
@@ -69,10 +66,10 @@ public class GymnasticsAppMainView {
 
     @FXML // fx:id="scrollBar"
     private ScrollBar scrollBar; // Value injected by FXMLLoader
-
     @FXML
     private Button clearFilter;
-
+    @FXML
+    private Menu saveCourse;
     @FXML
     private ListView mainSearchView;
     @FXML
@@ -99,21 +96,23 @@ public class GymnasticsAppMainView {
 
     private SearchCardCollection searchCardCollection;
 
-    private List<LessonPlan> courseLessonPlan;
+    private List<LessonPlan> listLessonPlan;
 
+    private CourseLessonPlan courseLessonPlan;
     private List<LessonPlanView> courseLessonPlanView;
 
     private int lessonPlanNumber = 0;
 
     private int selectedLessonPaneNumber;
 
-
+    private LessonPlan loadedLessonPlan;
 
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
-        courseLessonPlan = new ArrayList<>();
+        listLessonPlan = new ArrayList<>();
         courseLessonPlanView = new ArrayList<>();
+        courseLessonPlan = new CourseLessonPlan();
         cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
         cardCollectionView.switchCardCollectionToMainView();
         addOptions();
@@ -124,11 +123,6 @@ public class GymnasticsAppMainView {
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
         lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
-
-//        lessonPlanListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
-//
-//        lessonPlanListView.setCellFactory(param -> new CardListCell() );
-
     }
 
     void addOptions() {
@@ -271,17 +265,38 @@ public class GymnasticsAppMainView {
     private void saveCurrentCourseToFile(File chosenFile) {
         if (chosenFile != null) {
             try {
-                lessonPlan.saveLessonPlan(chosenFile);
+                courseLessonPlan.saveCoursePlan(chosenFile);
             } catch (IOException e) {
                 new Alert(Alert.AlertType.ERROR, "Error saving lesson plan: " + chosenFile).show();
             }
         }
     }
 
+//    @FXML
+//    private void menuActionOpen(ActionEvent event) {
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Open Course Plan");
+//        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Movie Logs (*.lessonplan)", "*.lessonplan");
+//        fileChooser.getExtensionFilters().add(filter);
+//        Window mainWindow = mainSearchView.getScene().getWindow();
+//        File chosenFile = fileChooser.showOpenDialog(mainWindow);
+//        if (chosenFile != null) {
+//            try {
+//                loadedLessonPlan = LessonPlan.loadLessonPlan(chosenFile);
+//                lessonPlanTabPane.getTabs().clear();
+//                LessonPlan loadedLessonPlan = MovieTrackerApp.getCurrentMovieLog();
+//                movieWatchListView.getItems().addAll(loadedLog.getMovieWatchRecords());
+//            } catch (IOException ex) {
+//                new Alert(Alert.AlertType.ERROR, "Error loading lesson plan: " + chosenFile).show();
+//            }
+//        }
+//    }
+
     @FXML
     private void addNewLessonTab() {
-        courseLessonPlan.add(new LessonPlan());
+        listLessonPlan.add(new LessonPlan());
         courseLessonPlanView.add(new LessonPlanView(lessonPlanTabPane));
+        courseLessonPlan.addLessonPlan();
         Tab newLessonTab = new Tab("Lesson " + lessonPlanNumber++);
         lessonPlanTabPane.getTabs().add(newLessonTab);
         // Add an event listener for selection changes
@@ -299,7 +314,8 @@ public class GymnasticsAppMainView {
     }
     public void addToLessonPlan(Card mCard) {
         lessonPlan.add(mCard);
-        courseLessonPlan.get(selectedLessonPaneNumber).add(mCard);
+        courseLessonPlan.addCardToLessonPlan(selectedLessonPaneNumber, mCard);
+        listLessonPlan.get(selectedLessonPaneNumber);
 //        lessonPlanListView.getItems().add(mCard);
         courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(mCard, selectedLessonPaneNumber);
     }
