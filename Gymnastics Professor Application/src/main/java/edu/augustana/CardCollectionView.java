@@ -36,7 +36,7 @@ public class CardCollectionView {
 
         Screen windowScreen = Screen.getPrimary();
         this.mListView.setMinWidth(windowScreen.getBounds().getWidth() * 0.3);
-        this.mListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.8);
+        this.mListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.75);
 
         this.mListView.getItems().clear();
 
