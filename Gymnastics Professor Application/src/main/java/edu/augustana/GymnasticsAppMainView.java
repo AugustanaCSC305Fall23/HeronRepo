@@ -89,6 +89,9 @@ public class GymnasticsAppMainView {
     @FXML
     private HBox searchHBox;
 
+    @FXML
+    private MenuItem printFileAction;
+
 //    @FXML // fx:id="lessonPlanCardView"
 //    private ListView<Card> lessonPlanListView;
 
