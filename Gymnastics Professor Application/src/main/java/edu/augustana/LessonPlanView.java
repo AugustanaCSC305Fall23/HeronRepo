@@ -2,7 +2,9 @@ package edu.augustana;
 
 import edu.augustana.utils.SearchCardCollection;
 import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
@@ -18,6 +20,8 @@ public class LessonPlanView {
 
     private List<Card> lessonCards = FXCollections.observableArrayList();
     private TabPane tabPane;
+    @FXML
+    private Button clearButton;
 
     public LessonPlanView(TabPane tabPane) {
         this.tabPane = tabPane;
@@ -30,10 +34,19 @@ public class LessonPlanView {
     }
     public void removeCardFromLessonPlanView(Card card, int selectedPane) {
         lessonCards.remove(card);
-        lessonEvents.remove(card.getCardEvent());
+
+        String removedEvent = card.getCardEvent();
+
+        boolean hasRemainingCardsWithEvent = lessonCards.stream()
+                .anyMatch(c -> c.getCardEvent().equals(removedEvent));
+
+        if (!hasRemainingCardsWithEvent) {
+            lessonEvents.remove(removedEvent);
+        }
 
         createGridView(selectedPane);
     }
+
 
 
 
@@ -67,6 +80,9 @@ public class LessonPlanView {
                 if (SearchCardCollection.isEqualSubsequence(cardEvent, card.getCardEvent())) {
                     CardView eachCardView = new CardView(card, this.tabPane);
                     gridPane.add(eachCardView.makeCardView(), column, row);
+                    Button removeButton = new Button("Remove");
+                    removeButton.setOnAction(event -> removeCardFromLessonPlanView(card, selectedPane));
+                    gridPane.add(removeButton, column, row);
 
                     column = (column + 1) % 3;
                     if (column == 0) {
