@@ -88,6 +88,8 @@ public class GymnasticsAppMainView {
     private ListView cardListView;
     @FXML
     private HBox searchHBox;
+    @FXML
+    private Button clearButton;
 
 //    @FXML // fx:id="lessonPlanCardView"
 //    private ListView<Card> lessonPlanListView;
@@ -349,6 +351,7 @@ public class GymnasticsAppMainView {
     public void addToLessonPlan(Card mCard) {
         courseLessonPlan.addCardToLessonPlan(selectedLessonPaneNumber, mCard);
         courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(mCard, selectedLessonPaneNumber);
+        courseLessonPlanView.get(selectedLessonPaneNumber).createGridView(selectedLessonPaneNumber);
     }
     public class CardListCell extends ListCell<Card> {
 
