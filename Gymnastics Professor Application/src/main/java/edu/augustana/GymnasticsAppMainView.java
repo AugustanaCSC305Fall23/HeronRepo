@@ -91,6 +91,9 @@ public class GymnasticsAppMainView {
     @FXML
     private Button clearButton;
 
+    @FXML
+    private MenuItem printFileAction;
+
 //    @FXML // fx:id="lessonPlanCardView"
 //    private ListView<Card> lessonPlanListView;
 

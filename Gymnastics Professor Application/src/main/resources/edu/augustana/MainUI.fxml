@@ -21,16 +21,21 @@
             <children>
                 <MenuBar fx:id="mainMenu" maxHeight="25.0" minHeight="25.0" prefHeight="25.0">
                     <menus>
-                        <Menu mnemonicParsing="false" text="Load">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#menuActionOpen" text="Open" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" onAction="#menuActionSaveAs" text="Save">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#menuActionSaveAs" text="Save" />
-                            </items>
-                        </Menu>
+                  <Menu mnemonicParsing="false" text="File">
+                    <items>
+                      <MenuItem fx:id="printFileAction" mnemonicParsing="false" text="Print" />
+                              <Menu mnemonicParsing="false" text="Load">
+                                  <items>
+                                      <MenuItem mnemonicParsing="false" onAction="#menuActionOpen" text="Open" />
+                                  </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" onAction="#menuActionSaveAs" text="Save">
+                                  <items>
+                                      <MenuItem mnemonicParsing="false" onAction="#menuActionSaveAs" text="Save" />
+                                  </items>
+                              </Menu>
+                    </items>
+                  </Menu>
                         <Menu mnemonicParsing="false" text="Samples">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="Action 1" />
