@@ -35,7 +35,6 @@ public class LessonPlanView {
     public void removeCardFromLessonPlanView(Card card, int selectedPane) {
         lessonCards.remove(card);
 
-
         String removedEvent = card.getCardEvent();
 
         boolean hasRemainingCardsWithEvent = lessonCards.stream()
@@ -51,29 +50,29 @@ public class LessonPlanView {
 
     public void createGridView(int selectedPane) {
         this.tabPane.getTabs().get(selectedPane).setContent(null);
-        // Create a VBox to hold both the title and the grid
-        VBox layout = new VBox(10); // 10 is the spacing between elements
-        layout.setPadding(new Insets(20, 20, 20, 20)); // Padding around the VBox
 
-        // Create a ScrollPane for the grid
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20, 20, 20, 20));
+
+
         ScrollPane scrollPane = new ScrollPane();
 
-        // Optional: Make ScrollPane fit the width of the content
         scrollPane.setFitToWidth(true);
 
         // Assume lessonEvents is a List<String> of event titles
         for (String cardEvent : lessonEvents) {
-            // Create a label for the event title and add it to the layout
-            Label titleLabel = new Label(cardEvent);
-            titleLabel.getStyleClass().add("event-title"); // Add a style class for CSS (optional)
 
-            // Add the title label to the VBox layout
+            Label titleLabel = new Label(cardEvent);
+            titleLabel.getStyleClass().add("event-title");
+
+
             layout.getChildren().add(titleLabel);
-            // Create a GridPane for cards
+
             GridPane gridPane = new GridPane();
             gridPane.setHgap(20); // Horizontal gap
             gridPane.setVgap(15); // Vertical gap
-            // Populate the GridPane with cards that match the event
+            // Populating the GridPane with cards that match the event
+
             int row = 0, column = 0;
             for (Card card : lessonCards) {
                 if (SearchCardCollection.isEqualSubsequence(cardEvent, card.getCardEvent())) {
