@@ -124,7 +124,7 @@ public class GymnasticsAppMainView {
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
-        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.9);
+        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.78);
         addNewLessonTab();
     }
 

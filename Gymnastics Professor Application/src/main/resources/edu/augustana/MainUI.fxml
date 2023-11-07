@@ -108,9 +108,9 @@
                                 <Insets />
                             </opaqueInsets>
                         </ComboBox>
-                        <ComboBox fx:id="categoryFilter" promptText="Category" />
-                        <ComboBox fx:id="equipFilter" promptText="Equipment" />
-                        <ComboBox fx:id="levelFilter" promptText="Level" />
+                        <ComboBox fx:id="categoryFilter" prefWidth="91.0" promptText="Category" />
+                        <ComboBox fx:id="equipFilter" prefWidth="100.0" promptText="Equipment" />
+                        <ComboBox fx:id="levelFilter" prefWidth="70.0" promptText="Level" />
                     </children>
                     <VBox.margin>
                         <Insets />
