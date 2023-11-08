@@ -68,7 +68,7 @@
                     <top>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lesson Plan" BorderPane.alignment="CENTER">
                             <font>
-                                <Font size="20.0" />
+                                <Font name="Freestyle Script" size="36.0" />
                             </font>
                         </Text>
                     </top>
@@ -84,8 +84,11 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" text="Clear All" />
-                              <Button fx:id="AddNewLessonPlan" mnemonicParsing="false" onAction="#addNewLessonTab" text="Add New Lesson Plan">
+                              <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin></Button>
+                              <Button fx:id="AddNewLessonPlan" mnemonicParsing="false" onAction="#addNewLessonTab" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Add New Lesson Plan">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -105,7 +108,7 @@
             <children>
                 <HBox fx:id="searchHBox" alignment="CENTER" prefHeight="25.0" prefWidth="679.0">
                     <children>
-                        <TextField fx:id="mainSearch" prefHeight="25.0" prefWidth="582.0" promptText="Search..." />
+                        <TextField fx:id="mainSearch" prefHeight="25.0" prefWidth="582.0" promptText="Search..." style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" />
                     </children>
                     <VBox.margin>
                         <Insets left="20.0" right="20.0" top="10.0" />
@@ -116,25 +119,46 @@
                         <Insets />
                     </opaqueInsets>
                     <children>
-                        <ComboBox fx:id="eventFilter" promptText="Event">
+                        <ComboBox fx:id="eventFilter" prefWidth="75.0" promptText="Event" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
                         </ComboBox>
-                        <ComboBox fx:id="categoryFilter" prefWidth="91.0" promptText="Category" />
-                        <ComboBox fx:id="equipFilter" prefWidth="100.0" promptText="Equipment" />
-                        <ComboBox fx:id="levelFilter" prefWidth="70.0" promptText="Level" />
+                        <ComboBox fx:id="categoryFilter" prefWidth="95.0" promptText="Category" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin></ComboBox>
+                        <ComboBox fx:id="equipFilter" prefWidth="105.0" promptText="Equipment" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin></ComboBox>
+                        <ComboBox fx:id="levelFilter" prefWidth="75.0" promptText="Level" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" />
                     </children>
                     <VBox.margin>
-                        <Insets />
+                        <Insets top="5.0" />
                     </VBox.margin>
                 </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="25.0">
                <children>
-                        <ComboBox fx:id="genderFilter" promptText="Gender" />
-                        <ComboBox fx:id="modelSexFilter" promptText="Model Sex" />
-                        <Button fx:id="clearFilter" mnemonicParsing="false" text="Clear Filter" />
+                        <ComboBox fx:id="genderFilter" promptText="Gender" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin></ComboBox>
+                        <ComboBox fx:id="modelSexFilter" promptText="Model Sex" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin></ComboBox>
+                        <Button fx:id="clearFilter" mnemonicParsing="false" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Clear Filter" />
                </children>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="2.0" />
+               </padding>
             </HBox>
                 <ListView fx:id="mainSearchView" prefHeight="200.0" prefWidth="200.0" />
             </children>

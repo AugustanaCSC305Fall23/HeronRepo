@@ -8,6 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 public class CardView {
     private Card mCard;
@@ -54,8 +57,10 @@ public class CardView {
         BorderPane bp = new BorderPane();
         HBox hBox = new HBox();
         Label label = new Label();
-        Button addButton = new Button("Add");
+        Button addButton = new Button("+");
         addButton.setOnAction(event -> addToLessonPlan());
+        addButton.setStyle("-fx-padding: -6px 2px; -fx-border-radius: 100%; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 100 100 100 100;");
+        addButton.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 16));
 
         try {
             label.setText(mCard.getSearchString());
