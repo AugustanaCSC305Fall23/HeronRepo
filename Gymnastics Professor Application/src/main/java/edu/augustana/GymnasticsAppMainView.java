@@ -99,6 +99,8 @@ public class GymnasticsAppMainView {
 
     @FXML
     private Button AddNewLessonPlan;
+    @FXML
+    private Button printButton;
 
     @FXML
     private TabPane lessonPlanTabPane;
@@ -129,6 +131,7 @@ public class GymnasticsAppMainView {
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
         lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.78);
         addNewLessonTab();
+        printButton.setOnAction(event -> handlePrintAction(event));
     }
 
     void addOptions() {
@@ -201,6 +204,12 @@ public class GymnasticsAppMainView {
         clearFilter.setOnAction(clearHandler);
 
     }
+    @FXML
+    private void handlePrintAction(ActionEvent event) {
+        CourseLessonPlan lessonPlan = new CourseLessonPlan();
+        lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
+    }
+
 
     private void runSearchForText(String text){
         searchCardCollection.setCardTitleCode(text);
@@ -356,6 +365,13 @@ public class GymnasticsAppMainView {
         courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(mCard, selectedLessonPaneNumber);
         courseLessonPlanView.get(selectedLessonPaneNumber).createGridView(selectedLessonPaneNumber);
     }
+    @FXML
+    public void handlePrintButtonClicked(ActionEvent actionEvent) {
+        CourseLessonPlan lessonPlan = new CourseLessonPlan();
+        lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
+    }
+
+
     public class CardListCell extends ListCell<Card> {
 
         private final ImageView imageView = new ImageView();

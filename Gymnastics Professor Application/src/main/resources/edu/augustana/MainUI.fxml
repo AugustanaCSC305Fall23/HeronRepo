@@ -90,6 +90,7 @@
                                     <Insets left="5.0" />
                                  </HBox.margin>
                               </Button>
+                              <Button fx:id="printButton" layoutX="75.0" layoutY="10.0" mnemonicParsing="false" text="Print" onAction="#handlePrintButtonClicked"/>
                            </children>
                         </HBox>
                         <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />

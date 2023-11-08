@@ -59,7 +59,7 @@ public class LessonPlanView {
 
         scrollPane.setFitToWidth(true);
 
-        // Assume lessonEvents is a List<String> of event titles
+
         for (String cardEvent : lessonEvents) {
 
             Label titleLabel = new Label(cardEvent);
@@ -71,7 +71,6 @@ public class LessonPlanView {
             GridPane gridPane = new GridPane();
             gridPane.setHgap(20); // Horizontal gap
             gridPane.setVgap(15); // Vertical gap
-            // Populating the GridPane with cards that match the event
 
             int row = 0, column = 0;
             for (Card card : lessonCards) {
