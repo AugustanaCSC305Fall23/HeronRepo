@@ -32,7 +32,6 @@ public class CardCollectionView {
 
 
     void initializeMainSearchView(List<Card> cardCollection) {
-
         Screen windowScreen = Screen.getPrimary();
 
         this.mListView.setMinWidth(windowScreen.getBounds().getWidth() * 0.3);

@@ -117,6 +117,7 @@ public class GymnasticsAppMainView {
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
+        searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
         courseLessonPlanView = new ArrayList<>();
         courseLessonPlan = new CourseLessonPlan();
         cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
@@ -124,7 +125,6 @@ public class GymnasticsAppMainView {
         addOptions();
         addEventsListeners();
         TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
-        searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
         Screen windowScreen = Screen.getPrimary();
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
         lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.78);
@@ -321,7 +321,7 @@ public class GymnasticsAppMainView {
 
     private void displayLoadFromFile() {
         List<LessonPlan> lessonPlans = new ArrayList<>(courseLessonPlan.getCourseLessonPlan());
-
+        selectedLessonPaneNumber = 0;
         for (int i = 0; i < lessonPlans.size(); i++) {
             LessonPlan eachLessonPlan = lessonPlans.get(i);
             addNewLessonTab();
