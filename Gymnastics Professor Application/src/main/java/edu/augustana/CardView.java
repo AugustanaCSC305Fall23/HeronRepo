@@ -30,8 +30,8 @@ public class CardView {
     public VBox makeCardView() {
         VBox vBox = new VBox();
         ImageView imageView = new ImageView();
-        vBox.setMinWidth(400);
-        vBox.setMinHeight(400);
+        vBox.setMinWidth(300);
+        vBox.setMinHeight(300);
 
         try {
 
@@ -40,8 +40,8 @@ public class CardView {
             Image image = new Image(GymnasticsProfessorApp.class.getResource("DEMO1Pack/" + mCard.getCardImage()).toString());
             // Create an ImageView and set the image
             imageView = new ImageView(image);
-            imageView.setFitHeight(400);
-            imageView.setFitWidth(400);
+            imageView.setFitHeight(300);
+            imageView.setFitWidth(300);
 
             // Add the ImageView to the VBox
             vBox.getChildren().add(imageView);
@@ -57,10 +57,10 @@ public class CardView {
         BorderPane bp = new BorderPane();
         HBox hBox = new HBox();
         Label label = new Label();
-        Button addButton = new Button("+");
+        Button addButton = new Button("Add");
         addButton.setOnAction(event -> addToLessonPlan());
-        addButton.setStyle("-fx-padding: -6px 2px; -fx-border-radius: 100%; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 100 100 100 100;");
-        addButton.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 16));
+        addButton.setStyle("-fx-border-radius: 100%; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;");
+        addButton.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 12));
 
         try {
             label.setText(mCard.getSearchString());
