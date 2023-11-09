@@ -318,6 +318,11 @@ public class GymnasticsAppMainView {
         File chosenFile = fileChooser.showOpenDialog(mainWindow);
         if (chosenFile != null) {
             try {
+                for (int i = 0; i < lessonPlanTabPane.getTabs().size(); i++) {
+                    lessonPlanTabPane.getTabs().get(i).setContent(null);
+                    courseLessonPlan.getCourseLessonPlanList().get(i).clear();
+                    courseLessonPlanView.get(i).clearLessonPlanView();
+                }
                 lessonPlanTabPane.getTabs().clear();
                 courseLessonPlan = CourseLessonPlan.loadCoursePlan(chosenFile);
                 selectedLessonPaneNumber = 0;
@@ -332,6 +337,7 @@ public class GymnasticsAppMainView {
         List<LessonPlan> lessonPlans = new ArrayList<>(courseLessonPlan.getCourseLessonPlan());
         selectedLessonPaneNumber = 0;
         lessonPlanNumber = 0;
+
         for (int i = 0; i < lessonPlans.size(); i++) {
             LessonPlan eachLessonPlan = lessonPlans.get(i);
             addNewLessonTab();
