@@ -114,7 +114,7 @@ public class Card {
                 '}';
     }
 
-    public String getSearchString() {return cardCode + ", " + cardTitle;}
+    public String getSearchString() {return cardCode + ": " + cardTitle;}
 
     public static class CardBuilder {
         private String cardCode;
