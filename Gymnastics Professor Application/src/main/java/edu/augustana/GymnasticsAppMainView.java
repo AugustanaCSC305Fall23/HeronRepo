@@ -331,6 +331,7 @@ public class GymnasticsAppMainView {
     private void displayLoadFromFile() {
         List<LessonPlan> lessonPlans = new ArrayList<>(courseLessonPlan.getCourseLessonPlan());
         selectedLessonPaneNumber = 0;
+        lessonPlanNumber = 0;
         for (int i = 0; i < lessonPlans.size(); i++) {
             LessonPlan eachLessonPlan = lessonPlans.get(i);
             addNewLessonTab();
