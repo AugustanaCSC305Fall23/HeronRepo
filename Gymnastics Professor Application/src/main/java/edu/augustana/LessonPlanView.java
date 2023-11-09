@@ -47,6 +47,10 @@ public class LessonPlanView {
         createGridView(selectedPane);
     }
 
+    public void clearLessonPlanView() {
+        lessonCards.clear();
+        lessonEvents.clear();
+    }
 
     public void createGridView(int selectedPane) {
         this.tabPane.getTabs().get(selectedPane).setContent(null);

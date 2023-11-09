@@ -28,6 +28,10 @@ public class CourseLessonPlan {
         courseLessonPlan.get(selectedLessonPlan).add(card);
     }
 
+    public List<LessonPlan> getCourseLessonPlanList() {
+        return courseLessonPlan;
+    }
+
     public static CourseLessonPlan loadCoursePlan(File logFile) throws IOException {
         FileReader reader = new FileReader(logFile);
         Gson gson = new Gson();

@@ -357,6 +357,13 @@ public class GymnasticsAppMainView {
     }
 
     @FXML
+    private void clearCurrentLessonPlan(){
+        lessonPlanTabPane.getTabs().get(selectedLessonPaneNumber).setContent(null);
+        courseLessonPlan.getCourseLessonPlanList().get(selectedLessonPaneNumber).clear();
+        courseLessonPlanView.get(selectedLessonPaneNumber).clearLessonPlanView();
+    }
+
+    @FXML
     void clearImage(MouseEvent event){
 //        lessonPlanListView.getItems().clear(); // Clear all items in the lesson plan list view
 //        lessonPlan.clear();
