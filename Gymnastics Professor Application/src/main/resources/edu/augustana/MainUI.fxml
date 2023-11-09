@@ -84,7 +84,7 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan">
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCurrentLessonPlan" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin></Button>
