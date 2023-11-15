@@ -18,7 +18,7 @@ public class CardCollection {
 
     public static void createCardCollection()
     {
-        List<List<String>> cardCollectionStringList = ReadFile.readCSVFile("DEMO1");
+        List<List<String>> cardCollectionStringList = ReadFile.readAllCSVFilesInFolder("CSVFolder");
         List<String> tempEquipment = new ArrayList<>();
 
         List<String> tempKeywords = new ArrayList<>();
