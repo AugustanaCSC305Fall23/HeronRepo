@@ -309,7 +309,7 @@ public class GymnasticsAppMainView {
     }
 
     @FXML
-    private void menuActionOpen(ActionEvent event) {
+    void menuActionOpen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Course Plan");
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Movie Logs (*.courselessonplan)", "*.courselessonplan");
@@ -332,6 +332,7 @@ public class GymnasticsAppMainView {
             }
         }
     }
+
 
     private void displayLoadFromFile() {
         List<LessonPlan> lessonPlans = new ArrayList<>(courseLessonPlan.getCourseLessonPlan());

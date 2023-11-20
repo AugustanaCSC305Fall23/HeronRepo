@@ -36,6 +36,7 @@ public class CourseLessonPlan {
         FileReader reader = new FileReader(logFile);
         Gson gson = new Gson();
         return gson.fromJson(reader,CourseLessonPlan.class);
+
     }
     public Node generatePrintableContent(LessonPlan lessonPlan) {
         VBox printableContent = new VBox();
@@ -49,7 +50,7 @@ public class CourseLessonPlan {
 
             String imagePath = card.getCardImage();
             if (imagePath != null && !imagePath.isEmpty()) {
-                String imageFullPath = "file:///C:/git/HeronRepo/Gymnastics%20Professor%20Application/src/main/resources/edu/augustana/DEMO1Pack/" + imagePath.replace(" ", "%20");
+                String imageFullPath = "file:src/main/resources/edu/augustana/DEMO1Pack/" + imagePath.replace(" ", "%20");
                 ImageView imageView = new ImageView(imageFullPath);
                 imageView.setFitWidth(250);
                 imageView.setFitHeight(250);

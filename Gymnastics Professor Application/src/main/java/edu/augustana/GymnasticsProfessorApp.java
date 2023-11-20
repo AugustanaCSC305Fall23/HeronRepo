@@ -19,7 +19,7 @@ public class GymnasticsProfessorApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("MainUI"));
+        scene = new Scene(loadFXML("WelcomePage"));
 
         //Get the primary screen's dimensions
         Screen windowScreen = Screen.getPrimary();
@@ -36,6 +36,17 @@ public class GymnasticsProfessorApp extends Application {
         stage.show();
     }
 
+    public static GymnasticsAppMainView switchToMainView() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(GymnasticsProfessorApp.class.getResource( "MainUI.fxml"));
+
+        Parent root = fxmlLoader.load();
+        GymnasticsAppMainView controller = fxmlLoader.getController();
+        scene.setRoot(root);
+        return controller;
+
+    }
+
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
@@ -44,6 +55,7 @@ public class GymnasticsProfessorApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(GymnasticsProfessorApp.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
+
 
     public static void main(String[] args) {
         launch();
