@@ -11,7 +11,7 @@ public class CardCollection {
 
     public static List<Card> cardCollection = new ArrayList<Card>();
 
-    public static Set<String> allCardsEquipment = new HashSet<>();
+    public static List<String> allCardsEquipment = new ArrayList<>();
 
     public static Set<String> possibleSuggestions = new HashSet<>();
 
@@ -36,8 +36,11 @@ public class CardCollection {
                 if (equipment.charAt(0) == '"'){
                     equipment = equipment.substring(1);
                 }
+                equipment = equipment.strip();
                 updatedTempEquipment.add(equipment);
-                allCardsEquipment.add(equipment);
+                if (!allCardsEquipment.contains(equipment)){
+                    allCardsEquipment.add(equipment);
+                }
             }
             possibleSuggestions.add(cardString.get(3));
             tempKeywords = List.of(cardString.get(10).split(","));
