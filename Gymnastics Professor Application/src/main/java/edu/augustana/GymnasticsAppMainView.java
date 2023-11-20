@@ -124,7 +124,7 @@ public class GymnasticsAppMainView {
         courseLessonPlan = new CourseLessonPlan();
         cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
         cardCollectionView.switchCardCollectionToMainView();
-        addOptions();
+        setupFilters();
         addEventsListeners();
         TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
         Screen windowScreen = Screen.getPrimary();
@@ -134,59 +134,21 @@ public class GymnasticsAppMainView {
         printButton.setOnAction(event -> handlePrintAction(event));
     }
 
-    void addOptions() {
-        addOptionsForEvent();
-        addOptionsForCategory();
-        addOptionsForEquipment();
-        addOptionsForLevel();
-        addOptionsForGender();
-        addOptionsForModelSex();
+    private void setupFilters() {
+        setupFilter(eventFilter, "Event", Arrays.stream(EventsEnum.values()).map(Enum::name).collect(Collectors.toList()));
+        setupFilter(categoryFilter, "Category", Arrays.stream(CategoryEnum.values()).map(Enum::name).collect(Collectors.toList()));
+        setupFilter(equipFilter, "Equipment", CardCollection.allCardsEquipment);
+        setupFilter(levelFilter, "Level", Arrays.stream(LevelEnum.values()).map(Enum::name).collect(Collectors.toList()));
+        setupFilter(genderFilter, "Gender", Arrays.stream(GenderEnum.values()).map(Enum::toString).collect(Collectors.toList()));
+        setupFilter(modelSexFilter, "Model Sex", Arrays.stream(ModelSexEnum.values()).map(Enum::toString).collect(Collectors.toList()));
     }
 
-
-    void addOptionsForEvent() {
-        eventFilter.getItems().add("Event");
-        eventFilter.getItems().addAll(Arrays.stream(EventsEnum.values())
-                .map(Enum::name)
-                .collect(Collectors.toList()));
+    private void setupFilter(ComboBox<String> filter, String promptText, List<String> items) {
+        filter.setPromptText(promptText);
+        filter.getItems().add(promptText);
+        filter.getItems().addAll(items);
     }
 
-
-    void addOptionsForCategory() {
-        categoryFilter.getItems().add("Category");
-        categoryFilter.getItems().addAll(Arrays.stream(CategoryEnum.values())
-                .map(Enum::name)
-                .collect(Collectors.toList()));
-    }
-
-
-    void addOptionsForEquipment() {
-        equipFilter.getItems().add("Equipment");
-        for (String equipment : CardCollection.allCardsEquipment) {
-            equipFilter.getItems().addAll(equipment);
-        }
-    }
-
-    void addOptionsForLevel() {
-        levelFilter.getItems().add("Level");
-        levelFilter.getItems().addAll(Arrays.stream(LevelEnum.values())
-                .map(Enum::name)
-                .collect(Collectors.toList()));
-    }
-
-    void addOptionsForGender() {
-        genderFilter.getItems().add("Gender");
-        for (GenderEnum gender: GenderEnum.values()){
-            genderFilter.getItems().add(gender.toString());
-        }
-    }
-    void addOptionsForModelSex(){
-        modelSexFilter.getItems().add("Model Sex");
-        for (ModelSexEnum modelSex: ModelSexEnum.values()){
-           modelSexFilter.getItems().add(modelSex.toString());
-        }
-
-    }
 
 
     void addEventsListeners() {
