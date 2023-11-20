@@ -1,13 +1,10 @@
 package edu.augustana;
 
-
-//import com.sun.javafx.menu.MenuItemBase;
 import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
 import edu.augustana.constants.ModelSexEnum;
-import edu.augustana.utils.PrintCard;
 import edu.augustana.utils.SearchCardCollection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +22,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Window;
 import org.controlsfx.control.textfield.TextFields;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,9 +34,8 @@ import java.util.stream.Collectors;
  * Main View (Home Screen) of the Gymnastics Professor Application.
  *
  */
+
 public class GymnasticsAppMainView {
-
-
 
     @FXML // fx:id="filtersMenu"
     private HBox filtersMenu; // Value injected by FXMLLoader
@@ -77,26 +72,17 @@ public class GymnasticsAppMainView {
     @FXML
     private Button clearFilter;
     @FXML
-    private Menu saveCourse;
-    @FXML
     private ListView mainSearchView;
     @FXML
     private ScrollPane scrollPaneView;
-    @FXML
-    private ImageView lessonPlanImage;
     @FXML
     private ListView cardListView;
     @FXML
     private HBox searchHBox;
     @FXML
     private Button clearButton;
-
     @FXML
     private MenuItem printFileAction;
-
-//    @FXML // fx:id="lessonPlanCardView"
-//    private ListView<Card> lessonPlanListView;
-
     @FXML
     private Button AddNewLessonPlan;
     @FXML
@@ -384,8 +370,7 @@ public class GymnasticsAppMainView {
         private void removeFromLessonPlan() {
             Card card = getItem();
             if (card != null) {
-//                lessonPlan.remove(card);
-//                lessonPlanListView.getItems().remove(card);
+
             }
         }
     }
