@@ -10,12 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.augustana.WelcomeController">
    <center>
       <VBox alignment="CENTER" prefHeight="850.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="170.0" fitWidth="198.0">
+            <ImageView fitHeight="221.0" fitWidth="263.0">
                <image>
                   <Image url="@Clients logo/logo.png" />
                </image>
@@ -25,7 +24,7 @@
                   <Insets top="30.0" />
                </VBox.margin>
                <font>
-                  <Font size="34.0" />
+                  <Font size="55.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -34,8 +33,14 @@
                      <HBox.margin>
                         <Insets right="100.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="25.0" />
+                     </font>
                   </Button>
-                  <Button fx:id="createanewplan" alignment="CENTER" mnemonicParsing="false" onAction="#createLessonPlanButton" text="Create a new plan" />
+                  <Button fx:id="createanewplan" alignment="CENTER" mnemonicParsing="false" onAction="#createLessonPlanButton" text="Create a new plan">
+                     <font>
+                        <Font size="25.0" />
+                     </font></Button>
                </children>
             </HBox>
          </children>
