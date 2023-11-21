@@ -1,13 +1,10 @@
 package edu.augustana;
 
-
-//import com.sun.javafx.menu.MenuItemBase;
 import edu.augustana.constants.CategoryEnum;
 import edu.augustana.constants.EventsEnum;
 import edu.augustana.constants.GenderEnum;
 import edu.augustana.constants.LevelEnum;
 import edu.augustana.constants.ModelSexEnum;
-import edu.augustana.utils.PrintCard;
 import edu.augustana.utils.SearchCardCollection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +22,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Window;
 import org.controlsfx.control.textfield.TextFields;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,9 +34,8 @@ import java.util.stream.Collectors;
  * Main View (Home Screen) of the Gymnastics Professor Application.
  *
  */
+
 public class GymnasticsAppMainView {
-
-
 
     @FXML // fx:id="filtersMenu"
     private HBox filtersMenu; // Value injected by FXMLLoader
@@ -77,26 +72,17 @@ public class GymnasticsAppMainView {
     @FXML
     private Button clearFilter;
     @FXML
-    private Menu saveCourse;
-    @FXML
     private ListView mainSearchView;
     @FXML
     private ScrollPane scrollPaneView;
-    @FXML
-    private ImageView lessonPlanImage;
     @FXML
     private ListView cardListView;
     @FXML
     private HBox searchHBox;
     @FXML
     private Button clearButton;
-
     @FXML
     private MenuItem printFileAction;
-
-//    @FXML // fx:id="lessonPlanCardView"
-//    private ListView<Card> lessonPlanListView;
-
     @FXML
     private Button AddNewLessonPlan;
     @FXML
@@ -124,7 +110,7 @@ public class GymnasticsAppMainView {
         courseLessonPlan = new CourseLessonPlan();
         cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
         cardCollectionView.switchCardCollectionToMainView();
-        addOptions();
+        setupFilters();
         addEventsListeners();
         TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
         Screen windowScreen = Screen.getPrimary();
@@ -134,59 +120,21 @@ public class GymnasticsAppMainView {
         printButton.setOnAction(event -> handlePrintAction(event));
     }
 
-    void addOptions() {
-        addOptionsForEvent();
-        addOptionsForCategory();
-        addOptionsForEquipment();
-        addOptionsForLevel();
-        addOptionsForGender();
-        addOptionsForModelSex();
+    private void setupFilters() {
+        setupFilter(eventFilter, "Event", Arrays.stream(EventsEnum.values()).map(Enum::name).collect(Collectors.toList()));
+        setupFilter(categoryFilter, "Category", Arrays.stream(CategoryEnum.values()).map(Enum::name).collect(Collectors.toList()));
+        setupFilter(equipFilter, "Equipment", CardCollection.allCardsEquipment);
+        setupFilter(levelFilter, "Level", Arrays.stream(LevelEnum.values()).map(Enum::name).collect(Collectors.toList()));
+        setupFilter(genderFilter, "Gender", Arrays.stream(GenderEnum.values()).map(Enum::toString).collect(Collectors.toList()));
+        setupFilter(modelSexFilter, "Model Sex", Arrays.stream(ModelSexEnum.values()).map(Enum::toString).collect(Collectors.toList()));
     }
 
-
-    void addOptionsForEvent() {
-        eventFilter.getItems().add("Event");
-        eventFilter.getItems().addAll(Arrays.stream(EventsEnum.values())
-                .map(Enum::name)
-                .collect(Collectors.toList()));
+    private void setupFilter(ComboBox<String> filter, String promptText, List<String> items) {
+        filter.setPromptText(promptText);
+        filter.getItems().add(promptText);
+        filter.getItems().addAll(items);
     }
 
-
-    void addOptionsForCategory() {
-        categoryFilter.getItems().add("Category");
-        categoryFilter.getItems().addAll(Arrays.stream(CategoryEnum.values())
-                .map(Enum::name)
-                .collect(Collectors.toList()));
-    }
-
-
-    void addOptionsForEquipment() {
-        equipFilter.getItems().add("Equipment");
-        for (String equipment : CardCollection.allCardsEquipment) {
-            equipFilter.getItems().addAll(equipment);
-        }
-    }
-
-    void addOptionsForLevel() {
-        levelFilter.getItems().add("Level");
-        levelFilter.getItems().addAll(Arrays.stream(LevelEnum.values())
-                .map(Enum::name)
-                .collect(Collectors.toList()));
-    }
-
-    void addOptionsForGender() {
-        genderFilter.getItems().add("Gender");
-        for (GenderEnum gender: GenderEnum.values()){
-            genderFilter.getItems().add(gender.toString());
-        }
-    }
-    void addOptionsForModelSex(){
-        modelSexFilter.getItems().add("Model Sex");
-        for (ModelSexEnum modelSex: ModelSexEnum.values()){
-           modelSexFilter.getItems().add(modelSex.toString());
-        }
-
-    }
 
 
     void addEventsListeners() {
@@ -309,7 +257,7 @@ public class GymnasticsAppMainView {
     }
 
     @FXML
-    private void menuActionOpen(ActionEvent event) {
+    void menuActionOpen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Course Plan");
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Movie Logs (*.courselessonplan)", "*.courselessonplan");
@@ -332,6 +280,7 @@ public class GymnasticsAppMainView {
             }
         }
     }
+
 
     private void displayLoadFromFile() {
         List<LessonPlan> lessonPlans = new ArrayList<>(courseLessonPlan.getCourseLessonPlan());
@@ -421,8 +370,7 @@ public class GymnasticsAppMainView {
         private void removeFromLessonPlan() {
             Card card = getItem();
             if (card != null) {
-//                lessonPlan.remove(card);
-//                lessonPlanListView.getItems().remove(card);
+
             }
         }
     }

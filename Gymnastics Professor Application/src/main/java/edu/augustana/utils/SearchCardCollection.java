@@ -100,7 +100,7 @@ public class SearchCardCollection {
                                 &&
                                         (this.cardGender == null || this.cardGender == "ALL" || this.cardGender == "Gender" || isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
                                 &&
-                                        (this.cardModelSex == null || this.cardModelSex == "Model Sex" || isEqualSubsequence(eachCard.getCardModelSex(), this.cardModelSex))
+                                        (this.cardModelSex == null || this.cardModelSex == "Model Sex" || eachCard.getCardModelSex() == "N" ||isEqualSubsequence(eachCard.getCardModelSex(), this.cardModelSex))
                                 &&
                                                 (
                                         (this.cardTitleCode == null || isEqualSubsequence(eachCard.getCardCode(), this.cardTitleCode))
