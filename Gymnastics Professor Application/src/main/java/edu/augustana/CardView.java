@@ -81,23 +81,32 @@ public class CardView {
         addButton.setStyle("-fx-border-radius: 100%; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;");
 
         addButton.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        //The BorderPane stringFrame is used instead of an HBox for formatting purposes
+        BorderPane stringFrame = new BorderPane();
+        Label searchString = new Label();
+
+        Button addToLpButton = new Button("Add");
+        addToLpButton.setOnAction(event -> addToLessonPlan());
+
+        //Sets the styling for the add button to the same as standard over the rest of the app
+        addToLpButton.setStyle("-fx-border-radius: 100%; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;");
+        addToLpButton.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 12));
 
         try {
-            label.setText(mCard.getSearchString());
-
-            // Add the search string to the HBox
-            hBox.getChildren().add(label);
+            searchString.setText(mCard.getSearchString());
 
             //Add and format the search string HBox and add button
             bp.setLeft(hBox);
 
             bp.setRight(addButton);
 
+            stringFrame.setLeft(searchString);
+            stringFrame.setRight(addToLpButton);
         } catch (Exception e) {
             System.out.print(mCard.getSearchString());
         }
 
-        return bp;
+        return stringFrame;
     }
 
 
