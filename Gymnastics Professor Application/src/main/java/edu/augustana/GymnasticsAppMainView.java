@@ -1,32 +1,59 @@
 package edu.augustana;
 
 import edu.augustana.constants.CategoryEnum;
+
 import edu.augustana.constants.EventsEnum;
+
 import edu.augustana.constants.GenderEnum;
+
 import edu.augustana.constants.LevelEnum;
+
 import edu.augustana.constants.ModelSexEnum;
+
 import edu.augustana.utils.SearchCardCollection;
+
 import javafx.event.ActionEvent;
+
 import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
+
 import javafx.scene.Node;
+
 import javafx.scene.control.*;
+
 import javafx.scene.control.ListView;
+
 import javafx.scene.image.Image;
+
 import javafx.scene.image.ImageView;
+
 import javafx.scene.input.MouseEvent;
+
 import javafx.scene.layout.BorderPane;
+
 import javafx.scene.layout.HBox;
+
 import javafx.scene.text.Text;
+
 import javafx.stage.FileChooser;
+
 import javafx.stage.Screen;
+
 import javafx.stage.Window;
+
 import org.controlsfx.control.textfield.TextFields;
+
 import java.io.File;
+
 import java.io.IOException;
+
 import java.util.ArrayList;
+
 import java.util.Arrays;
+
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 
@@ -70,21 +97,30 @@ public class GymnasticsAppMainView {
     @FXML // fx:id="scrollBar"
     private ScrollBar scrollBar; // Value injected by FXMLLoader
     @FXML
+
     private Button clearFilter;
     @FXML
+
     private ListView mainSearchView;
+
     @FXML
     private ScrollPane scrollPaneView;
+
     @FXML
     private ListView cardListView;
+
     @FXML
     private HBox searchHBox;
+
     @FXML
     private Button clearButton;
+
     @FXML
     private MenuItem printFileAction;
+
     @FXML
     private Button AddNewLessonPlan;
+
     @FXML
     private Button printButton;
 
@@ -96,6 +132,7 @@ public class GymnasticsAppMainView {
     private SearchCardCollection searchCardCollection;
 
     private CourseLessonPlan courseLessonPlan;
+
     private List<LessonPlanView> courseLessonPlanView;
 
     private int lessonPlanNumber = 0;
@@ -106,17 +143,29 @@ public class GymnasticsAppMainView {
     @FXML
     void initialize(){
         searchCardCollection = SearchCardCollection.SearchCardCollectionBuilder.searchBuilder().build();
+
         courseLessonPlanView = new ArrayList<>();
+
         courseLessonPlan = new CourseLessonPlan();
+
         cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
+
         cardCollectionView.switchCardCollectionToMainView();
+
         setupFilters();
+
         addEventsListeners();
+
         TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
+
         Screen windowScreen = Screen.getPrimary();
+
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
+
         lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.78);
+
         addNewLessonTab();
+
         printButton.setOnAction(event -> handlePrintAction(event));
     }
 
