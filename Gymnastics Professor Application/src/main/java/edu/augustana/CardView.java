@@ -1,5 +1,6 @@
 package edu.augustana;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
@@ -95,6 +96,7 @@ public class CardView {
 
             buttonBar.getChildren().addAll(expandCardButton, addToLpButton);
             buttonBar.setSpacing(5);
+            buttonBar.setPadding(new Insets(0, 0, 2, 0));
 
             stringFrame.setLeft(searchString);
             stringFrame.setRight(buttonBar);
@@ -126,6 +128,7 @@ public class CardView {
 
         // Add the ImageView to the VBox
         vbox.getChildren().addAll(cardMagnify, closeExpand);
+        vbox.setSpacing(2);
         stringFrame.setBottom(vbox);
         vbox.setAlignment(Pos.CENTER);
 
