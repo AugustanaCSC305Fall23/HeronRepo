@@ -1,5 +1,6 @@
 package edu.augustana;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
@@ -68,22 +69,12 @@ public class CardView {
     }
 
     public BorderPane makeCardList() {
-        BorderPane bp = new BorderPane();
-
-        HBox hBox = new HBox();
-
-        Label label = new Label();
-
-        Button addButton = new Button("Add");
-
-        addButton.setOnAction(event -> addToLessonPlan());
-
-        addButton.setStyle("-fx-border-radius: 100%; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;");
-
-        addButton.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 12));
         //The BorderPane stringFrame is used instead of an HBox for formatting purposes
         BorderPane stringFrame = new BorderPane();
         Label searchString = new Label();
+
+        //Creates HBox to contain buttons, so they don't stack vertically
+        HBox buttonBar = new HBox();
 
         Button addToLpButton = new Button("Add");
         addToLpButton.setOnAction(event -> addToLessonPlan());
@@ -92,19 +83,51 @@ public class CardView {
         addToLpButton.setStyle("-fx-border-radius: 100%; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;");
         addToLpButton.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 12));
 
+        Button expandCardButton = new Button("Expand");
+        expandCardButton.setOnAction(event -> expandCard(stringFrame));
+
+        //Sets the styling for the expand button to the same as standard over the rest of the app
+        expandCardButton.setStyle("-fx-border-radius: 100%; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;");
+        expandCardButton.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 12));
+
         try {
             searchString.setText(mCard.getSearchString());
 
-            //Add and format the search string HBox and add button
-            bp.setLeft(hBox);
-
-            bp.setRight(addButton);
+            buttonBar.getChildren().addAll(expandCardButton, addToLpButton);
+            buttonBar.setSpacing(5);
 
             stringFrame.setLeft(searchString);
-            stringFrame.setRight(addToLpButton);
+            stringFrame.setRight(buttonBar);
         } catch (Exception e) {
             System.out.print(mCard.getSearchString());
         }
+
+        return stringFrame;
+    }
+
+    public BorderPane expandCard(BorderPane stringFrame) {
+        VBox vbox = new VBox();
+
+        ImageView cardMagnify = new ImageView();
+
+        // Load the image from the resource path
+        Image image = new Image(GymnasticsProfessorApp.class.getResource("DEMO1Pack/" + mCard.getCardImage()).toString());
+        // Create an ImageView and set the image
+        cardMagnify = new ImageView(image);
+
+        //Sets the size of cardMagnify while also keeping the apperance of the cards
+        cardMagnify.setFitWidth(400);
+        cardMagnify.setFitHeight(310);
+
+        Button closeExpand = new Button("Close");
+        closeExpand.setStyle("-fx-border-radius: 100%; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;");
+        closeExpand.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        closeExpand.setOnAction(event -> vbox.getChildren().clear());
+
+        // Add the ImageView to the VBox
+        vbox.getChildren().addAll(cardMagnify, closeExpand);
+        stringFrame.setBottom(vbox);
+        vbox.setAlignment(Pos.CENTER);
 
         return stringFrame;
     }
