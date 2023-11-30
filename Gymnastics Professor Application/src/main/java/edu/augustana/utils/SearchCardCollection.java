@@ -90,17 +90,17 @@ public class SearchCardCollection {
                 .stream()
                 .filter(
                         eachCard -> (
-                                        (this.cardEvent == null  ||  this.cardEvent == "ALL" || this.cardEvent == "Event" || isEqualSubsequence(eachCard.getCardEvent(), this.cardEvent))
+                                        (this.cardEvent == null  ||  this.cardEvent.equals("ALL") || this.cardEvent.equals("Event") || isEqualSubsequence(eachCard.getCardEvent(), this.cardEvent))
                                 &&
-                                        (this.cardCategory == null || this.cardCategory == "Category" || isEqualSubsequence(eachCard.getCardCategory(), this.cardCategory))
+                                        (this.cardCategory == null || this.cardCategory.equals("Category") || isEqualSubsequence(eachCard.getCardCategory(), this.cardCategory))
                                 &&
-                                        (this.cardEquipment == null || this.cardEquipment == "Equipment" || (eachCard.getCardEquipment().contains(this.cardEquipment)))
+                                        (this.cardEquipment == null || this.cardEquipment.equals("Equipment") || (eachCard.getCardEquipment().contains(this.cardEquipment)))
                                 &&
-                                        (this.cardLevel == null || this.cardLevel == "Level" || (eachCard.getCardLevel().contains(this.cardLevel)))
+                                        (this.cardLevel == null || this.cardLevel.equals("Level") || (eachCard.getCardLevel().contains(this.cardLevel)))
                                 &&
-                                        (this.cardGender == null || this.cardGender == "ALL" || this.cardGender == "Gender" || isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
+                                        (this.cardGender == null || this.cardGender.equals("ALL") || this.cardGender.equals("Gender") || eachCard.getCardGender().equals("N") || isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
                                 &&
-                                        (this.cardModelSex == null || this.cardModelSex == "Model Sex" || eachCard.getCardModelSex() == "N" ||isEqualSubsequence(eachCard.getCardModelSex(), this.cardModelSex))
+                                        (this.cardModelSex == null || this.cardModelSex.equals("Model Sex") || eachCard.getCardModelSex().equals("N") ||isEqualSubsequence(eachCard.getCardModelSex(), this.cardModelSex))
                                 &&
                                                 (
                                         (this.cardTitleCode == null || isEqualSubsequence(eachCard.getCardCode(), this.cardTitleCode))
