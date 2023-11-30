@@ -250,6 +250,7 @@ public class GymnasticsAppMainView {
                     newSearchList = searchCardCollection.searchCards();
                     cardCollectionView.initializeMainSearchView(newSearchList);
                     break;
+
                 case "modelSexFilter":
                     searchCardCollection.setCardModelSex(modelSexFilter.getSelectionModel().getSelectedItem());
                     newSearchList = searchCardCollection.searchCards();
