@@ -139,6 +139,8 @@ public class GymnasticsAppMainView {
 
     private int selectedLessonPaneNumber;
 
+    private UserPreferencesManager preferencesManager;
+
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
@@ -166,7 +168,12 @@ public class GymnasticsAppMainView {
 
         addNewLessonTab();
 
+        preferencesManager = new UserPreferencesManager();
+
+        String[] recentFiles = preferencesManager.getRecentFiles();
+
         printButton.setOnAction(event -> handlePrintAction(event));
+
     }
 
     private void setupFilters() {
@@ -396,6 +403,9 @@ public class GymnasticsAppMainView {
         public CardListCell() {
             removeButton.setOnAction(event -> removeFromLessonPlan());
             cardBox.getChildren().addAll(imageView, cardDetails,removeButton);
+        }
+        private void saveRecentFilesToPreferences(String[] recentFiles){
+            preferencesManager.saveRecentFilesToPreferences(recentFiles);
         }
 
         @Override
