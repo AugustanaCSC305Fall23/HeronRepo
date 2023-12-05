@@ -1,6 +1,5 @@
 package edu.augustana;
 
-import edu.augustana.utils.ReadFile;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +18,7 @@ public class GymnasticsProfessorApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("MainUI"));
+        scene = new Scene(loadFXML("WelcomePage"));
 
         //Get the primary screen's dimensions
         Screen windowScreen = Screen.getPrimary();
@@ -34,6 +33,17 @@ public class GymnasticsProfessorApp extends Application {
         stage.setHeight(windowScreenHeight);
         stage.setMaximized(true);
         stage.show();
+    }
+
+    public static GymnasticsAppMainView switchToMainView() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(GymnasticsProfessorApp.class.getResource( "MainUI.fxml"));
+
+        Parent root = fxmlLoader.load();
+        GymnasticsAppMainView controller = fxmlLoader.getController();
+        scene.setRoot(root);
+        return controller;
+
     }
 
     static void setRoot(String fxml) throws IOException {

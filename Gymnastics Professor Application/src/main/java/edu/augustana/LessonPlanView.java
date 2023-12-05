@@ -10,14 +10,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class LessonPlanView {
     private Set<String> lessonEvents = new HashSet<>();
-
     private List<Card> lessonCards = FXCollections.observableArrayList();
     private TabPane tabPane;
     @FXML

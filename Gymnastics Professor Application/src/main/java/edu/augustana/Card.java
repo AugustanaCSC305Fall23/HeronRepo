@@ -1,7 +1,9 @@
 package edu.augustana;
 
 import javafx.scene.Node;
+
 import javafx.scene.control.Label;
+
 import javafx.scene.layout.VBox;
 
 import java.util.List;
@@ -84,15 +86,17 @@ public class Card {
 
     public Node getVisualizationNode() {
         VBox cardNode = new VBox();
+
         cardNode.setSpacing(5);
 
         Label cardCodeLabel = new Label("Code: " + cardCode);
-        Label cardTitleLabel = new Label("Title: " + cardTitle);
 
+        Label cardTitleLabel = new Label("Title: " + cardTitle);
 
         cardNode.getChildren().addAll(cardCodeLabel, cardTitleLabel);
 
         cardNode.setPrefWidth(200);
+
         cardNode.setPrefHeight(150);
 
         return cardNode;
@@ -114,7 +118,7 @@ public class Card {
                 '}';
     }
 
-    public String getSearchString() {return cardCode + ": " + cardTitle;}
+    public String getSearchString() {return cardCode + ": " + cardTitle;} //Returns a string of what will be displayed in the search
 
     public static class CardBuilder {
         private String cardCode;

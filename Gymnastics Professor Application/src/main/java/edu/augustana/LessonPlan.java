@@ -10,11 +10,9 @@ import javafx.fxml.FXML;
 
 public class LessonPlan {
     private List<Card> lessonCards = FXCollections.observableArrayList();
-
     public void add(Card mCard) {
         lessonCards.add(mCard);
     }
-
     public void remove(Card card) {
         lessonCards.remove(card);
     }

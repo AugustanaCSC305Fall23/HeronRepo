@@ -1,10 +1,15 @@
 package edu.augustana;
 
 import javafx.scene.layout.BorderPane;
+
 import javafx.scene.layout.GridPane;
+
 import javafx.scene.layout.VBox;
+
 import javafx.scene.layout.HBox;
+
 import javafx.stage.Screen;
+
 import javafx.scene.control.ListView;
 
 import java.util.List;
@@ -41,7 +46,9 @@ public class CardCollectionView {
         this.mListView.getItems().clear();
 
         for (Card card : cardCollection) {
+
             CardView cardView = new CardView(card,mainView);
+
             BorderPane cardBox = cardView.makeCardList();
 
             // Add the cardBox to the GridPane at the current row and column
