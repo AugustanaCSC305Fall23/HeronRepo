@@ -2,6 +2,7 @@ package edu.augustana;
 
 import javafx.fxml.FXML;
 import java.io.IOException;
+import java.util.List;
 
 public class WelcomeController {
 
@@ -15,5 +16,11 @@ public class WelcomeController {
     @FXML
     private void createLessonPlanButton() throws IOException {
             GymnasticsProfessorApp.switchToMainView();
+    }
+    @FXML
+
+    private void initialize(){
+        List<String> recentFiles = UserPreferencesManager.getRecentFiles();
+        System.out.println("recent = " + recentFiles);
     }
 }

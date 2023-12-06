@@ -170,7 +170,6 @@ public class GymnasticsAppMainView {
 
         preferencesManager = new UserPreferencesManager();
 
-        String[] recentFiles = preferencesManager.getRecentFiles();
 
         printButton.setOnAction(event -> handlePrintAction(event));
 
@@ -301,6 +300,8 @@ public class GymnasticsAppMainView {
         Window mainWindow = mainSearchView.getScene().getWindow();
         File chosenFile = fileChooser.showSaveDialog(mainWindow);
         saveCurrentCourseToFile(chosenFile);
+        UserPreferencesManager.addRecentFile(chosenFile.getAbsolutePath());
+
     }
 
     private void saveCurrentCourseToFile(File chosenFile) {
@@ -332,6 +333,8 @@ public class GymnasticsAppMainView {
                 courseLessonPlan = CourseLessonPlan.loadCoursePlan(chosenFile);
                 selectedLessonPaneNumber = 0;
                 displayLoadFromFile();
+                UserPreferencesManager.addRecentFile(chosenFile.getAbsolutePath());
+
             } catch (IOException ex) {
                 new Alert(Alert.AlertType.ERROR, "Error loading lesson plan: " + chosenFile).show();
             }
@@ -403,9 +406,6 @@ public class GymnasticsAppMainView {
         public CardListCell() {
             removeButton.setOnAction(event -> removeFromLessonPlan());
             cardBox.getChildren().addAll(imageView, cardDetails,removeButton);
-        }
-        private void saveRecentFilesToPreferences(String[] recentFiles){
-            preferencesManager.saveRecentFilesToPreferences(recentFiles);
         }
 
         @Override
