@@ -139,6 +139,8 @@ public class GymnasticsAppMainView {
 
     private int selectedLessonPaneNumber;
 
+    private UserPreferencesManager preferencesManager;
+
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
@@ -166,7 +168,11 @@ public class GymnasticsAppMainView {
 
         addNewLessonTab();
 
+        preferencesManager = new UserPreferencesManager();
+
+
         printButton.setOnAction(event -> handlePrintAction(event));
+
     }
 
     private void setupFilters() {
@@ -294,6 +300,8 @@ public class GymnasticsAppMainView {
         Window mainWindow = mainSearchView.getScene().getWindow();
         File chosenFile = fileChooser.showSaveDialog(mainWindow);
         saveCurrentCourseToFile(chosenFile);
+        UserPreferencesManager.addRecentFile(chosenFile.getAbsolutePath());
+
     }
 
     private void saveCurrentCourseToFile(File chosenFile) {
@@ -314,6 +322,9 @@ public class GymnasticsAppMainView {
         fileChooser.getExtensionFilters().add(filter);
         Window mainWindow = mainSearchView.getScene().getWindow();
         File chosenFile = fileChooser.showOpenDialog(mainWindow);
+        loadLessonPlan(chosenFile);
+    }
+    public void loadLessonPlan(File chosenFile) {
         if (chosenFile != null) {
             try {
                 for (int i = 0; i < lessonPlanTabPane.getTabs().size(); i++) {
@@ -325,6 +336,8 @@ public class GymnasticsAppMainView {
                 courseLessonPlan = CourseLessonPlan.loadCoursePlan(chosenFile);
                 selectedLessonPaneNumber = 0;
                 displayLoadFromFile();
+                UserPreferencesManager.addRecentFile(chosenFile.getAbsolutePath());
+
             } catch (IOException ex) {
                 new Alert(Alert.AlertType.ERROR, "Error loading lesson plan: " + chosenFile).show();
             }

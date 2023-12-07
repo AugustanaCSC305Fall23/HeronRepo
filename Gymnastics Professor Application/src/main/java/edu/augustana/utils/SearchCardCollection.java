@@ -98,9 +98,10 @@ public class SearchCardCollection {
                                 &&
                                         (this.cardLevel == null || this.cardLevel.equals("Level") || (eachCard.getCardLevel().contains(this.cardLevel)))
                                 &&
-                                        (this.cardGender == null || this.cardGender.equals("ALL") || this.cardGender.equals("Gender") || eachCard.getCardGender().equals("N") || isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
+
+                                        (this.cardGender == null || this.cardGender == "ALL" || this.cardGender == "Gender" || isEqualSubsequence(eachCard.getCardGender(), "N") || isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
                                 &&
-                                        (this.cardModelSex == null || this.cardModelSex.equals("Model Sex") || eachCard.getCardModelSex().equals("N") ||isEqualSubsequence(eachCard.getCardModelSex(), this.cardModelSex))
+                                        (this.cardModelSex == null || this.cardModelSex.equals("Model Sex") ||isEqualSubsequence(eachCard.getCardModelSex(), this.cardModelSex))
                                 &&
                                                 (
                                         (this.cardTitleCode == null || isEqualSubsequence(eachCard.getCardCode(), this.cardTitleCode))
