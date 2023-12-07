@@ -322,6 +322,9 @@ public class GymnasticsAppMainView {
         fileChooser.getExtensionFilters().add(filter);
         Window mainWindow = mainSearchView.getScene().getWindow();
         File chosenFile = fileChooser.showOpenDialog(mainWindow);
+        loadLessonPlan(chosenFile);
+    }
+    public void loadLessonPlan(File chosenFile) {
         if (chosenFile != null) {
             try {
                 for (int i = 0; i < lessonPlanTabPane.getTabs().size(); i++) {
