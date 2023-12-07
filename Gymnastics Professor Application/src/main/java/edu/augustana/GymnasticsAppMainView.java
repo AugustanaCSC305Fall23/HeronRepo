@@ -126,6 +126,10 @@ public class GymnasticsAppMainView {
 
     @FXML
     private TabPane lessonPlanTabPane;
+    @FXML
+    private TextArea lessonCustomNotes;
+    @FXML
+    private TextArea eachLessonEquipment;
 
     private CardCollectionView cardCollectionView;
 
@@ -162,9 +166,9 @@ public class GymnasticsAppMainView {
 
         Screen windowScreen = Screen.getPrimary();
 
-        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
+        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
 
-        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.78);
+        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.6);
 
         addNewLessonTab();
 
@@ -206,7 +210,6 @@ public class GymnasticsAppMainView {
         genderFilter.setOnAction(buttonHandler);
         modelSexFilter.setOnAction(buttonHandler);
         clearFilter.setOnAction(clearHandler);
-
     }
     @FXML
     private void handlePrintAction(ActionEvent event) {
@@ -317,7 +320,7 @@ public class GymnasticsAppMainView {
     void menuActionOpen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Course Plan");
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Movie Logs (*.courselessonplan)", "*.courselessonplan");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Course Logs (*.courselessonplan)", "*.courselessonplan");
         fileChooser.getExtensionFilters().add(filter);
         Window mainWindow = mainSearchView.getScene().getWindow();
         File chosenFile = fileChooser.showOpenDialog(mainWindow);
@@ -333,7 +336,7 @@ public class GymnasticsAppMainView {
                 selectedLessonPaneNumber = 0;
                 displayLoadFromFile();
             } catch (IOException ex) {
-                new Alert(Alert.AlertType.ERROR, "Error loading lesson plan: " + chosenFile).show();
+                new Alert(Alert.AlertType.ERROR, "Error loading course plan: " + chosenFile).show();
             }
         }
     }

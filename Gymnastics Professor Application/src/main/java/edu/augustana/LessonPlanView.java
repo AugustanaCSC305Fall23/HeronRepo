@@ -26,7 +26,6 @@ public class LessonPlanView {
     }
 
     public void addCardToLessonPlanView(Card card, int selectedPane){
-
         lessonCards.add(card);
         lessonEvents.add(card.getCardEvent());
         createGridView(selectedPane);

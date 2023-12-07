@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 
 public class LessonPlan {
     private List<Card> lessonCards = FXCollections.observableArrayList();
+
+    private String customLessonPlanNotes;
     public void add(Card mCard) {
         lessonCards.add(mCard);
     }
@@ -24,6 +26,14 @@ public class LessonPlan {
         FileReader reader = new FileReader(logFile);
         Gson gson = new Gson();
         return gson.fromJson(reader,LessonPlan.class);
+    }
+
+    public String getCustomLessonPlanNotes() {
+        return customLessonPlanNotes;
+    }
+
+    public void setCustomLessonPlanNotes(String customNotes) {
+        customLessonPlanNotes = customNotes;
     }
 
     public List<Card> getLessonCards() {

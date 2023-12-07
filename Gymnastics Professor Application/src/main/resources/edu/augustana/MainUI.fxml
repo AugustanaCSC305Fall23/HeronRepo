@@ -3,11 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -57,13 +59,6 @@
         <HBox prefHeight="335.0" prefWidth="284.0" BorderPane.alignment="CENTER">
             <children>
                 <BorderPane fx:id="lpWorkSpace" prefHeight="632.0" prefWidth="300.0" style="-fx-background-color: #8f8f8f;">
-                    <top>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course Plan" BorderPane.alignment="CENTER">
-                            <font>
-                                <Font name="Freestyle Script" size="36.0" />
-                            </font>
-                        </Text>
-                    </top>
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
@@ -74,6 +69,11 @@
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course Plan">
+                                  <font>
+                                      <Font name="Freestyle Script" size="36.0" />
+                                  </font>
+                              </Text>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCurrentLessonPlan" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan">
@@ -89,6 +89,14 @@
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin></Button>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Equipment:" />
+                              <TextArea fx:id="eachLessonEquipment" prefHeight="200.0" prefWidth="200.0" />
+                              <Label text="Custom Notes:" />
+                              <TextArea fx:id="lessonCustomNotes" prefHeight="200.0" prefWidth="200.0" />
                            </children>
                         </HBox>
                         <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
