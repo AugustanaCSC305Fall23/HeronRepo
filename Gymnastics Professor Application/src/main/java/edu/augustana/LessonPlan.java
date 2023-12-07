@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 
 public class LessonPlan {
     private List<Card> lessonCards = FXCollections.observableArrayList();
+    private String coachesNotes;
     public void add(Card mCard) {
         lessonCards.add(mCard);
     }
@@ -26,6 +27,12 @@ public class LessonPlan {
         return gson.fromJson(reader,LessonPlan.class);
     }
 
+    public String getCoachesNotes(){
+        return coachesNotes;
+    }
+    public void setCoachesNotes(String coachesNotes){
+        this.coachesNotes = coachesNotes;
+    }
     public List<Card> getLessonCards() {
         return  lessonCards;
     }
@@ -38,6 +45,4 @@ public class LessonPlan {
         writer.close();
     }
 
-    public void addAll(List<Card> lessonCards) {
-    }
 }

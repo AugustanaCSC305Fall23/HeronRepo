@@ -141,6 +141,9 @@ public class GymnasticsAppMainView {
 
     private UserPreferencesManager preferencesManager;
 
+    @FXML
+    private TextArea coachesNotesTextArea;
+
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
@@ -397,6 +400,34 @@ public class GymnasticsAppMainView {
         lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
     }
 
+    @FXML
+    private void handleSaveLessonPlanAction(ActionEvent event){
+        LessonPlan currentLessonPlan = getCurrentLessonPlan();
+        if (currentLessonPlan != null) {
+            currentLessonPlan.setCoachesNotes(coachesNotesTextArea.getText());
+            try {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save Lesson Plan");
+                FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Lesson Plan (*.lessonplan)", "*.lessonplan");
+                fileChooser.getExtensionFilters().add(filter);
+                File chosenFile = fileChooser.showSaveDialog(mainSearchView.getScene().getWindow());
+                if (chosenFile != null) {
+                    currentLessonPlan.saveLessonPlan(chosenFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle the exception appropriately
+            }
+        }
+    }
+
+    private LessonPlan getCurrentLessonPlan() {
+        Tab selectedTab= lessonPlanTabPane.getSelectionModel().getSelectedItem();
+        if (selectedTab != null) {
+            int selectedIndex = lessonPlanTabPane.getTabs().indexOf(selectedTab);
+            return courseLessonPlan.getCourseLessonPlanList().get(selectedIndex);
+        }
+        return null;
+    }
 
     public class CardListCell extends ListCell<Card> {
 

@@ -157,7 +157,7 @@
                      </children>
                   </HBox>
                   <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #89CFF0;" tabClosingPolicy="UNAVAILABLE" />
-                  <TextArea fx:id="coachNotesTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Type Coach's Notes Here" />
+                  <TextArea fx:id="coachNotesTextArea" onDragDetected="#handleSaveLessonPlanAction" prefHeight="200.0" prefWidth="200.0" promptText="Type Coach's Notes Here" />
                </children>
             </VBox>
          </center>
