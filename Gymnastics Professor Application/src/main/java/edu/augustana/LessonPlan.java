@@ -47,4 +47,7 @@ public class LessonPlan {
         writer.println(serializedLessonPlan);
         writer.close();
     }
+
+    public void addAll(List<Card> lessonCards) {
+    }
 }
