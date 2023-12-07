@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.augustana.GymnasticsAppMainView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="1014.0" style="-fx-background-color: #89CFF0;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.augustana.GymnasticsAppMainView">
     <top>
         <VBox prefHeight="21.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -53,61 +54,18 @@
             </children>
         </VBox>
     </top>
-    <right>
-        <HBox prefHeight="335.0" prefWidth="284.0" BorderPane.alignment="CENTER">
-            <children>
-                <BorderPane fx:id="lpWorkSpace" prefHeight="632.0" prefWidth="300.0" style="-fx-background-color: #8f8f8f;">
-                    <top>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course Plan" BorderPane.alignment="CENTER">
-                            <font>
-                                <Font name="Freestyle Script" size="36.0" />
-                            </font>
-                        </Text>
-                    </top>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
-
-               <center>
-                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCurrentLessonPlan" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin></Button>
-                              <Button fx:id="AddNewLessonPlan" mnemonicParsing="false" onAction="#addNewLessonTab" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Add New Lesson Plan">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="printButton" layoutX="75.0" layoutY="10.0" mnemonicParsing="false" onAction="#handlePrintButtonClicked" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Print">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin></Button>
-                           </children>
-                        </HBox>
-                        <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
-                     </children>
-                  </VBox>
-               </center>
-                </BorderPane>
-            </children>
-        </HBox>
-    </right>
     <center>
         <VBox prefHeight="591.0" prefWidth="730.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox fx:id="searchHBox" alignment="CENTER" prefHeight="25.0" prefWidth="679.0">
+                <HBox fx:id="searchHBox" alignment="CENTER" prefHeight="25.0">
                     <children>
-                        <TextField fx:id="mainSearch" prefHeight="25.0" prefWidth="582.0" promptText="Search..." style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" />
+                        <TextField fx:id="mainSearch" prefHeight="25.0" prefWidth="500.0" promptText="Search..." style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin></TextField>
                     </children>
                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="10.0" />
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox fx:id="filtersMenu" alignment="CENTER" prefHeight="25.0">
@@ -156,8 +114,53 @@
                   <Insets bottom="2.0" />
                </padding>
             </HBox>
-                <ListView fx:id="mainSearchView" prefHeight="200.0" prefWidth="200.0" />
+                <ListView fx:id="mainSearchView" prefHeight="200.0" prefWidth="500.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></ListView>
             </children>
         </VBox>
     </center>
+   <right>
+          <BorderPane fx:id="lpWorkSpace" prefHeight="632.0" prefWidth="300.0" style="-fx-background-color: #89CFF0;" BorderPane.alignment="CENTER">
+              <top>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course Plan" BorderPane.alignment="CENTER">
+                      <font>
+                          <Font name="Freestyle Script" size="36.0" />
+                      </font>
+                  </Text>
+              </top>
+              <opaqueInsets>
+                  <Insets />
+              </opaqueInsets>
+
+               <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCurrentLessonPlan" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="AddNewLessonPlan" mnemonicParsing="false" onAction="#addNewLessonTab" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Add New Lesson Plan">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="printButton" layoutX="75.0" layoutY="10.0" mnemonicParsing="false" onAction="#handlePrintButtonClicked" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Print">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #89CFF0;" tabClosingPolicy="UNAVAILABLE" />
+                  <TextArea fx:id="coachNotesTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Type Coach's Notes Here" />
+               </children>
+            </VBox>
+         </center>
+          </BorderPane>
+   </right>
 </BorderPane>
