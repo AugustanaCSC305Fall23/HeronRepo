@@ -28,7 +28,7 @@ public class UserPreferencesManager {
         List<String> recentFiles = new ArrayList<>(getRecentFiles());
         recentFiles.add(fileName);
         System.out.println("fileName is " + fileName);
-        if (recentFiles.size() > 5) {
+        if (recentFiles.size() > 15) {
             recentFiles.remove(0);
         }
         saveRecentFilesToPreferences(recentFiles);

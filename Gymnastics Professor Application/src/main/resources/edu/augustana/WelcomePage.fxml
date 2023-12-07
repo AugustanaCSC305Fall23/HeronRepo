@@ -7,21 +7,14 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.augustana.WelcomeController">
+<BorderPane style="-fx-background-color: #89CFF0;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.augustana.WelcomeController">
    <center>
       <VBox alignment="CENTER" prefHeight="850.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" text="Welcome to the Gymnastics App!">
-               <VBox.margin>
-                  <Insets bottom="150.0" left="50.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="55.0" />
-               </font>
-            </Label>
             <ImageView fitHeight="195.0" fitWidth="263.0">
                <image>
                   <Image url="@Clients logo/logo.png" />
@@ -30,33 +23,59 @@
                   <Insets bottom="150.0" />
                </VBox.margin>
             </ImageView>
-            <ListView fx:id="recentFilesListView" maxWidth="350.0" minWidth="100.0" onMouseClicked="#loadLessonFromListViewButton" prefHeight="200.0" prefWidth="100.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></ListView>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="loadexistingplan1" alignment="CENTER" mnemonicParsing="false" onAction="#loadExistingLessonButton" prefHeight="0.0" prefWidth="222.0" text="Load existing plan">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="createanewplan1" alignment="CENTER" mnemonicParsing="false" onAction="#createLessonPlanButton" text="Create a new plan">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>
    <right>
-      <VBox prefHeight="850.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="loadexistingplan1" alignment="CENTER" mnemonicParsing="false" onAction="#loadExistingLessonButton" prefHeight="0.0" prefWidth="222.0" text="Load existing plan">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="380.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="createanewplan1" alignment="CENTER" mnemonicParsing="false" onAction="#createLessonPlanButton" text="Create a new plan">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
+      <VBox prefHeight="850.0" BorderPane.alignment="CENTER" />
    </right>
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="850.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Recently Edited" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <ListView fx:id="recentFilesListView" maxWidth="350.0" minWidth="100.0" onMouseClicked="#loadLessonFromListViewButton" prefHeight="200.0" prefWidth="650.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </ListView>
+         </children>
+         <BorderPane.margin>
+            <Insets left="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <top>
+      <Label alignment="CENTER" text="Welcome to the Gymnastics App!" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="55.0" />
+         </font>
+      </Label>
+   </top>
 </BorderPane>

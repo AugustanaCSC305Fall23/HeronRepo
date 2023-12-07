@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Screen;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,9 +18,12 @@ public class WelcomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Screen windowScreen = Screen.getPrimary();
+
         List<String> recentFiles = UserPreferencesManager.getRecentFiles();
         recentFilesListView.getItems().addAll(recentFiles);
         recentFilesListView.setOnMouseClicked(this::handleListViewItemClick);
+        recentFilesListView.setMinHeight(windowScreen.getBounds().getHeight() * 0.75);
 
     }
     @FXML
