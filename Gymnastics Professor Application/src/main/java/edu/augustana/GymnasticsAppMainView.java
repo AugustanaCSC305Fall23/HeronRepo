@@ -169,7 +169,7 @@ public class GymnasticsAppMainView {
 
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
 
-        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.78);
+        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.75);
 
         addNewLessonTab();
 

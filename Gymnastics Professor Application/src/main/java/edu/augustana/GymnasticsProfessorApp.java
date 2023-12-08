@@ -56,6 +56,7 @@ public class GymnasticsProfessorApp extends Application {
         Parent root = fxmlLoader.load();
         GymnasticsAppMainView controller = fxmlLoader.getController();
         scene.setRoot(root);
+        scene.getStylesheets().add(String.valueOf(GymnasticsProfessorApp.class.getResource( "stylesheet.css")));
         return controller;
 
     }

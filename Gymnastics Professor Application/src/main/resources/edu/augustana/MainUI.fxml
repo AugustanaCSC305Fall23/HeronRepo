@@ -137,27 +137,32 @@
                <center>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCurrentLessonPlan" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="AddNewLessonPlan" mnemonicParsing="false" onAction="#addNewLessonTab" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Add New Lesson Plan">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="printButton" layoutX="75.0" layoutY="10.0" mnemonicParsing="false" onAction="#handlePrintButtonClicked" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Print">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #89CFF0;" tabClosingPolicy="UNAVAILABLE" />
-                  <TextArea fx:id="coachNotesTextArea" onDragDetected="#handleSaveLessonPlanAction" prefHeight="200.0" prefWidth="200.0" promptText="Type Coach's Notes Here" />
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <left>
+                        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button fx:id="AddNewLessonPlan" mnemonicParsing="false" onAction="#addNewLessonTab" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Add New Lesson Plan">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="printButton" layoutX="75.0" layoutY="10.0" mnemonicParsing="false" onAction="#handlePrintButtonClicked" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Print">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </left>
+                     <right>
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCurrentLessonPlan" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #fff; -fx-background-color: red; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan" textFill="WHITE" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets right="15.0" />
+                           </BorderPane.margin></Button>
+                     </right>
+                  </BorderPane>
+                  <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
+                  <TextArea fx:id="coachNotesTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Type Coach's Notes Here" />
                </children>
             </VBox>
          </center>
