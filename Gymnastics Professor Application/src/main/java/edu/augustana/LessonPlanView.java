@@ -14,18 +14,31 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The LessonPlanView class represents the graphical view of a lesson plan within a tab in the Gymnastics Professor Application.
+ * It includes methods for adding, removing, and displaying cards, as well as coaches' notes associated with the lesson plan.
+ */
 public class LessonPlanView {
     private Set<String> lessonEvents = new HashSet<>();
     private List<Card> lessonCards = FXCollections.observableArrayList();
     private TabPane tabPane;
-    @FXML
-    private Button clearButton;
-
     private String coachesNotes;
 
+    /**
+     * Constructs a LessonPlanView instance associated with a specific TabPane.
+     *
+     * @param tabPane The TabPane where the lesson plan view will be displayed.
+     */
     public LessonPlanView(TabPane tabPane) {
         this.tabPane = tabPane;
     }
+
+    /**
+     * Adds a card to the lesson plan view and updates the UI.
+     *
+     * @param card         The Card object to be added to the lesson plan view.
+     * @param selectedPane The index of the selected pane where the lesson plan is displayed.
+     */
 
     public void addCardToLessonPlanView(Card card, int selectedPane){
 
@@ -33,6 +46,13 @@ public class LessonPlanView {
         lessonEvents.add(card.getCardEvent());
         createGridView(selectedPane);
     }
+    /**
+     * Removes a card from the lesson plan view and updates the UI.
+     *
+     * @param card         The Card object to be removed from the lesson plan view.
+     * @param selectedPane The index of the selected pane where the lesson plan is displayed.
+     */
+
     public void removeCardFromLessonPlanView(Card card, int selectedPane) {
         lessonCards.remove(card);
 
@@ -48,14 +68,27 @@ public class LessonPlanView {
         createGridView(selectedPane);
     }
 
+    /**
+     * Clears the lesson plan view by removing all cards and events.
+     */
     public void clearLessonPlanView() {
         lessonCards.clear();
         lessonEvents.clear();
     }
+    /**
+     * Sets the coaches' notes for the lesson plan view.
+     *
+     * @param coachesNotes The coaches' notes to be associated with the lesson plan view.
+     */
     public void setCoachesNotes(String coachesNotes){
         this.coachesNotes = coachesNotes;
     }
 
+    /**
+     * Creates the graphical representation of the lesson plan view and updates the associated TabPane.
+     *
+     * @param selectedPane The index of the selected pane where the lesson plan is displayed.
+     */
     public void createGridView(int selectedPane) {
         this.tabPane.getTabs().get(selectedPane).setContent(null);
 
@@ -115,12 +148,24 @@ public class LessonPlanView {
 
         return gridPane;
     }
-
+    /**
+     * Creates a Button for removing a card from the lesson plan view.
+     *
+     * @param card         The Card object to be removed.
+     * @param selectedPane The index of the selected pane where the lesson plan is displayed.
+     * @return The Button for removing the card.
+     */
     private Button createRemoveButton(Card card, int selectedPane) {
         Button removeButton = new Button("Remove");
         removeButton.setOnAction(event -> removeCardFromLessonPlanView(card, selectedPane));
         return removeButton;
     }
+
+    /**
+     * Creates a Label for displaying coaches' notes in the lesson plan view.
+     *
+     * @return The Label for displaying coaches' notes.
+     */
 
     private Label createCoachesNotesLabel() {
         Label coachesNotesLabel = new Label("Coaches' Notes: " + coachesNotes);
