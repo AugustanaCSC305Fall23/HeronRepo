@@ -10,14 +10,29 @@ import java.util.List;
 
 import java.util.Set;
 
+/**
+ * Represents a collection of cards.
+ */
 public class CardCollection {
+
+    /**
+     * List to store the collection of cards.
+     */
     public static List<Card> cardCollection = new ArrayList<Card>();
 
+    /**
+     * List to store all equipment associated with cards in the collection.
+     */
     public static List<String> allCardsEquipment = new ArrayList<>();
 
+    /**
+     * Set to store possible suggestions based on the card collection.
+     */
     public static Set<String> possibleSuggestions = new HashSet<>();
 
-
+    /**
+     * Creates a collection of cards by reading data from CSV files in a specified folder.
+     */
     public static void createCardCollection()
     {
         List<List<String>> cardCollectionStringList = ReadFile.readAllCSVFilesInFolder("CSVFolder");
@@ -55,12 +70,15 @@ public class CardCollection {
                 }
             }
 
+            // Add card category to possible suggestions
             possibleSuggestions.add(cardString.get(3));
 
-            tempKeywords = List.of(cardString.get(10).split(","));
+            // Process keywords and levels data
 
+            tempKeywords = List.of(cardString.get(10).split(","));
             tempLevelList = List.of(cardString.get(8).split(","));
 
+            // Create a new card and add it to the collection
             Card newCard = Card
                     .CardBuilder
                     .cardBuilder()

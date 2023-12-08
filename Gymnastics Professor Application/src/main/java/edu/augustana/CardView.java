@@ -24,22 +24,41 @@ import javafx.scene.text.FontPosture;
 
 import javafx.scene.text.FontWeight;
 
+    /**
+     * Represents the view for displaying a single card.
+     */
 public class CardView {
     private Card mCard;
     private GymnasticsAppMainView mainView;
     private TabPane tabView;
+
+    /**
+     * Constructs a CardView.
+     *
+     * @param card      The card to be displayed.
+     * @param mainView  The main application view.
+     */
 
     public CardView(Card card, GymnasticsAppMainView mainView) {
         this.mCard = card;
 
         this.mainView = mainView;
     }
-
+    /**
+     * Constructs a CardView.
+     *
+     * @param card      The card to be displayed.
+     * @param tabView   The TabPane to which the card is associated.
+     */
     public CardView(Card card, TabPane tabView) {
         this.mCard = card;
         this.tabView = tabView;
     }
-
+    /**
+     * Creates a VBox containing the card's image.
+     *
+     * @return A VBox containing the card's image.
+     */
     public VBox makeCardView() {
         VBox vBox = new VBox();
 
@@ -68,7 +87,11 @@ public class CardView {
 
         return vBox;
     }
-
+    /**
+     * Creates a BorderPane containing the card's title, buttons, and associated actions.
+     *
+     * @return A BorderPane containing the card's title, buttons, and actions.
+     */
     public BorderPane makeCardList() {
         //The BorderPane stringFrame is used instead of an HBox for formatting purposes
         BorderPane stringFrame = new BorderPane();
@@ -106,7 +129,12 @@ public class CardView {
 
         return stringFrame;
     }
-
+    /**
+     * Expands the card to show a larger image and a close button.
+     *
+     * @param stringFrame The BorderPane representing the card view.
+     * @return The modified BorderPane after expanding the card.
+     */
     public BorderPane expandCard(BorderPane stringFrame) {
         VBox vbox = new VBox();
 
@@ -135,7 +163,9 @@ public class CardView {
         return stringFrame;
     }
 
-
+    /**
+     * Adds the card to the lesson plan.
+     */
     private void addToLessonPlan(){
         mainView.addToLessonPlan(mCard);
     }
