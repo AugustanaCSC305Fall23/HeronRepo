@@ -10,10 +10,19 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
+import javafx.geometry.Pos;
 import javafx.print.PageLayout;
 
 import javafx.print.PrinterJob;
+import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.image.WritableImage;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import javafx.scene.Node;
 
 import javafx.scene.control.Label;
@@ -22,7 +31,9 @@ import javafx.scene.image.Image;
 
 import javafx.scene.image.ImageView;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Transform;
 
 import java.io.*;
 
@@ -32,6 +43,11 @@ import java.util.List;
 
 public class CourseLessonPlan {
     private List<LessonPlan> courseLessonPlan = new ArrayList<>();
+    private TabPane lessonPlanTabPane;
+
+    public CourseLessonPlan(TabPane lessonPlanTabPane) {
+        this.lessonPlanTabPane = lessonPlanTabPane;
+    }
 
     public void addLessonPlan() {
         courseLessonPlan.add(new LessonPlan());
@@ -58,9 +74,10 @@ public class CourseLessonPlan {
 
         for (Card card : lessonPlan.getLessonCards()) {
 
-            VBox cardLayout = new VBox();
+            HBox cardLayout = new HBox();  // Use HBox for landscape orientation
 
-            cardLayout.setSpacing(10);
+            cardLayout.setSpacing(5);
+            cardLayout.setAlignment(Pos.CENTER);
 
             Node cardNode = card.getVisualizationNode();
 
@@ -71,9 +88,8 @@ public class CourseLessonPlan {
 
                 ImageView imageView = new ImageView(imageFullPath);
 
-                imageView.setFitWidth(250);
-
-                imageView.setFitHeight(250);
+                imageView.setFitWidth(100);
+                imageView.setFitHeight(100);
 
                 cardLayout.getChildren().add(imageView);
             }
@@ -82,9 +98,60 @@ public class CourseLessonPlan {
 
             printableContent.getChildren().add(cardLayout);
         }
-
+        printableContent.setRotate(90);
         return printableContent;
     }
+
+    public void printLessonPlan() {
+        PrinterJob job = PrinterJob.createPrinterJob();
+
+        if (job != null && job.showPrintDialog(null)) {
+            PageLayout pageLayout = job.getPrinter().getDefaultPageLayout();
+            double printableWidth = pageLayout.getPrintableWidth()*1.1;
+            double printableHeight = pageLayout.getPrintableHeight()*1.4;
+
+            WritableImage tabPaneImage = captureTabPaneScreenshot();
+
+            if (tabPaneImage != null) {
+                VBox combinedContent = new VBox();
+                combinedContent.getChildren().addAll(new ImageView(tabPaneImage));
+
+                combinedContent.setScaleX(printableWidth / combinedContent.getBoundsInParent().getWidth());
+                combinedContent.setScaleY(printableHeight / combinedContent.getBoundsInParent().getHeight());
+
+                boolean success = job.printPage(combinedContent);
+
+                if (success) {
+                    job.endJob();
+                }
+            }
+        }
+    }
+
+    private WritableImage captureTabPaneScreenshot() {
+        if (lessonPlanTabPane != null) {
+            SnapshotParameters parameters = new SnapshotParameters();
+            parameters.setDepthBuffer(true);
+            int lessonPlanWidth = (int) lessonPlanTabPane.getWidth();
+            int lessonPlanHeight = (int) lessonPlanTabPane.getHeight();
+            WritableImage writableImage = new WritableImage(lessonPlanWidth,lessonPlanHeight);
+            lessonPlanTabPane.snapshot(parameters, writableImage);
+
+            // Rotate the image to landscape orientation
+            WritableImage rotatedImage = new WritableImage((int) writableImage.getHeight(), (int) writableImage.getWidth());
+            SnapshotParameters rotateParameters = new SnapshotParameters();
+            rotateParameters.setTransform(Transform.rotate(90, 0, 0));
+            ImageView imageView = new ImageView(writableImage);
+            imageView.setRotate(0);
+            imageView.snapshot(rotateParameters, rotatedImage);
+
+            return rotatedImage;
+        } else {
+            return null;
+        }
+    }
+
+
 
 
 
@@ -127,6 +194,8 @@ public class CourseLessonPlan {
         PrintWriter writer = new PrintWriter(new FileWriter(saveFile));
 
         writer.println(serializedLessonPlan);
+
+        printLessonPlan();
 
         writer.close();
     }

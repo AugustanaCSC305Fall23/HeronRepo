@@ -146,7 +146,7 @@ public class GymnasticsAppMainView {
 
         courseLessonPlanView = new ArrayList<>();
 
-        courseLessonPlan = new CourseLessonPlan();
+        courseLessonPlan = new CourseLessonPlan(lessonPlanTabPane);
 
         cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
 
@@ -166,9 +166,13 @@ public class GymnasticsAppMainView {
 
         addNewLessonTab();
 
-        printButton.setOnAction(event -> handlePrintAction(event));
+        printButton.setOnAction(event -> courseLessonPlan.printLessonPlan());
     }
+    private void printLessonPlan() {
+        int selectedLessonPlanIndex = 0;
 
+        courseLessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPlanIndex));
+    }
     private void setupFilters() {
         setupFilter(eventFilter, "Event", Arrays.stream(EventsEnum.values()).map(Enum::name).collect(Collectors.toList()));
         setupFilter(categoryFilter, "Category", Arrays.stream(CategoryEnum.values()).map(Enum::name).collect(Collectors.toList()));
@@ -203,7 +207,7 @@ public class GymnasticsAppMainView {
     }
     @FXML
     private void handlePrintAction(ActionEvent event) {
-        CourseLessonPlan lessonPlan = new CourseLessonPlan();
+        CourseLessonPlan lessonPlan = new CourseLessonPlan(lessonPlanTabPane);
         lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
     }
 
@@ -380,7 +384,7 @@ public class GymnasticsAppMainView {
     }
     @FXML
     public void handlePrintButtonClicked(ActionEvent actionEvent) {
-        CourseLessonPlan lessonPlan = new CourseLessonPlan();
+        CourseLessonPlan lessonPlan = new CourseLessonPlan(lessonPlanTabPane);
         lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
     }
 
