@@ -147,6 +147,7 @@
                 </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="25.0">
                <children>
+                  <ComboBox fx:id="favoritesFilter" prefWidth="150.0" />
                         <ComboBox fx:id="genderFilter" promptText="Gender" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
                      <HBox.margin>
                         <Insets right="2.0" />

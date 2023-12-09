@@ -28,6 +28,8 @@ public class Card {
 
     private List<String> cardKeywords;
 
+    private boolean cardIsFavorited;
+
     public Card(CardBuilder cardBuilder)
     {
         this.cardCode = cardBuilder.cardCode;
@@ -40,6 +42,7 @@ public class Card {
         this.cardCategory = cardBuilder.cardCategory;
         this.cardImage = cardBuilder.cardImage;
         this.cardEvent = cardBuilder.cardEvent;
+        this.cardIsFavorited = cardBuilder.cardIsFavorited;
     }
 
 
@@ -84,6 +87,10 @@ public class Card {
         return cardKeywords;
     }
 
+    public boolean getCardFavorite() {return cardIsFavorited;}
+    public void setCardIsFavorited(boolean isFavorited) {
+        this.cardIsFavorited = isFavorited;
+    }
     public Node getVisualizationNode() {
         VBox cardNode = new VBox();
 
@@ -141,6 +148,8 @@ public class Card {
 
         private List<String> cardKeywords;
 
+        private boolean cardIsFavorited;
+
         public static CardBuilder cardBuilder() {
             return new CardBuilder();
         }
@@ -194,6 +203,11 @@ public class Card {
 
         public  CardBuilder setCardKeywords(List<String> associatedKeywords) {
             this.cardKeywords = associatedKeywords;
+            return this;
+        }
+
+        public CardBuilder setCardIsFavorited(boolean isFavorited) {
+            this.cardIsFavorited = isFavorited;
             return this;
         }
 

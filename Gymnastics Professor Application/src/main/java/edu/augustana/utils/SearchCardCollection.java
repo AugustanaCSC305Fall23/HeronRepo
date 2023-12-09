@@ -23,6 +23,9 @@ public class SearchCardCollection {
     @Nullable
     private String cardModelSex;
 
+    @Nullable
+    private String cardIsFavorited;
+
     public String getCardTitleCode() {
         return cardTitleCode;
     }
@@ -84,6 +87,10 @@ public class SearchCardCollection {
         this.cardModelSex = cardModelSex;
     }
 
+    public void setCardIsFavorited(String string){
+        this.cardIsFavorited = string;
+    }
+
     public List<Card> searchCards() {
         List<Card> resultsFromSearch = CardCollection
                 .cardCollection
@@ -102,6 +109,8 @@ public class SearchCardCollection {
                                         (this.cardGender == null || this.cardGender == "ALL" || this.cardGender == "Gender" || isEqualSubsequence(eachCard.getCardGender(), "N") || isEqualSubsequence(eachCard.getCardGender(),this.cardGender))
                                 &&
                                         (this.cardModelSex == null || this.cardModelSex.equals("Model Sex") ||isEqualSubsequence(eachCard.getCardModelSex(), this.cardModelSex))
+                                &&
+                                                (this.cardIsFavorited == null || this.cardIsFavorited.equals("Favorites") || (this.cardIsFavorited == "Show" && eachCard.getCardFavorite()) || (this.cardIsFavorited == "Don't Show" && !eachCard.getCardFavorite()))
                                 &&
                                                 (
                                         (this.cardTitleCode == null || isEqualSubsequence(eachCard.getCardCode(), this.cardTitleCode))

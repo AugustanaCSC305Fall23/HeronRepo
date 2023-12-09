@@ -12,6 +12,7 @@ import javafx.stage.Screen;
 
 import javafx.scene.control.ListView;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class CardCollectionView {

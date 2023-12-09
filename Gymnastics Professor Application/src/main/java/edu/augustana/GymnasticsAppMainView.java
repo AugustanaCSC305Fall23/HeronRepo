@@ -48,6 +48,7 @@ import java.io.File;
 
 import java.io.IOException;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import java.util.Arrays;
@@ -130,6 +131,8 @@ public class GymnasticsAppMainView {
     private TextArea lessonCustomNotes;
     @FXML
     private TextArea eachLessonEquipment;
+    @FXML
+    private ComboBox<String> favoritesFilter;
 
     private CardCollectionView cardCollectionView;
 
@@ -186,6 +189,7 @@ public class GymnasticsAppMainView {
         setupFilter(levelFilter, "Level", Arrays.stream(LevelEnum.values()).map(Enum::name).collect(Collectors.toList()));
         setupFilter(genderFilter, "Gender", Arrays.stream(GenderEnum.values()).map(Enum::toString).collect(Collectors.toList()));
         setupFilter(modelSexFilter, "Model Sex", Arrays.stream(ModelSexEnum.values()).map(Enum::toString).collect(Collectors.toList()));
+        setupFilter(favoritesFilter, "Favorites", Arrays.asList("Show", "Don't Show"));
     }
 
     private void setupFilter(ComboBox<String> filter, String promptText, List<String> items) {
@@ -208,6 +212,7 @@ public class GymnasticsAppMainView {
         levelFilter.setOnAction(buttonHandler);
         genderFilter.setOnAction(buttonHandler);
         modelSexFilter.setOnAction(buttonHandler);
+        favoritesFilter.setOnAction(buttonHandler);
         clearFilter.setOnAction(clearHandler);
     }
     @FXML
@@ -265,7 +270,11 @@ public class GymnasticsAppMainView {
                     newSearchList = searchCardCollection.searchCards();
                     cardCollectionView.initializeMainSearchView(newSearchList);
                     break;
-
+                case "favoritesFilter":
+                    searchCardCollection.setCardIsFavorited(favoritesFilter.getSelectionModel().getSelectedItem());
+                    newSearchList = searchCardCollection.searchCards();
+                    cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
             }
 
         }
@@ -280,6 +289,7 @@ public class GymnasticsAppMainView {
             levelFilter.getSelectionModel().select(0);
             genderFilter.getSelectionModel().select(0);
             modelSexFilter.getSelectionModel().select(0);
+            favoritesFilter.getSelectionModel().select(0);
             clearSearchBuilder();
         }
     };
@@ -291,6 +301,7 @@ public class GymnasticsAppMainView {
         searchCardCollection.setCardLevel(null);
         searchCardCollection.setCardGender(null);
         searchCardCollection.setCardModelSex(null);
+        searchCardCollection.setCardIsFavorited(null);
         cardCollectionView.initializeMainSearchView(CardCollection.cardCollection);
     }
 

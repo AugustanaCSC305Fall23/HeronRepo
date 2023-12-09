@@ -2,6 +2,7 @@ package edu.augustana;
 
 import edu.augustana.utils.ReadFile;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import java.util.HashSet;
@@ -17,9 +18,11 @@ public class CardCollection {
 
     public static Set<String> possibleSuggestions = new HashSet<>();
 
+    public static List<String> favoritedCards = new ArrayList<>();
 
-    public static void createCardCollection()
-    {
+
+    public static void createCardCollection() {
+        favoritedCards = ReadFile.readFileToList();
         List<List<String>> cardCollectionStringList = ReadFile.readAllCSVFilesInFolder("CSVFolder");
 
         List<String> tempEquipment = new ArrayList<>();
@@ -60,7 +63,6 @@ public class CardCollection {
             tempKeywords = List.of(cardString.get(10).split(","));
 
             tempLevelList = List.of(cardString.get(8).split(","));
-
             Card newCard = Card
                     .CardBuilder
                     .cardBuilder()
@@ -74,6 +76,7 @@ public class CardCollection {
                     .setCardLevel(tempLevelList)
                     .setCardEquipment(updatedTempEquipment)
                     .setCardKeywords(tempKeywords)
+                    .setCardIsFavorited(favoritedCards.contains(cardString.get(0)))
                     .build();
 
             cardCollection.add(newCard);
