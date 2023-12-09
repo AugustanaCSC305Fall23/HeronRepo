@@ -1,5 +1,7 @@
 package edu.augustana;
 
+import edu.augustana.utils.ReadFile;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
@@ -23,22 +25,43 @@ import javafx.scene.text.FontPosture;
 
 import javafx.scene.text.FontWeight;
 
+
+    /**
+     * Represents the view for displaying a single card.
+     */
 public class CardView {
     private Card mCard;
     private GymnasticsAppMainView mainView;
     private TabPane tabView;
+    private Button favButton = new Button("\u2764");
+
+    /**
+     * Constructs a CardView.
+     *
+     * @param card      The card to be displayed.
+     * @param mainView  The main application view.
+     */
 
     public CardView(Card card, GymnasticsAppMainView mainView) {
         this.mCard = card;
 
         this.mainView = mainView;
     }
-
+    /**
+     * Constructs a CardView.
+     *
+     * @param card      The card to be displayed.
+     * @param tabView   The TabPane to which the card is associated.
+     */
     public CardView(Card card, TabPane tabView) {
         this.mCard = card;
         this.tabView = tabView;
     }
-
+    /**
+     * Creates a VBox containing the card's image.
+     *
+     * @return A VBox containing the card's image.
+     */
     public VBox makeCardView() {
         VBox vBox = new VBox();
 
@@ -67,7 +90,11 @@ public class CardView {
 
         return vBox;
     }
-
+    /**
+     * Creates a BorderPane containing the card's title, buttons, and associated actions.
+     *
+     * @return A BorderPane containing the card's title, buttons, and actions.
+     */
     public BorderPane makeCardList() {
         //The BorderPane stringFrame is used instead of an HBox for formatting purposes
         BorderPane stringFrame = new BorderPane();
@@ -75,6 +102,26 @@ public class CardView {
 
         //Creates HBox to contain buttons, so they don't stack vertically
         HBox buttonBar = new HBox();
+
+        // Create the favorite button with a heart icon
+         // Unicode for a solid heart
+
+        if (this.mCard.getCardFavorite()) {
+            // Optional: Style the button
+            favButton.setStyle("-fx-font-size: 24px; " + // Increase font size
+                    "-fx-background-color: transparent; " + // Make background transparent
+                    "-fx-text-fill: red;");
+        }
+        else {
+            favButton.setStyle("-fx-font-size: 24px; " + // Increase font size
+                    "-fx-background-color: transparent; " + // Make background transparent
+                    "-fx-text-fill: black;");
+        }
+
+        favButton.setOnAction(event -> {
+            addRemoveToFavorites();// Change heart color to red
+        });
+
 
         Button addToLpButton = new Button("Add");
         addToLpButton.setOnAction(event -> addToLessonPlan());
@@ -93,8 +140,9 @@ public class CardView {
         try {
             searchString.setText(mCard.getSearchString());
 
-            buttonBar.getChildren().addAll(expandCardButton, addToLpButton);
+            buttonBar.getChildren().addAll(favButton, expandCardButton, addToLpButton);
             buttonBar.setSpacing(5);
+            buttonBar.setPadding(new Insets(0, 0, 2, 0));
 
             stringFrame.setLeft(searchString);
             stringFrame.setRight(buttonBar);
@@ -104,7 +152,12 @@ public class CardView {
 
         return stringFrame;
     }
-
+    /**
+     * Expands the card to show a larger image and a close button.
+     *
+     * @param stringFrame The BorderPane representing the card view.
+     * @return The modified BorderPane after expanding the card.
+     */
     public BorderPane expandCard(BorderPane stringFrame) {
         VBox vbox = new VBox();
 
@@ -126,15 +179,40 @@ public class CardView {
 
         // Add the ImageView to the VBox
         vbox.getChildren().addAll(cardMagnify, closeExpand);
+        vbox.setSpacing(2);
         stringFrame.setBottom(vbox);
         vbox.setAlignment(Pos.CENTER);
 
         return stringFrame;
     }
 
-
+    /**
+     * Adds the card to the lesson plan.
+     */
     private void addToLessonPlan(){
         mainView.addToLessonPlan(mCard);
+    }
+
+    private void addRemoveToFavorites()  {
+        //remove card
+        if (CardCollection.favoritedCards.contains(this.mCard.getCardCode()))
+        {
+            favButton.setStyle("-fx-font-size: 24px; " + // Increase font size
+                    "-fx-background-color: transparent; " + // Make background transparent
+                    "-fx-text-fill: black;");
+            CardCollection.favoritedCards.remove(this.mCard.getCardCode());
+            this.mCard.setCardIsFavorited(false);
+        }
+        else
+        {
+            favButton.setStyle("-fx-font-size: 24px; " + // Increase font size
+                    "-fx-background-color: transparent; " + // Make background transparent
+                    "-fx-text-fill: red;");
+            CardCollection.favoritedCards.add(this.mCard.getCardCode());
+            this.mCard.setCardIsFavorited(true);
+
+        }
+        ReadFile.writeToFile(CardCollection.favoritedCards);
     }
 
 }

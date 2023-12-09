@@ -5,6 +5,7 @@ module edu.augustana {
     requires org.controlsfx.controls;
     requires com.google.gson;
     requires java.desktop;
+    requires java.prefs;
 
     // Open edu.augustana package to both javafx.fxml and com.google.gson
     opens edu.augustana to javafx.fxml, com.google.gson;

@@ -2,6 +2,7 @@ package edu.augustana;
 
 import edu.augustana.utils.ReadFile;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import java.util.HashSet;
@@ -10,16 +11,32 @@ import java.util.List;
 
 import java.util.Set;
 
+/**
+ * Represents a collection of cards.
+ */
 public class CardCollection {
+
+    /**
+     * List to store the collection of cards.
+     */
     public static List<Card> cardCollection = new ArrayList<Card>();
 
+    /**
+     * List to store all equipment associated with cards in the collection.
+     */
     public static List<String> allCardsEquipment = new ArrayList<>();
 
+    /**
+     * Set to store possible suggestions based on the card collection.
+     */
     public static Set<String> possibleSuggestions = new HashSet<>();
 
+    public static List<String> favoritedCards = new ArrayList<>();
 
-    public static void createCardCollection()
-    {
+
+    public static void createCardCollection() {
+        favoritedCards = ReadFile.readFileToList();
+
         List<List<String>> cardCollectionStringList = ReadFile.readAllCSVFilesInFolder("CSVFolder");
 
         List<String> tempEquipment = new ArrayList<>();
@@ -55,10 +72,12 @@ public class CardCollection {
                 }
             }
 
+            // Add card category to possible suggestions
             possibleSuggestions.add(cardString.get(3));
 
-            tempKeywords = List.of(cardString.get(10).split(","));
+            // Process keywords and levels data
 
+            tempKeywords = List.of(cardString.get(10).split(","));
             tempLevelList = List.of(cardString.get(8).split(","));
 
             Card newCard = Card
@@ -74,6 +93,7 @@ public class CardCollection {
                     .setCardLevel(tempLevelList)
                     .setCardEquipment(updatedTempEquipment)
                     .setCardKeywords(tempKeywords)
+                    .setCardIsFavorited(favoritedCards.contains(cardString.get(0)))
                     .build();
 
             cardCollection.add(newCard);
