@@ -182,4 +182,10 @@ public class CourseLessonPlan {
 
         writer.close();
     }
+
+    public CourseLessonPlan clone() {
+        Gson gson = new Gson();
+        String serializedLessonPlan = gson.toJson(this);
+        return gson.fromJson(serializedLessonPlan, CourseLessonPlan.class);
+    }
 }

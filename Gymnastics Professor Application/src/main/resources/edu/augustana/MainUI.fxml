@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -28,6 +27,12 @@
                       <MenuItem fx:id="printFileAction" mnemonicParsing="false" text="Print" />
                                 <MenuItem mnemonicParsing="false" onAction="#menuActionSaveAs" text="Save" />
                                 <MenuItem mnemonicParsing="false" onAction="#menuActionOpen" text="Load" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#menuUndoAction" text="Undo" />
+                        <MenuItem mnemonicParsing="false" onAction="#menuRedoAction" text="Redo" />
                     </items>
                   </Menu>
                         <Menu mnemonicParsing="false" text="Samples">

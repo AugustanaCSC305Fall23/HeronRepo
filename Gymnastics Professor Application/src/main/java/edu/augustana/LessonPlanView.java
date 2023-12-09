@@ -89,7 +89,8 @@ public class LessonPlanView {
      * @param selectedPane The index of the selected pane where the lesson plan is displayed.
      */
     public void createGridView(int selectedPane) {
-        this.tabPane.getTabs().get(selectedPane).setContent(null);
+        if (this.tabPane.getTabs().get(selectedPane).getContent() != null)
+            this.tabPane.getTabs().get(selectedPane).setContent(null);
 
         VBox layout = createMainLayout();
 

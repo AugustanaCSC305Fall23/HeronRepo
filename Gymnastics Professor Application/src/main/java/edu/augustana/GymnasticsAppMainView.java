@@ -150,6 +150,8 @@ public class GymnasticsAppMainView {
 
     private UserPreferencesManager preferencesManager;
 
+    private UndoRedoHandler undoRedoHandler;
+
     @FXML
     private TextArea coachesNotesTextArea;
 
@@ -178,6 +180,8 @@ public class GymnasticsAppMainView {
 
 
         lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.6);
+
+        undoRedoHandler = new UndoRedoHandler(this);
 
         addNewLessonTab();
 
@@ -239,7 +243,6 @@ public class GymnasticsAppMainView {
         CourseLessonPlan lessonPlan = new CourseLessonPlan();
         lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
     }
-
 
     private void runSearchForText(String text){
         searchCardCollection.setCardTitleCode(text);
@@ -310,6 +313,7 @@ public class GymnasticsAppMainView {
             modelSexFilter.getSelectionModel().select(0);
             favoritesFilter.getSelectionModel().select(0);
             clearSearchBuilder();
+            undoRedoHandler.saveState();
         }
     };
 
@@ -345,6 +349,31 @@ public class GymnasticsAppMainView {
                 new Alert(Alert.AlertType.ERROR, "Error saving lesson plan: " + chosenFile).show();
             }
         }
+    }
+
+    @FXML
+    void menuUndoAction(ActionEvent event) {
+        if (!undoRedoHandler.undoStackEmpty())
+            System.out.println("Came here");
+            clearEntireCoursePlan();
+        undoRedoHandler.undo();
+    }
+
+    @FXML
+    void menuRedoAction(ActionEvent event) {
+        if (!undoRedoHandler.redoStackEmpty())
+            clearEntireCoursePlan();
+        undoRedoHandler.redo();
+    }
+
+    private void clearEntireCoursePlan() {
+        for (int i = 0; i < lessonPlanTabPane.getTabs().size(); i++) {
+            lessonPlanTabPane.getTabs().get(i).setContent(null);
+            courseLessonPlan.getCourseLessonPlanList().get(i).clear();
+            courseLessonPlanView.get(i).clearLessonPlanView();
+        }
+        lessonPlanTabPane.getTabs().clear();
+        selectedLessonPaneNumber = 0;
     }
 
     @FXML
@@ -395,6 +424,15 @@ public class GymnasticsAppMainView {
         }
     }
 
+    public State createMemento() {
+        return new State();
+    }
+
+    public void restoreState(State canvasState) {
+        canvasState.restore();
+        displayLoadFromFile();
+    }
+
     @FXML
     private void addNewLessonTab() {
         courseLessonPlanView.add(new LessonPlanView(lessonPlanTabPane));
@@ -414,6 +452,7 @@ public class GymnasticsAppMainView {
         lessonPlanTabPane.getTabs().get(selectedLessonPaneNumber).setContent(null);
         courseLessonPlan.getCourseLessonPlanList().get(selectedLessonPaneNumber).clear();
         courseLessonPlanView.get(selectedLessonPaneNumber).clearLessonPlanView();
+        undoRedoHandler.saveState();
     }
 
     @FXML
@@ -425,6 +464,7 @@ public class GymnasticsAppMainView {
         courseLessonPlan.addCardToLessonPlan(selectedLessonPaneNumber, mCard);
         courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(mCard, selectedLessonPaneNumber);
         courseLessonPlanView.get(selectedLessonPaneNumber).createGridView(selectedLessonPaneNumber);
+        undoRedoHandler.saveState();
     }
     @FXML
     public void handlePrintButtonClicked(ActionEvent actionEvent) {
@@ -514,7 +554,17 @@ public class GymnasticsAppMainView {
             }
         }
     }
+    public class State {
+        private CourseLessonPlan courseLessonPlan;
 
+        public State() {
+            courseLessonPlan = (CourseLessonPlan) GymnasticsAppMainView.this.courseLessonPlan.clone();
+        }
+
+        public void restore() {
+            GymnasticsAppMainView.this.courseLessonPlan = (CourseLessonPlan) courseLessonPlan.clone();
+        }
+    }
 
 }
 
