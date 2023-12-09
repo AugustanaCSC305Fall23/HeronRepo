@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.augustana.GymnasticsAppMainView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="1014.0" style="-fx-background-color: #89CFF0;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.augustana.GymnasticsAppMainView">
     <top>
         <VBox prefHeight="21.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -55,67 +55,19 @@
             </children>
         </VBox>
     </top>
-    <right>
-        <HBox prefHeight="335.0" prefWidth="284.0" BorderPane.alignment="CENTER">
-            <children>
-                <BorderPane fx:id="lpWorkSpace" prefHeight="632.0" prefWidth="300.0" style="-fx-background-color: #8f8f8f;">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
 
-               <center>
-                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                     <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course Plan">
-                                  <font>
-                                      <Font name="Freestyle Script" size="36.0" />
-                                  </font>
-                              </Text>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCurrentLessonPlan" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin></Button>
-                              <Button fx:id="AddNewLessonPlan" mnemonicParsing="false" onAction="#addNewLessonTab" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Add New Lesson Plan">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="printButton" layoutX="75.0" layoutY="10.0" mnemonicParsing="false" onAction="#handlePrintButtonClicked" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Print">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin></Button>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label text="Equipment:" />
-                              <TextArea fx:id="eachLessonEquipment" prefHeight="200.0" prefWidth="200.0" />
-                              <Label text="Custom Notes:" />
-                              <TextArea fx:id="lessonCustomNotes" prefHeight="200.0" prefWidth="200.0" />
-                           </children>
-                        </HBox>
-                        <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
-                     </children>
-                  </VBox>
-               </center>
-                </BorderPane>
-            </children>
-        </HBox>
-    </right>
     <center>
         <VBox prefHeight="591.0" prefWidth="730.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox fx:id="searchHBox" alignment="CENTER" prefHeight="25.0" prefWidth="679.0">
+                <HBox fx:id="searchHBox" alignment="CENTER" prefHeight="25.0">
                     <children>
-                        <TextField fx:id="mainSearch" prefHeight="25.0" prefWidth="582.0" promptText="Search..." style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" />
+                        <TextField fx:id="mainSearch" prefHeight="25.0" prefWidth="500.0" promptText="Search..." style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin></TextField>
                     </children>
                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="10.0" />
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox fx:id="filtersMenu" alignment="CENTER" prefHeight="25.0">
@@ -165,8 +117,58 @@
                   <Insets bottom="2.0" />
                </padding>
             </HBox>
-                <ListView fx:id="mainSearchView" prefHeight="200.0" prefWidth="200.0" />
+                <ListView fx:id="mainSearchView" prefHeight="200.0" prefWidth="500.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></ListView>
             </children>
         </VBox>
     </center>
+   <right>
+          <BorderPane fx:id="lpWorkSpace" prefHeight="632.0" prefWidth="300.0" style="-fx-background-color: #89CFF0;" BorderPane.alignment="CENTER">
+              <top>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Course Plan" BorderPane.alignment="CENTER">
+                      <font>
+                          <Font name="Freestyle Script" size="36.0" />
+                      </font>
+                  </Text>
+              </top>
+              <opaqueInsets>
+                  <Insets />
+              </opaqueInsets>
+
+               <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <left>
+                        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button fx:id="AddNewLessonPlan" mnemonicParsing="false" onAction="#addNewLessonTab" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Add New Lesson Plan">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="printButton" layoutX="75.0" layoutY="10.0" mnemonicParsing="false" onAction="#handlePrintButtonClicked" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;" text="Print">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </left>
+                     <right>
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCurrentLessonPlan" onMouseClicked="#clearImage" style="-fx-border-radius: 20px; -fx-border-color: #fff; -fx-background-color: red; -fx-background-radius: 20 20 20 20;" text="Clear Current Lesson Plan" textFill="WHITE" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets right="15.0" />
+                           </BorderPane.margin></Button>
+                     </right>
+                  </BorderPane>
+                  <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
+                  <TextArea fx:id="coachNotesTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Type Coach's Notes Here" />
+               </children>
+            </VBox>
+         </center>
+          </BorderPane>
+   </right>
 </BorderPane>

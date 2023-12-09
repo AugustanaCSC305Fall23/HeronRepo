@@ -30,29 +30,69 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+/**
+ * The CourseLessonPlan class represents a collection of lesson plans in the Gymnastics Professor Application.
+ * It provides methods for managing lesson plans, adding and removing cards from lesson plans, and printing lesson plans.
+ */
 public class CourseLessonPlan {
     private List<LessonPlan> courseLessonPlan = new ArrayList<>();
 
+    /**
+     * Adds a new lesson plan to the course.
+     */
     public void addLessonPlan() {
         courseLessonPlan.add(new LessonPlan());
     }
 
+    /**
+     * Adds a card to a specific lesson plan within the course.
+     *
+     * @param selectedLessonPlan The index of the lesson plan where the card will be added.
+     * @param card               The Card object to be added to the lesson plan.
+     */
     public void addCardToLessonPlan(int selectedLessonPlan, Card card) {
         courseLessonPlan.get(selectedLessonPlan).add(card);
     }
+
+    /**
+     * Removes a card from a specific lesson plan within the course.
+     *
+     * @param lessonPlanIndex The index of the lesson plan from which the card will be removed.
+     * @param card            The Card object to be removed from the lesson plan.
+     */
     public void removeCardFromLessonPlan(int lessonPlanIndex, Card card) {
         courseLessonPlan.get(lessonPlanIndex).remove(card);
     }
+    /**
+     * Retrieves the list of lesson plans in the course.
+     *
+     * @return The list of lesson plans in the course.
+     */
+
     public List<LessonPlan> getCourseLessonPlanList() {
         return courseLessonPlan;
     }
 
+    /**
+     * Loads a course plan from a file using Gson.
+     *
+     * @param logFile The File object representing the file to load the course plan from.
+     * @return The CourseLessonPlan object loaded from the file.
+     * @throws IOException If an I/O error occurs during file reading.
+     */
     public static CourseLessonPlan loadCoursePlan(File logFile) throws IOException {
         FileReader reader = new FileReader(logFile);
         Gson gson = new Gson();
         return gson.fromJson(reader,CourseLessonPlan.class);
 
     }
+
+    /**
+     * Generates a printable content node for a given lesson plan.
+     *
+     * @param lessonPlan The LessonPlan object for which to generate printable content.
+     * @return The Node containing printable content for the lesson plan.
+     */
     public Node generatePrintableContent(LessonPlan lessonPlan) {
         VBox printableContent = new VBox();
 
@@ -85,8 +125,11 @@ public class CourseLessonPlan {
 
         return printableContent;
     }
-
-
+    /**
+     * Prints a lesson plan using JavaFX PrinterJob.
+     *
+     * @param lessonPlan The LessonPlan object to be printed.
+     */
 
     public void print(LessonPlan lessonPlan) {
         PrinterJob job = PrinterJob.createPrinterJob();
@@ -112,13 +155,22 @@ public class CourseLessonPlan {
             }
         }
     }
-
-
+    /**
+     * Retrieves the list of lesson plans in the course.
+     *
+     * @return The list of lesson plans in the course.
+     */
 
     public List<LessonPlan> getCourseLessonPlan() {
         return courseLessonPlan;
     }
 
+    /**
+     * Saves the course plan to a file using Gson.
+     *
+     * @param saveFile The File object representing the file to save the course plan to.
+     * @throws IOException If an I/O error occurs during file writing.
+     */
     public void saveCoursePlan(File saveFile) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

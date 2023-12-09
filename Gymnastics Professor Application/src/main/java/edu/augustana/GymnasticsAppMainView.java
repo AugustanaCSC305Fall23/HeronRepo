@@ -59,12 +59,14 @@ import java.util.stream.Collectors;
 
 
 /**
- * Main View (Home Screen) of the Gymnastics Professor Application.
- *
+ * The GymnasticsAppMainView class represents the main view (home screen) of the Gymnastics Professor Application.
+ * It includes FXML-injected components, event handlers, and methods for initializing and handling user interactions.
  */
+
 
 public class GymnasticsAppMainView {
 
+    // FXML-injected components
     @FXML // fx:id="filtersMenu"
     private HBox filtersMenu; // Value injected by FXMLLoader
 
@@ -148,6 +150,9 @@ public class GymnasticsAppMainView {
 
     private UserPreferencesManager preferencesManager;
 
+    @FXML
+    private TextArea coachesNotesTextArea;
+
     //Set up components with desired features, and integrate event listeners.
     @FXML
     void initialize(){
@@ -171,6 +176,7 @@ public class GymnasticsAppMainView {
 
         lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
 
+
         lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.6);
 
         addNewLessonTab();
@@ -181,6 +187,10 @@ public class GymnasticsAppMainView {
         printButton.setOnAction(event -> handlePrintAction(event));
 
     }
+
+    /**
+     * Sets up the various filters with their respective options.
+     */
 
     private void setupFilters() {
         setupFilter(eventFilter, "Event", Arrays.stream(EventsEnum.values()).map(Enum::name).collect(Collectors.toList()));
@@ -199,6 +209,9 @@ public class GymnasticsAppMainView {
     }
 
 
+    /**
+     * Adds event listeners to the relevant components, such as buttons and filter options.
+     */
 
     void addEventsListeners() {
         mainSearch.setOnAction(buttonHandler);
@@ -215,6 +228,12 @@ public class GymnasticsAppMainView {
         favoritesFilter.setOnAction(buttonHandler);
         clearFilter.setOnAction(clearHandler);
     }
+    /**
+     * Handles the action when the "Print" button is clicked.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     */
+
     @FXML
     private void handlePrintAction(ActionEvent event) {
         CourseLessonPlan lessonPlan = new CourseLessonPlan();
@@ -367,6 +386,8 @@ public class GymnasticsAppMainView {
         for (int i = 0; i < lessonPlans.size(); i++) {
             LessonPlan eachLessonPlan = lessonPlans.get(i);
             addNewLessonTab();
+            courseLessonPlanView.get(selectedLessonPaneNumber)
+                    .setCoachesNotes(eachLessonPlan.getCoachesNotes());
             for (Card eachCard : new ArrayList<>(eachLessonPlan.getLessonCards())) {
                 courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(eachCard, selectedLessonPaneNumber);
             }
@@ -411,6 +432,34 @@ public class GymnasticsAppMainView {
         lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
     }
 
+    @FXML
+    private void handleSaveLessonPlanAction(ActionEvent event){
+        LessonPlan currentLessonPlan = getCurrentLessonPlan();
+        if (currentLessonPlan != null) {
+            currentLessonPlan.setCoachesNotes(coachesNotesTextArea.getText());
+            try {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save Lesson Plan");
+                FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Lesson Plan (*.lessonplan)", "*.lessonplan");
+                fileChooser.getExtensionFilters().add(filter);
+                File chosenFile = fileChooser.showSaveDialog(mainSearchView.getScene().getWindow());
+                if (chosenFile != null) {
+                    currentLessonPlan.saveLessonPlan(chosenFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle the exception appropriately
+            }
+        }
+    }
+
+    private LessonPlan getCurrentLessonPlan() {
+        Tab selectedTab= lessonPlanTabPane.getSelectionModel().getSelectedItem();
+        if (selectedTab != null) {
+            int selectedIndex = lessonPlanTabPane.getTabs().indexOf(selectedTab);
+            return courseLessonPlan.getCourseLessonPlanList().get(selectedIndex);
+        }
+        return null;
+    }
 
     public class CardListCell extends ListCell<Card> {
 
@@ -420,11 +469,21 @@ public class GymnasticsAppMainView {
 
         private final HBox cardBox = new HBox(10);
 
+        /**
+         * The CardListCell class represents a custom ListCell for displaying Card objects in a ListView.
+         * It includes an image, card details, and a "Remove" button.
+         */
         public CardListCell() {
             removeButton.setOnAction(event -> removeFromLessonPlan());
             cardBox.getChildren().addAll(imageView, cardDetails,removeButton);
         }
 
+        /**
+         * Updates the content of the ListCell with the provided Card information.
+         *
+         * @param card  The Card object to display.
+         * @param empty Indicates whether the cell is empty or not.
+         */
         @Override
         protected void updateItem(Card card, boolean empty) {
             super.updateItem(card, empty);
@@ -444,6 +503,10 @@ public class GymnasticsAppMainView {
                 setGraphic(cardBox);
             }
         }
+
+        /**
+         * Removes the associated Card from the lesson plan when the "Remove" button is clicked.
+         */
         private void removeFromLessonPlan() {
             Card card = getItem();
             if (card != null) {
