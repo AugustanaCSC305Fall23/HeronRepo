@@ -10,6 +10,7 @@ import edu.augustana.constants.LevelEnum;
 
 import edu.augustana.constants.ModelSexEnum;
 
+import edu.augustana.utils.PrintCard;
 import edu.augustana.utils.SearchCardCollection;
 
 import javafx.event.ActionEvent;
@@ -126,15 +127,12 @@ public class GymnasticsAppMainView {
 
     @FXML
     private Button printButton;
-
     @FXML
     private TabPane lessonPlanTabPane;
     @FXML
-    private TextArea lessonCustomNotes;
-    @FXML
-    private TextArea eachLessonEquipment;
-    @FXML
     private ComboBox<String> favoritesFilter;
+    @FXML
+    private TextArea coachesNotesTextArea;
 
     private CardCollectionView cardCollectionView;
 
@@ -152,8 +150,7 @@ public class GymnasticsAppMainView {
 
     private UndoRedoHandler undoRedoHandler;
 
-    @FXML
-    private TextArea coachesNotesTextArea;
+
 
     //Set up components with desired features, and integrate event listeners.
     @FXML
@@ -170,8 +167,6 @@ public class GymnasticsAppMainView {
 
         setupFilters();
 
-        addEventsListeners();
-
         TextFields.bindAutoCompletion(mainSearch, CardCollection.possibleSuggestions);
 
         Screen windowScreen = Screen.getPrimary();
@@ -184,12 +179,8 @@ public class GymnasticsAppMainView {
         undoRedoHandler = new UndoRedoHandler(this);
 
         addNewLessonTab();
-
         preferencesManager = new UserPreferencesManager();
-
-
-        printButton.setOnAction(event -> handlePrintAction(event));
-
+        addEventsListeners();
     }
 
     /**
@@ -231,18 +222,13 @@ public class GymnasticsAppMainView {
         modelSexFilter.setOnAction(buttonHandler);
         favoritesFilter.setOnAction(buttonHandler);
         clearFilter.setOnAction(clearHandler);
+        coachesNotesTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            courseLessonPlan.getCourseLessonPlanList().get(selectedLessonPaneNumber)
+                    .setCustomLessonPlanNotes(newValue);
+        });
     }
-    /**
-     * Handles the action when the "Print" button is clicked.
-     *
-     * @param event The ActionEvent triggered by the button click.
-     */
 
-    @FXML
-    private void handlePrintAction(ActionEvent event) {
-        CourseLessonPlan lessonPlan = new CourseLessonPlan();
-        lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
-    }
+
 
     private void runSearchForText(String text){
         searchCardCollection.setCardTitleCode(text);
@@ -296,6 +282,9 @@ public class GymnasticsAppMainView {
                     searchCardCollection.setCardIsFavorited(favoritesFilter.getSelectionModel().getSelectedItem());
                     newSearchList = searchCardCollection.searchCards();
                     cardCollectionView.initializeMainSearchView(newSearchList);
+                    break;
+                case "coachesNotesTextArea":
+                    courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber).setCustomLessonPlanNotes(coachesNotesTextArea.getText());
                     break;
             }
 
@@ -420,6 +409,7 @@ public class GymnasticsAppMainView {
             for (Card eachCard : new ArrayList<>(eachLessonPlan.getLessonCards())) {
                 courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(eachCard, selectedLessonPaneNumber);
             }
+            coachesNotesTextArea.setText(courseLessonPlan.getCourseLessonPlanList().get(selectedLessonPaneNumber).getCustomLessonPlanNotes());
             selectedLessonPaneNumber++;
         }
     }
@@ -443,8 +433,10 @@ public class GymnasticsAppMainView {
         lessonPlanTabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab != null) {
                 selectedLessonPaneNumber = lessonPlanTabPane.getSelectionModel().getSelectedIndex();
+                coachesNotesTextArea.setText(courseLessonPlan.getCourseLessonPlanList().get(selectedLessonPaneNumber).getCustomLessonPlanNotes());
             }
         });
+
     }
 
     @FXML
@@ -466,12 +458,23 @@ public class GymnasticsAppMainView {
         courseLessonPlanView.get(selectedLessonPaneNumber).createGridView(selectedLessonPaneNumber);
         undoRedoHandler.saveState();
     }
+
+    /**
+     * Handles the action when the "Print" button is clicked.
+     *
+     * @param actionEvent The ActionEvent triggered by the button click.
+     */
     @FXML
-    public void handlePrintButtonClicked(ActionEvent actionEvent) {
-        CourseLessonPlan lessonPlan = new CourseLessonPlan();
-        lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
+    public void handlePrintButtonClicked(ActionEvent actionEvent)
+    {
+        PrintCard.print(courseLessonPlan.getCourseLessonPlanList());
     }
 
+    @FXML
+    public void handlePrintTextOnlyButtonClicked(ActionEvent actionEvent)
+    {
+        PrintCard.printText(courseLessonPlan.getCourseLessonPlanList());
+    }
     @FXML
     private void handleSaveLessonPlanAction(ActionEvent event){
         LessonPlan currentLessonPlan = getCurrentLessonPlan();
