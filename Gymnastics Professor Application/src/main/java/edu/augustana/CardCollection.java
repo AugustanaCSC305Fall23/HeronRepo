@@ -33,8 +33,6 @@ public class CardCollection {
 
     public static List<String> favoritedCards = new ArrayList<>();
 
-    public static Set<String> allCardEvents = new HashSet<>();
-
 
     public static void createCardCollection() {
         favoritedCards = ReadFile.readFileToList();
@@ -76,9 +74,6 @@ public class CardCollection {
 
             // Add card category to possible suggestions
             possibleSuggestions.add(cardString.get(3));
-
-            // Add to cardEvents
-            allCardEvents.add(cardString.get(1));
 
             // Process keywords and levels data
 

@@ -159,7 +159,6 @@
                                     <Insets left="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#handlePrintTextOnlyButtonClicked" text="Print Text" />
                            </children>
                         </HBox>
                      </left>
@@ -171,7 +170,7 @@
                      </right>
                   </BorderPane>
                   <TabPane fx:id="lessonPlanTabPane" prefHeight="800.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
-                  <TextArea fx:id="coachesNotesTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Type Coach's Notes Here" />
+                  <TextArea fx:id="coachNotesTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Type Coach's Notes Here" />
                </children>
             </VBox>
          </center>
