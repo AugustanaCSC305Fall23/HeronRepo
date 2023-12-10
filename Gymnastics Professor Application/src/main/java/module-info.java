@@ -4,6 +4,7 @@ module edu.augustana {
     requires org.jetbrains.annotations;
     requires org.controlsfx.controls;
     requires com.google.gson;
+    requires java.desktop;
     requires java.prefs;
 
     // Open edu.augustana package to both javafx.fxml and com.google.gson

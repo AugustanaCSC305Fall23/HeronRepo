@@ -48,7 +48,6 @@ import org.controlsfx.control.textfield.TextFields;
 import java.io.File;
 
 import java.io.IOException;
-
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
@@ -159,7 +158,7 @@ public class GymnasticsAppMainView {
 
         courseLessonPlanView = new ArrayList<>();
 
-        courseLessonPlan = new CourseLessonPlan();
+        courseLessonPlan = new CourseLessonPlan(lessonPlanTabPane);
 
         cardCollectionView = new CardCollectionView(mainSearchView,this);//pass mainView instance
 
@@ -179,10 +178,15 @@ public class GymnasticsAppMainView {
         undoRedoHandler = new UndoRedoHandler(this);
 
         addNewLessonTab();
+
         preferencesManager = new UserPreferencesManager();
         addEventsListeners();
     }
+    private void printLessonPlan() {
+        int selectedLessonPlanIndex = 0;
 
+        courseLessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPlanIndex));
+    }
     /**
      * Sets up the various filters with their respective options.
      */
@@ -227,8 +231,6 @@ public class GymnasticsAppMainView {
                     .setCustomLessonPlanNotes(newValue);
         });
     }
-
-
 
     private void runSearchForText(String text){
         searchCardCollection.setCardTitleCode(text);

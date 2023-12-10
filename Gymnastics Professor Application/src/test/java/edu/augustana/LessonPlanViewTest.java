@@ -14,12 +14,13 @@ public class LessonPlanViewTest {
 
     @BeforeEach
     public void setUp() {
-        courseLessonPlan = new CourseLessonPlan();
+        TabPane tabPane = new TabPane();
+        courseLessonPlan = new CourseLessonPlan(tabPane);
         courseLessonPlan.addLessonPlan();
     }
 
     @Test
-    public void testRemoveCardFromLessonPlanView() {
+    public void testPrintLessonPlan() {
 
         Card card1 = Card.CardBuilder.cardBuilder().setCardCode("1").setCardTitle("Card 1").build();
         Card card2 = Card.CardBuilder.cardBuilder().setCardCode("2").setCardTitle("Card 2").build();
@@ -27,12 +28,12 @@ public class LessonPlanViewTest {
         courseLessonPlan.addCardToLessonPlan(0, card1);
         courseLessonPlan.addCardToLessonPlan(0, card2);
 
-        int totalCardsInLessonPlanBeforeRemoval = courseLessonPlan.getCourseLessonPlanList().get(0).getLessonCards().size();
+        int totalCardsInLessonPlanBeforePrinting = courseLessonPlan.getCourseLessonPlanList().get(0).getLessonCards().size();
 
-        courseLessonPlan.removeCardFromLessonPlan(0, card1);
+        courseLessonPlan.printLessonPlan();
 
-        int totalCardsInLessonPlanAfterRemoval = courseLessonPlan.getCourseLessonPlanList().get(0).getLessonCards().size();
+        int totalCardsInLessonPlanAfterPrinting = courseLessonPlan.getCourseLessonPlanList().get(0).getLessonCards().size();
 
-        assertEquals(totalCardsInLessonPlanBeforeRemoval - 1, totalCardsInLessonPlanAfterRemoval);
+        assertEquals(totalCardsInLessonPlanBeforePrinting, totalCardsInLessonPlanAfterPrinting);
     }
 }
