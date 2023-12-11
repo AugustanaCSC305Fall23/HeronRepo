@@ -171,12 +171,12 @@ public class CourseLessonPlan {
             }
         }
     }
+    
     /**
      * Retrieves the list of lesson plans in the course.
      *
      * @return The list of lesson plans in the course.
      */
-
     public List<LessonPlan> getCourseLessonPlan() {
         return courseLessonPlan;
     }
