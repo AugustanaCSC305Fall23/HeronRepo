@@ -87,6 +87,10 @@ public class CourseLessonPlan {
         return courseLessonPlan;
     }
 
+    public void resetCoursePlanList() {
+        courseLessonPlan = new ArrayList<>();
+    }
+
     /**
      * Loads a course plan from a file using Gson.
      *
@@ -171,7 +175,7 @@ public class CourseLessonPlan {
             }
         }
     }
-    
+
     /**
      * Retrieves the list of lesson plans in the course.
      *

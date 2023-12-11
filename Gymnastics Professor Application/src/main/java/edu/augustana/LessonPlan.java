@@ -15,7 +15,7 @@ import javafx.fxml.FXML;
 public class LessonPlan {
     private List<Card> lessonCards = FXCollections.observableArrayList();
 
-    private String customLessonPlanNotes;
+    private String customLessonPlanNotes = "";
 
     private String coachesNotes;
     /**

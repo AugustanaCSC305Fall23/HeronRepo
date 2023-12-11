@@ -188,11 +188,7 @@ public class GymnasticsAppMainView {
         preferencesManager = new UserPreferencesManager();
 
     }
-    private void printLessonPlan() {
-        int selectedLessonPlanIndex = 0;
 
-        courseLessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPlanIndex));
-    }
     /**
      * Sets up the various filters with their respective options.
      */
@@ -223,7 +219,6 @@ public class GymnasticsAppMainView {
         mainSearch.textProperty().addListener((o, oldText, newText) -> {
             runSearchForText(newText);
         });
-
         eventFilter.setOnAction(buttonHandler);
         categoryFilter.setOnAction(buttonHandler);
         equipFilter.setOnAction(buttonHandler);
@@ -232,7 +227,10 @@ public class GymnasticsAppMainView {
         modelSexFilter.setOnAction(buttonHandler);
         favoritesFilter.setOnAction(buttonHandler);
         clearFilter.setOnAction(clearHandler);
-    }
+        coachesNotesTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            courseLessonPlan.getCourseLessonPlanList().get(selectedLessonPaneNumber)
+                    .setCustomLessonPlanNotes(newValue);
+        });    }
 
     /**
      * Handles the action when the "Print" button is clicked.
@@ -339,7 +337,6 @@ public class GymnasticsAppMainView {
         File chosenFile = fileChooser.showSaveDialog(mainWindow);
         saveCurrentCourseToFile(chosenFile);
         UserPreferencesManager.addRecentFile(chosenFile.getAbsolutePath());
-
     }
 
     private void saveCurrentCourseToFile(File chosenFile) {
@@ -372,10 +369,12 @@ public class GymnasticsAppMainView {
             lessonPlanTabPane.getTabs().get(i).setContent(null);
             courseLessonPlan.getCourseLessonPlanList().get(i).clear();
             courseLessonPlanView.get(i).clearLessonPlanView();
+            coachesNotesTextArea.setText("");
         }
         lessonPlanTabPane.getTabs().clear();
         selectedLessonPaneNumber = 0;
     }
+
 
     @FXML
     void menuActionOpen(ActionEvent event) {
@@ -387,6 +386,7 @@ public class GymnasticsAppMainView {
         File chosenFile = fileChooser.showOpenDialog(mainWindow);
         loadLessonPlan(chosenFile);
     }
+
     public void loadLessonPlan(File chosenFile) {
         if (chosenFile != null) {
             try {
@@ -394,9 +394,11 @@ public class GymnasticsAppMainView {
                     lessonPlanTabPane.getTabs().get(i).setContent(null);
                     courseLessonPlan.getCourseLessonPlanList().get(i).clear();
                     courseLessonPlanView.get(i).clearLessonPlanView();
+                    coachesNotesTextArea.setText("");
                 }
                 lessonPlanTabPane.getTabs().clear();
                 courseLessonPlan = CourseLessonPlan.loadCoursePlan(chosenFile);
+                undoRedoHandler.saveState();
                 selectedLessonPaneNumber = 0;
                 displayLoadFromFile();
                 UserPreferencesManager.addRecentFile(chosenFile.getAbsolutePath());
@@ -409,6 +411,7 @@ public class GymnasticsAppMainView {
 
 
     private void displayLoadFromFile() {
+        clearEntireCoursePlan();
         List<LessonPlan> lessonPlans = new ArrayList<>(courseLessonPlan.getCourseLessonPlan());
         selectedLessonPaneNumber = 0;
         lessonPlanNumber = 0;
@@ -421,6 +424,7 @@ public class GymnasticsAppMainView {
             for (Card eachCard : new ArrayList<>(eachLessonPlan.getLessonCards())) {
                 courseLessonPlanView.get(selectedLessonPaneNumber).addCardToLessonPlanView(eachCard, selectedLessonPaneNumber);
             }
+            coachesNotesTextArea.setText(courseLessonPlan.getCourseLessonPlanList().get(selectedLessonPaneNumber).getCustomLessonPlanNotes());
             selectedLessonPaneNumber++;
         }
     }
@@ -444,16 +448,21 @@ public class GymnasticsAppMainView {
         lessonPlanTabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab != null) {
                 selectedLessonPaneNumber = lessonPlanTabPane.getSelectionModel().getSelectedIndex();
+                coachesNotesTextArea.setText(courseLessonPlan.getCourseLessonPlanList().get(selectedLessonPaneNumber).getCustomLessonPlanNotes());
             }
         });
     }
 
     @FXML
     private void clearCurrentLessonPlan(){
-        lessonPlanTabPane.getTabs().get(selectedLessonPaneNumber).setContent(null);
-        courseLessonPlan.getCourseLessonPlanList().get(selectedLessonPaneNumber).clear();
-        courseLessonPlanView.get(selectedLessonPaneNumber).clearLessonPlanView();
         undoRedoHandler.saveState();
+        for (int i = 0; i < lessonPlanTabPane.getTabs().size(); i++) {
+            lessonPlanTabPane.getTabs().get(i).setContent(null);
+            courseLessonPlan.getCourseLessonPlanList().get(i).clear();
+            courseLessonPlanView.get(i).clearLessonPlanView();
+            coachesNotesTextArea.setText("");
+        }
+        courseLessonPlan.resetCoursePlanList();
     }
 
     @FXML
@@ -469,8 +478,12 @@ public class GymnasticsAppMainView {
     }
     @FXML
     public void handlePrintButtonClicked(ActionEvent actionEvent) {
-        CourseLessonPlan lessonPlan = new CourseLessonPlan();
-        lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
+        PrintCard.print(courseLessonPlan.getCourseLessonPlanList());
+    }
+
+    @FXML
+    void handlePrintText(ActionEvent actionEvent) {
+        PrintCard.printText(courseLessonPlan.getCourseLessonPlanList());
     }
 
     @FXML
