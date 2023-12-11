@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 
 import javafx.fxml.FXML;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 
 import javafx.scene.control.*;
@@ -176,10 +177,10 @@ public class GymnasticsAppMainView {
 
         Screen windowScreen = Screen.getPrimary();
 
-        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
+        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
 
 
-        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.6);
+        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.7);
 
         undoRedoHandler = new UndoRedoHandler(this);
 
@@ -529,7 +530,9 @@ public class GymnasticsAppMainView {
          */
         public CardListCell() {
             removeButton.setOnAction(event -> removeFromLessonPlan());
-            cardBox.getChildren().addAll(imageView, cardDetails,removeButton);
+            cardBox.setAlignment(Pos.BOTTOM_RIGHT);
+            cardBox.getChildren().addAll(removeButton,imageView, cardDetails);
+
         }
 
         /**

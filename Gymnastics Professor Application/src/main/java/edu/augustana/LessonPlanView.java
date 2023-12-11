@@ -4,11 +4,13 @@ import edu.augustana.utils.SearchCardCollection;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import java.util.HashSet;
 import java.util.List;
@@ -135,9 +137,8 @@ public class LessonPlanView {
 
         for (Card card : lessonCards) {
             if (SearchCardCollection.isEqualSubsequence(cardEvent, card.getCardEvent())) {
-                CardView eachCardView = new CardView(card, this.tabPane);
-                gridPane.add(eachCardView.makeCardView(), column, row);
-                gridPane.add(createRemoveButton(card, selectedPane), column, row);
+                StackPane cardStackPane = createCardStackPane(card, selectedPane);
+                gridPane.add(cardStackPane, column, row);
 
                 column = (column + 1) % 3;
                 if (column == 0) {
@@ -147,6 +148,16 @@ public class LessonPlanView {
         }
 
         return gridPane;
+    }
+
+    private StackPane createCardStackPane(Card card, int selectedPane) {
+        CardView eachCardView = new CardView(card, this.tabPane);
+        Button removeButton = createRemoveButton(card, selectedPane);
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(eachCardView.makeCardView(), removeButton);
+        StackPane.setAlignment(removeButton, Pos.BOTTOM_LEFT);
+        return stackPane;
     }
     /**
      * Creates a Button for removing a card from the lesson plan view.
