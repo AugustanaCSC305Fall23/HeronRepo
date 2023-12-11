@@ -18,6 +18,7 @@ import javafx.event.EventHandler;
 
 import javafx.fxml.FXML;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 
 import javafx.scene.control.*;
@@ -520,7 +521,9 @@ public class GymnasticsAppMainView {
          */
         public CardListCell() {
             removeButton.setOnAction(event -> removeFromLessonPlan());
-            cardBox.getChildren().addAll(imageView, cardDetails,removeButton);
+            cardBox.setAlignment(Pos.BOTTOM_RIGHT);
+            cardBox.getChildren().addAll(removeButton,imageView, cardDetails);
+
         }
 
         /**
