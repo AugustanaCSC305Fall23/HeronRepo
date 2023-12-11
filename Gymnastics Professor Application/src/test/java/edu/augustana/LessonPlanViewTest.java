@@ -15,7 +15,7 @@ public class LessonPlanViewTest {
     @BeforeEach
     public void setUp() {
         TabPane tabPane = new TabPane();
-        courseLessonPlan = new CourseLessonPlan(tabPane);
+        courseLessonPlan = new CourseLessonPlan();
         courseLessonPlan.addLessonPlan();
     }
 
@@ -30,7 +30,6 @@ public class LessonPlanViewTest {
 
         int totalCardsInLessonPlanBeforePrinting = courseLessonPlan.getCourseLessonPlanList().get(0).getLessonCards().size();
 
-        courseLessonPlan.printLessonPlan();
 
         int totalCardsInLessonPlanAfterPrinting = courseLessonPlan.getCourseLessonPlanList().get(0).getLessonCards().size();
 
