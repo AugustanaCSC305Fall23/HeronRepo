@@ -32,7 +32,7 @@ public class GymnasticsProfessorApp extends Application {
         double windowScreenWidth = windowScreen.getBounds().getWidth();
         double windowScreenHeight = windowScreen.getBounds().getHeight();
 
-
+        stage.setTitle("Gymnastics Professor Course Plan Creator");
         stage.setScene(scene);
 
         //Set stage dimensions to match window screen's size

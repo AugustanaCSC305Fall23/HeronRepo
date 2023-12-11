@@ -176,10 +176,10 @@ public class GymnasticsAppMainView {
 
         Screen windowScreen = Screen.getPrimary();
 
-        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
+        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
 
 
-        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.6);
+        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.7);
 
         undoRedoHandler = new UndoRedoHandler(this);
 
