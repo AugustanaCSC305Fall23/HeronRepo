@@ -10,6 +10,7 @@ import edu.augustana.constants.LevelEnum;
 
 import edu.augustana.constants.ModelSexEnum;
 
+import edu.augustana.utils.PrintCard;
 import edu.augustana.utils.SearchCardCollection;
 
 import javafx.event.ActionEvent;
@@ -176,19 +177,16 @@ public class GymnasticsAppMainView {
 
         Screen windowScreen = Screen.getPrimary();
 
-        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.6);
+        lpWorkSpace.setMinWidth(windowScreen.getBounds().getWidth() * 0.7);
 
 
-        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.6);
+        lessonPlanTabPane.setMinHeight(windowScreen.getBounds().getHeight() * 0.7);
 
         undoRedoHandler = new UndoRedoHandler(this);
 
         addNewLessonTab();
 
         preferencesManager = new UserPreferencesManager();
-
-
-        printButton.setOnAction(event -> handlePrintAction(event));
 
     }
     private void printLessonPlan() {
@@ -236,18 +234,16 @@ public class GymnasticsAppMainView {
         favoritesFilter.setOnAction(buttonHandler);
         clearFilter.setOnAction(clearHandler);
     }
+
     /**
      * Handles the action when the "Print" button is clicked.
      *
      * @param event The ActionEvent triggered by the button click.
      */
 
-
-
     @FXML
     private void handlePrintAction(ActionEvent event) {
-        CourseLessonPlan lessonPlan = new CourseLessonPlan();
-        lessonPlan.print(courseLessonPlan.getCourseLessonPlan().get(selectedLessonPaneNumber));
+        PrintCard.print(courseLessonPlan.getCourseLessonPlanList());
     }
 
     private void runSearchForText(String text){

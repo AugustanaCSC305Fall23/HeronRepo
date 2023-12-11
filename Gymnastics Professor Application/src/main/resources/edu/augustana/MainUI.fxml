@@ -35,26 +35,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#menuRedoAction" text="Redo" />
                     </items>
                   </Menu>
-                        <Menu mnemonicParsing="false" text="Samples">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Create Card">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="About">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                            </items>
-                        </Menu>
                     </menus>
                 </MenuBar>
             </children>
@@ -104,7 +84,10 @@
                 </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="25.0">
                <children>
-                  <ComboBox fx:id="favoritesFilter" prefWidth="150.0" />
+                  <ComboBox fx:id="favoritesFilter" promptText="Favorites" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin></ComboBox>
                         <ComboBox fx:id="genderFilter" promptText="Gender" style="-fx-border-radius: 20px; -fx-border-color: #000; -fx-background-color: white; -fx-background-radius: 20 20 20 20;">
                      <HBox.margin>
                         <Insets right="2.0" />
